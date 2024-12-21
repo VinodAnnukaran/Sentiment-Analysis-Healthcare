@@ -535,3 +535,16 @@ y_pred_svm = svm_model.predict(X_test_vec)
 # Evaluate the model
 print("SVM Classification Report:\n", classification_report(y_test, y_pred_svm))
 
+import streamlit as st
+
+# App title
+st.title("Vinod Simple Streamlit App")
+
+# Input from user
+name = st.text_input("Enter your name:")
+
+# Output
+if name:
+    st.write(f"Hello, {name}!")
+
+
