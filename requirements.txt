@@ -1,2 +1,16 @@
+pandas
+numpy
+seaborn
+matplotlib.pyplot
+re
+punkt
+stopwords
+wordnet
+punkt_tab
+TextBlob
+word_tokenize
+WordNetLemmatizer
+SentimentIntensityAnalyzer
+train_test_split
 streamlit
 vaderSentiment
