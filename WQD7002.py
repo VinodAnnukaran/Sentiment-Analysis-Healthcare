@@ -302,7 +302,7 @@ plt.xlabel("Facility Name")
 plt.ylabel("Average Survey Rating")
 plt.show()
 
-!pip install vaderSentiment
+pip install vaderSentiment
 
 # Import required libraries
 import pandas as pd
