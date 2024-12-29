@@ -141,36 +141,3 @@ if uploaded_file:
     ax.imshow(wordcloud, interpolation='bilinear')
     ax.axis('off')
     st.pyplot(fig)
-
-# Define functions for text cleaning and sentiment labeling
-def clean_text(text):
-    if not isinstance(text, str):
-        text = str(text)
-    text = re.sub(r'<.*?>', '', text)  # Remove HTML tags
-    text = re.sub(r'http\S+|www\S+', '', text)  # Remove URLs
-    text = text.lower()  # Normalize text
-    text = re.sub(r'[^a-z\s]', '', text)  # Remove non-alphabetic characters
-    tokens = word_tokenize(text)
-    stop_words = set(stopwords.words('english'))
-    tokens = [word for word in tokens if word not in stop_words]
-    tokens = [lemmatizer.lemmatize(word) for word in tokens]  # Lemmatize words
-    return ' '.join(tokens)
-
-def label_sentiment_textblob(text):
-    polarity = TextBlob(text).sentiment.polarity
-    if polarity > 0:
-        return 'positive'
-    elif polarity == 0:
-        return 'neutral'
-    else:
-        return 'negative'
-
-def label_sentiment_vader_adjusted(text, neutral_threshold=0.1):
-    sentiment_score = analyzer.polarity_scores(text)
-    compound_score = sentiment_score['compound']
-    if compound_score > neutral_threshold:
-        return 'positive'
-    elif compound_score < -neutral_threshold:
-        return 'negative'
-    else:
-        return 'neutral'
