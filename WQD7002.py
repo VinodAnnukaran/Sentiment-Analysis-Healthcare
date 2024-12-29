@@ -5,10 +5,6 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 
-# Initialize lemmatizer and VADER analyzer
-lemmatizer = WordNetLemmatizer()
-analyzer = SentimentIntensityAnalyzer()
-
 # Title and Description
 st.title("Interactive Healthcare Data Analysis")
 st.write("Analyze healthcare data interactively with this app.")
