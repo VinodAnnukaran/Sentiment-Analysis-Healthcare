@@ -11,7 +11,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from textblob import TextBlob
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from nltk import download
 from wordcloud import WordCloud
 from sklearn.model_selection import train_test_split
