@@ -15,7 +15,6 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from nltk import download
 from wordcloud import WordCloud
 from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report
 
@@ -23,10 +22,6 @@ from sklearn.metrics import classification_report
 download('punkt')
 download('stopwords')
 download('wordnet')
-
-# Initialize lemmatizer and VADER analyzer
-lemmatizer = WordNetLemmatizer()
-analyzer = SentimentIntensityAnalyzer()
 
 # Title and Description
 st.title("Interactive Healthcare Data Analysis")
