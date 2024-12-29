@@ -13,9 +13,6 @@ from nltk.stem import WordNetLemmatizer
 from textblob import TextBlob
 from nltk import download
 from wordcloud import WordCloud
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-from sklearn.metrics import classification_report
 
 # Download necessary NLTK resources
 download('punkt')
