@@ -44,4 +44,19 @@ if uploaded_file:
     st.write("\nMissing Values Count:")
     st.write(data_hc.isnull().sum())
 
+    # Conversion of specific columns to numeric
+    numeric_columns = [
+        'Patient Survey Star Rating',
+        'HCAHPS Answer Percent',
+        'HCAHPS Linear Mean Value',
+        'Number of Completed Surveys',
+        'Survey Response Rate Percent'
+    ]
+    for column in numeric_columns:
+        data_hc[column] = pd.to_numeric(data_hc[column], errors='coerce')
+
+    # Summary statistics of numerical features
+    st.write("\nSummary Statistics:")
+    st.write(data_hc.describe())
+
   
