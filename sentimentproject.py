@@ -67,7 +67,7 @@ def label_sentiment_vader_adjusted(text, neutral_threshold=0.1):
         return 'neutral'
 
 # Streamlit Tabs
-st.title("Interactive Healthcare Data Analysis")
+st.title("Patient Insight Pro")
 
 # Define tabs
 tabs = st.tabs([
