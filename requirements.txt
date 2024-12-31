@@ -6,4 +6,4 @@ seaborn==0.13.2
 nltk==3.9.1
 TextBlob==0.17.1
 WordCloud==1.9.4
-
+vaderSentiment==3.3.2
