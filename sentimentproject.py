@@ -124,9 +124,8 @@ with tabs[1]:
         st.write("### Missing Values")
         st.write(data_hc.isnull().sum())
 
-# Tab 3: Data Cleaning and Processing
+# Tab 3: Sentiment Insights
 with tabs[2]:
-    st.header("Sentiment Insights")
     if uploaded_file:
         # Remove specified columns
         columns_to_remove = [
