@@ -82,7 +82,7 @@ with tabs[0]:
     st.header("Overview and Purpose")
     
     # Displaying an image
-    st.image("medical-care-service.jpeg", caption="Improving Patient Experience through Sentiment Analysis", use_column_width=True)
+    st.image("https://github.com/VinodAnnukaran/sentiment-analysis-healthcare/blob/main/medical-care-service.jpeg", caption="Improving Patient Experience through Sentiment Analysis", use_container_width=True)
     
     st.write(
         "### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction"
