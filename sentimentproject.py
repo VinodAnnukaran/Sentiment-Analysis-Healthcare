@@ -80,6 +80,10 @@ tabs = st.tabs([
 # Tab 1: Overview and Purpose
 with tabs[0]:
     st.header("Overview and Purpose")
+    
+    # Displaying an image
+    st.image("medical-care-service.jpg", caption="Improving Patient Experience through Sentiment Analysis", use_column_width=True)
+    
     st.write(
         "### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction"
     )
@@ -90,7 +94,8 @@ with tabs[0]:
         "and implement targeted strategies to enhance the overall patient experience."
     )
     st.write(
-        "This application enables:")
+        "This application enables:"
+    )
     st.write("- Efficient data preprocessing and cleaning.")
     st.write("- Sentiment classification using advanced techniques like TextBlob and VADER.")
     st.write("- Insights through data visualization, helping organizations prioritize patient needs.")
