@@ -93,7 +93,6 @@ with tabs[0]:
         </style>
     """, unsafe_allow_html=True)
 
-    st.header("Overview and Purpose")
     
     st.write(
         "### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction"
@@ -154,7 +153,6 @@ with tabs[2]:
 
 # Tab 4: Visualization and Sentiment Analysis
 with tabs[3]:
-    st.header("Visualization and Sentiment Analysis")
     if uploaded_file:
         # Sentiment Analysis
         st.write("### Sentiment Analysis")
