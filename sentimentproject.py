@@ -91,12 +91,9 @@ with tabs[0]:
                 color: white;
             }
         </style>
-        """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
     st.header("Overview and Purpose")
-    
-    # Displaying an image
-    st.image("https://github.com/VinodAnnukaran/sentiment-analysis-healthcare/blob/main/medical-care-service.jpeg", caption="Improving Patient Experience through Sentiment Analysis", use_container_width=True)
     
     st.write(
         "### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction"
