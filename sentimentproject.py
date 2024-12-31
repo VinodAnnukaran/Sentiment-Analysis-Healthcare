@@ -83,7 +83,7 @@ with tabs[0]:
     st.markdown("""
         <style>
             .reportview-container .main .block-container {
-                background-image: url('https://raw.githubusercontent.com/VinodAnnukaran/sentiment-analysis-healthcare/main/medical-care-service.jpeg');
+                background-image: url('https://github.com/VinodAnnukaran/sentiment-analysis-healthcare/blob/main/medical-care-service.jpeg');
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
