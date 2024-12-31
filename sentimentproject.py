@@ -151,7 +151,7 @@ with tabs[2]:
         st.write("### Cleaned Dataset Preview")
         st.dataframe(data_hc.head())
 
-# Tab 4: Visualization and Sentiment Analysis
+# Tab 4: Recommendations
 with tabs[3]:
     if uploaded_file:
         # Sentiment Analysis
