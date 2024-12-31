@@ -67,7 +67,7 @@ def label_sentiment_vader_adjusted(text, neutral_threshold=0.1):
         return 'neutral'
 
 # Streamlit Tabs
-st.title("Patient Insight Pro")
+st.title("Patient Insight Pro (Inpatient)")
 
 # Define tabs
 tabs = st.tabs([
@@ -114,7 +114,7 @@ with tabs[0]:
 
 # Tab 2: Data Upload and Overview
 with tabs[1]:
-    st.header("Upload and Preview Dataset")
+    st.header("Dataset Overview")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file:
         data_hc = pd.read_csv(uploaded_file)
@@ -127,7 +127,7 @@ with tabs[1]:
 
 # Tab 3: Data Cleaning and Processing
 with tabs[2]:
-    st.header("Data Cleaning and Processing")
+    st.header("Sentiment Insights")
     if uploaded_file:
         # Remove specified columns
         columns_to_remove = [
