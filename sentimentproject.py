@@ -79,6 +79,20 @@ tabs = st.tabs([
 
 # Tab 1: Overview and Purpose
 with tabs[0]:
+    # Inject custom CSS to set background image
+    st.markdown("""
+        <style>
+            .reportview-container .main .block-container {
+                background-image: url('https://raw.githubusercontent.com/VinodAnnukaran/sentiment-analysis-healthcare/main/medical-care-service.jpeg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                padding: 20px;
+                color: white;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
     st.header("Overview and Purpose")
     
     # Displaying an image
