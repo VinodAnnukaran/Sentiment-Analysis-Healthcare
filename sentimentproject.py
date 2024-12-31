@@ -112,9 +112,8 @@ with tabs[0]:
     st.write("- Insights through data visualization, helping organizations prioritize patient needs.")
     st.write("- Building data-driven strategies to foster a positive healthcare experience.")
 
-# Tab 2: Data Upload and Overview
+# Tab 2: Dataset Overview
 with tabs[1]:
-    st.header("Dataset Overview")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file:
         data_hc = pd.read_csv(uploaded_file)
