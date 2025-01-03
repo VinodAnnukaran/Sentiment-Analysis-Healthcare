@@ -80,11 +80,11 @@ st.title("Patient Insight Pro (Inpatient)")
 tabs = ["Overview and Purpose", "Data Upload and Overview", "Data Cleaning and Processing", "Visualization and Sentiment Analysis"]
 
 # Sidebar navigation
-tabs = ["Overview and Purpose", "Data Upload and Overview", "Data Cleaning and Processing", "Visualization and Sentiment Analysis"]
 selected_tab = st.sidebar.radio("Navigation", tabs)
 
 # Placeholder for uploaded file
 uploaded_file = None
+data_hc = None  # Global variable to hold the dataframe
 
 # Overview and Purpose Tab
 if selected_tab == "Overview and Purpose":
@@ -98,9 +98,9 @@ if selected_tab == "Overview and Purpose":
 # Data Upload and Overview Tab
 elif selected_tab == "Data Upload and Overview":
     st.title("Data Upload and Overview")
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")  # Correctly defined here
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file is not None:
-        data_hc = pd.read_csv(uploaded_file)
+        data_hc = pd.read_csv(uploaded_file)  # Load data into the global variable
         st.write("### Dataset Preview")
         st.dataframe(data_hc.head())
         st.write("### Dataset Information")
@@ -113,7 +113,7 @@ elif selected_tab == "Data Upload and Overview":
 # Data Cleaning and Processing Tab
 elif selected_tab == "Data Cleaning and Processing":
     st.title("Data Cleaning and Processing")
-    if uploaded_file is not None:
+    if data_hc is not None:  # Use global data_hc
         st.write("### Cleaning Dataset")
         columns_to_remove = [
             'Patient Survey Star Rating Footnote',
@@ -130,7 +130,7 @@ elif selected_tab == "Data Cleaning and Processing":
 # Visualization and Sentiment Analysis Tab
 elif selected_tab == "Visualization and Sentiment Analysis":
     st.title("Visualization and Sentiment Analysis")
-    if uploaded_file is not None:
+    if data_hc is not None:
         if 'HCAHPS Answer Description' in data_hc.columns:
             st.write("### Sentiment Analysis")
             data_hc['Cleaned_Answer_Description'] = data_hc['HCAHPS Answer Description'].fillna("").apply(clean_text)
