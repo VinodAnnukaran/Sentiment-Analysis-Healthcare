@@ -83,8 +83,8 @@ tabs = ["Overview and Purpose", "Data Upload and Overview", "Data Cleaning and P
 selected_tab = st.sidebar.radio("Navigation", tabs)
 
 # Placeholder for uploaded file
-uploaded_file = None
-data_hc = None  # Global variable to hold the dataframe
+if 'data_hc' not in st.session_state:
+    st.session_state.data_hc = None  # Initialize in session state
 
 # Overview and Purpose Tab
 if selected_tab == "Overview and Purpose":
@@ -100,20 +100,21 @@ elif selected_tab == "Data Upload and Overview":
     st.title("Data Upload and Overview")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file is not None:
-        data_hc = pd.read_csv(uploaded_file)  # Load data into the global variable
+        # Read the file into the session state variable
+        st.session_state.data_hc = pd.read_csv(uploaded_file)
         st.write("### Dataset Preview")
-        st.dataframe(data_hc.head())
+        st.dataframe(st.session_state.data_hc.head())
         st.write("### Dataset Information")
-        st.text(data_hc.info())
+        st.text(st.session_state.data_hc.info())
         st.write("### Missing Values")
-        st.write(data_hc.isnull().sum())
+        st.write(st.session_state.data_hc.isnull().sum())
     else:
         st.warning("Please upload a CSV file to proceed.")
 
 # Data Cleaning and Processing Tab
 elif selected_tab == "Data Cleaning and Processing":
     st.title("Data Cleaning and Processing")
-    if data_hc is not None:  # Use global data_hc
+    if st.session_state.data_hc is not None:
         st.write("### Cleaning Dataset")
         columns_to_remove = [
             'Patient Survey Star Rating Footnote',
@@ -121,30 +122,30 @@ elif selected_tab == "Data Cleaning and Processing":
             'Number of Completed Surveys Footnote',
             'Survey Response Rate Percent Footnote'
         ]
-        data_hc = data_hc.drop(columns=columns_to_remove, errors='ignore')
+        st.session_state.data_hc = st.session_state.data_hc.drop(columns=columns_to_remove, errors='ignore')
         st.write("### Updated Dataset Columns")
-        st.write(data_hc.columns)
+        st.write(st.session_state.data_hc.columns)
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
 # Visualization and Sentiment Analysis Tab
 elif selected_tab == "Visualization and Sentiment Analysis":
     st.title("Visualization and Sentiment Analysis")
-    if data_hc is not None:
-        if 'HCAHPS Answer Description' in data_hc.columns:
+    if st.session_state.data_hc is not None:
+        if 'HCAHPS Answer Description' in st.session_state.data_hc.columns:
             st.write("### Sentiment Analysis")
-            data_hc['Cleaned_Answer_Description'] = data_hc['HCAHPS Answer Description'].fillna("").apply(clean_text)
-            data_hc['TextBlob_Sentiment'] = data_hc['Cleaned_Answer_Description'].apply(label_sentiment_textblob)
-            data_hc['VADER_Sentiment'] = data_hc['Cleaned_Answer_Description'].apply(label_sentiment_vader_adjusted)
+            st.session_state.data_hc['Cleaned_Answer_Description'] = st.session_state.data_hc['HCAHPS Answer Description'].fillna("").apply(clean_text)
+            st.session_state.data_hc['TextBlob_Sentiment'] = st.session_state.data_hc['Cleaned_Answer_Description'].apply(label_sentiment_textblob)
+            st.session_state.data_hc['VADER_Sentiment'] = st.session_state.data_hc['Cleaned_Answer_Description'].apply(label_sentiment_vader_adjusted)
 
             # Visualize sentiment distribution
             st.write("### Sentiment Distribution")
-            sentiment_counts = data_hc['VADER_Sentiment'].value_counts()
+            sentiment_counts = st.session_state.data_hc['VADER_Sentiment'].value_counts()
             st.bar_chart(sentiment_counts)
 
             # Word Cloud
             st.write("### Word Cloud")
-            all_text = ' '.join(data_hc['Cleaned_Answer_Description'])
+            all_text = ' '.join(st.session_state.data_hc['Cleaned_Answer_Description'])
             wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
             plt.figure(figsize=(10, 6))
             plt.imshow(wordcloud, interpolation='bilinear')
