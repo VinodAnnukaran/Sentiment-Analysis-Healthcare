@@ -79,10 +79,14 @@ st.title("Patient Insight Pro (Inpatient)")
 # Define tabs
 tabs = ["Overview and Purpose", "Data Upload and Overview", "Data Cleaning and Processing", "Visualization and Sentiment Analysis"]
 
-# Create sidebar navigation
+# Sidebar navigation
+tabs = ["Overview and Purpose", "Data Upload and Overview", "Data Cleaning and Processing", "Visualization and Sentiment Analysis"]
 selected_tab = st.sidebar.radio("Navigation", tabs)
 
-# Display the content for the selected tab
+# Placeholder for uploaded file
+uploaded_file = None
+
+# Overview and Purpose Tab
 if selected_tab == "Overview and Purpose":
     st.title("Overview and Purpose")
     st.write("### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction")
@@ -91,10 +95,11 @@ if selected_tab == "Overview and Purpose":
     st.write("- Sentiment classification using TextBlob and VADER.")
     st.write("- Insights through data visualization.")
 
+# Data Upload and Overview Tab
 elif selected_tab == "Data Upload and Overview":
     st.title("Data Upload and Overview")
-    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-    if uploaded_file:
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")  # Correctly defined here
+    if uploaded_file is not None:
         data_hc = pd.read_csv(uploaded_file)
         st.write("### Dataset Preview")
         st.dataframe(data_hc.head())
@@ -102,10 +107,13 @@ elif selected_tab == "Data Upload and Overview":
         st.text(data_hc.info())
         st.write("### Missing Values")
         st.write(data_hc.isnull().sum())
+    else:
+        st.warning("Please upload a CSV file to proceed.")
 
+# Data Cleaning and Processing Tab
 elif selected_tab == "Data Cleaning and Processing":
     st.title("Data Cleaning and Processing")
-    if uploaded_file:
+    if uploaded_file is not None:
         st.write("### Cleaning Dataset")
         columns_to_remove = [
             'Patient Survey Star Rating Footnote',
@@ -116,10 +124,13 @@ elif selected_tab == "Data Cleaning and Processing":
         data_hc = data_hc.drop(columns=columns_to_remove, errors='ignore')
         st.write("### Updated Dataset Columns")
         st.write(data_hc.columns)
+    else:
+        st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
+# Visualization and Sentiment Analysis Tab
 elif selected_tab == "Visualization and Sentiment Analysis":
     st.title("Visualization and Sentiment Analysis")
-    if uploaded_file:
+    if uploaded_file is not None:
         if 'HCAHPS Answer Description' in data_hc.columns:
             st.write("### Sentiment Analysis")
             data_hc['Cleaned_Answer_Description'] = data_hc['HCAHPS Answer Description'].fillna("").apply(clean_text)
@@ -141,3 +152,5 @@ elif selected_tab == "Visualization and Sentiment Analysis":
             st.pyplot(plt)
         else:
             st.error("Column 'HCAHPS Answer Description' not found in the dataset.")
+    else:
+        st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
