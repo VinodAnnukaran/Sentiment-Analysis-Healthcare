@@ -1,77 +1,40 @@
-# Importing Libraries
 import streamlit as st
 import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from wordcloud import WordCloud
-from nltk import download
+import matplotlib.pyplot as plt
 import re
 
-# Download necessary NLTK resources if not already available
-try:
-    download('punkt')
-    download('stopwords')
-    download('wordnet')
-except Exception as e:
-    st.error(f"Error downloading NLTK resources: {e}")
-
-# Initialize lemmatizer and VADER analyzer
-lemmatizer = WordNetLemmatizer()
-analyzer = SentimentIntensityAnalyzer()
-
-# Function to clean and preprocess text
+# Helper functions for cleaning and sentiment analysis
 def clean_text(text):
-    try:
-        if not isinstance(text, str):
-            text = str(text)
+    # Clean the text by removing special characters, numbers, and extra spaces
+    text = re.sub(r'[^a-zA-Z\s]', '', text)
+    text = text.lower()
+    return text
 
-        # Remove HTML tags and URLs
-        text = re.sub(r'<.*?>', '', text)
-        text = re.sub(r'http\S+|www\S+', '', text)
-
-        # Normalize text
-        text = text.lower()
-        text = re.sub(r'[^a-z\s]', '', text)
-
-        # Tokenize and remove stopwords
-        tokens = word_tokenize(text)
-        stop_words = set(stopwords.words('english'))
-        tokens = [word for word in tokens if word not in stop_words]
-
-        # Perform lemmatization
-        tokens = [lemmatizer.lemmatize(word) for word in tokens]
-
-        return ' '.join(tokens)
-    except Exception as e:
-        st.error(f"Error cleaning text: {e}")
-        return ""
-
-# Function to label sentiment using TextBlob
 def label_sentiment_textblob(text):
-    polarity = TextBlob(text).sentiment.polarity
+    # Use TextBlob to classify sentiment
+    blob = TextBlob(text)
+    polarity = blob.sentiment.polarity
     if polarity > 0:
-        return 'positive'
-    elif polarity == 0:
-        return 'neutral'
+        return 'Positive'
+    elif polarity < 0:
+        return 'Negative'
     else:
-        return 'negative'
+        return 'Neutral'
 
-# Function to label sentiment using VADER with adjustable threshold
-def label_sentiment_vader_adjusted(text, neutral_threshold=0.1):
-    sentiment_score = analyzer.polarity_scores(text)
-    compound_score = sentiment_score['compound']
-    if compound_score > neutral_threshold:
-        return 'positive'
-    elif compound_score < -neutral_threshold:
-        return 'negative'
+def label_sentiment_vader_adjusted(text):
+    # Use VADER sentiment analysis for classification
+    analyzer = SentimentIntensityAnalyzer()
+    score = analyzer.polarity_scores(text)['compound']
+    if score > 0.1:
+        return 'Positive'
+    elif score < -0.1:
+        return 'Negative'
     else:
-        return 'neutral'
+        return 'Neutral'
+
 
 # Streamlit App
 st.title("Patient Insight Pro (Inpatient)")
