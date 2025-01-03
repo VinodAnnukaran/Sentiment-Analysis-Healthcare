@@ -69,6 +69,19 @@ def label_sentiment_vader_adjusted(text, neutral_threshold=0.1):
 # Streamlit Tabs
 st.title("Patient Insight Pro (Inpatient)")
 
+# Define the tabs
+tabs = ["About", "Dashboard", "Forecasting Model", "Source Codes", "Contact Me"]
+tab_icons = ["🏠", "📊", "📈", "🖥️", "👤"]
+
+# Create tabs with icons
+selected_tab = st.radio(
+    "Navigation",
+    tabs,
+    index=0,
+    format_func=lambda tab: f"{tab_icons[tabs.index(tab)]} {tab}",
+    horizontal=True
+)
+
 # Define tabs
 tabs = st.tabs([
     "Overview and Purpose", 
