@@ -66,19 +66,10 @@ def label_sentiment_vader_adjusted(text, neutral_threshold=0.1):
     else:
         return 'neutral'
 
-# Streamlit Tabs
+# Streamlit App Title
 st.title("Patient Insight Pro (Inpatient)")
 
-# Create tabs with icons
-selected_tab = st.radio(
-    "Navigation",
-    tabs,
-    index=0,
-    format_func=lambda tab: f"{tab_icons[tabs.index(tab)]} {tab}",
-    horizontal=True
-)
-
-# Define tabs
+# Define Tabs
 tabs = st.tabs([
     "Overview and Purpose", 
     "Data Upload and Overview", 
@@ -88,21 +79,6 @@ tabs = st.tabs([
 
 # Tab 1: Overview and Purpose
 with tabs[0]:
-    # Inject custom CSS to set background image
-    st.markdown("""
-        <style>
-            .reportview-container .main .block-container {
-                background-image: url('https://github.com/VinodAnnukaran/sentiment-analysis-healthcare/blob/main/medical-care-service.jpeg');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center center;
-                padding: 20px;
-                color: white;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-    
     st.write(
         "### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction"
     )
@@ -113,12 +89,11 @@ with tabs[0]:
         "and implement targeted strategies to enhance the overall patient experience."
     )
     st.write(
-        "This application enables:"
+        "- Efficient data preprocessing and cleaning.\n"
+        "- Sentiment classification using advanced techniques like TextBlob and VADER.\n"
+        "- Insights through data visualization, helping organizations prioritize patient needs.\n"
+        "- Building data-driven strategies to foster a positive healthcare experience."
     )
-    st.write("- Efficient data preprocessing and cleaning.")
-    st.write("- Sentiment classification using advanced techniques like TextBlob and VADER.")
-    st.write("- Insights through data visualization, helping organizations prioritize patient needs.")
-    st.write("- Building data-driven strategies to foster a positive healthcare experience.")
 
 # Tab 2: Dataset Overview
 with tabs[1]:
@@ -128,13 +103,14 @@ with tabs[1]:
         st.write("### Dataset Preview")
         st.dataframe(data_hc.head())
         st.write("### Dataset Information")
-        st.text(data_hc.info())
+        st.write(data_hc.describe(include='all'))
         st.write("### Missing Values")
         st.write(data_hc.isnull().sum())
 
-# Tab 3: Sentiment Insights
+# Tab 3: Data Cleaning and Processing
 with tabs[2]:
     if uploaded_file:
+        st.write("### Data Cleaning and Processing")
         # Remove specified columns
         columns_to_remove = [
             'Patient Survey Star Rating Footnote',
@@ -160,31 +136,34 @@ with tabs[2]:
         st.write("### Cleaned Dataset Preview")
         st.dataframe(data_hc.head())
 
-# Tab 4: Recommendations
+# Tab 4: Visualization and Sentiment Analysis
 with tabs[3]:
     if uploaded_file:
-        # Sentiment Analysis
         st.write("### Sentiment Analysis")
-        data_hc['Cleaned_Answer_Description'] = data_hc['HCAHPS Answer Description'].fillna("").apply(clean_text)
-        data_hc['TextBlob_Sentiment'] = data_hc['Cleaned_Answer_Description'].apply(label_sentiment_textblob)
-        data_hc['VADER_Sentiment'] = data_hc['Cleaned_Answer_Description'].apply(label_sentiment_vader_adjusted)
+        if 'HCAHPS Answer Description' in data_hc.columns:
+            data_hc['Cleaned_Answer_Description'] = data_hc['HCAHPS Answer Description'].fillna("").apply(clean_text)
+            data_hc['TextBlob_Sentiment'] = data_hc['Cleaned_Answer_Description'].apply(label_sentiment_textblob)
+            data_hc['VADER_Sentiment'] = data_hc['Cleaned_Answer_Description'].apply(label_sentiment_vader_adjusted)
 
-        # Visualize sentiment distribution
-        st.write("### Sentiment Distribution")
-        sentiment_counts = data_hc['VADER_Sentiment'].value_counts()
-        st.bar_chart(sentiment_counts)
+            # Visualize sentiment distribution
+            st.write("### Sentiment Distribution")
+            sentiment_counts = data_hc['VADER_Sentiment'].value_counts()
+            st.bar_chart(sentiment_counts)
 
-        # Word Cloud
-        st.write("### Word Cloud")
-        all_text = ' '.join(data_hc['Cleaned_Answer_Description'])
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
-        plt.figure(figsize=(10, 6))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis('off')
-        st.pyplot(plt)
+            # Word Cloud
+            st.write("### Word Cloud")
+            all_text = ' '.join(data_hc['Cleaned_Answer_Description'])
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
+            plt.figure(figsize=(10, 6))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            st.pyplot(plt)
 
-        st.write("### Correlation Heatmap")
-        numeric_data = data_hc.select_dtypes(include=['int64', 'float64'])
-        plt.figure(figsize=(10, 6))
-        sns.heatmap(numeric_data.corr(), annot=True, fmt=".2f", cmap="coolwarm")
-        st.pyplot(plt)
+            # Correlation Heatmap
+            st.write("### Correlation Heatmap")
+            numeric_data = data_hc.select_dtypes(include=['int64', 'float64'])
+            plt.figure(figsize=(10, 6))
+            sns.heatmap(numeric_data.corr(), annot=True, fmt=".2f", cmap="coolwarm")
+            st.pyplot(plt)
+        else:
+            st.warning("Column 'HCAHPS Answer Description' not found in the dataset.")
