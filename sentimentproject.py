@@ -79,10 +79,12 @@ st.title("Patient Insight Pro (Inpatient)")
 # Define tabs
 tabs = ["Overview and Purpose", "Data Upload and Overview", "Data Cleaning and Processing", "Visualization and Sentiment Analysis"]
 
-# Create tab navigation
-selected_tab = st.radio("Navigation", tabs)
+# Create sidebar navigation
+selected_tab = st.sidebar.radio("Navigation", tabs)
 
+# Display the content for the selected tab
 if selected_tab == "Overview and Purpose":
+    st.title("Overview and Purpose")
     st.write("### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction")
     st.write("Healthcare organizations continuously seek ways to improve patient care and satisfaction.")
     st.write("- Efficient data preprocessing and cleaning.")
@@ -90,6 +92,7 @@ if selected_tab == "Overview and Purpose":
     st.write("- Insights through data visualization.")
 
 elif selected_tab == "Data Upload and Overview":
+    st.title("Data Upload and Overview")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file:
         data_hc = pd.read_csv(uploaded_file)
@@ -101,6 +104,7 @@ elif selected_tab == "Data Upload and Overview":
         st.write(data_hc.isnull().sum())
 
 elif selected_tab == "Data Cleaning and Processing":
+    st.title("Data Cleaning and Processing")
     if uploaded_file:
         st.write("### Cleaning Dataset")
         columns_to_remove = [
@@ -114,6 +118,7 @@ elif selected_tab == "Data Cleaning and Processing":
         st.write(data_hc.columns)
 
 elif selected_tab == "Visualization and Sentiment Analysis":
+    st.title("Visualization and Sentiment Analysis")
     if uploaded_file:
         if 'HCAHPS Answer Description' in data_hc.columns:
             st.write("### Sentiment Analysis")
