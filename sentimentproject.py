@@ -55,8 +55,27 @@ st.sidebar.markdown(
     </div>
     """, unsafe_allow_html=True
 )
-selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Insights", "Recommendations", "Help"])
 
+# Apply custom CSS for styling
+st.markdown(
+    """
+    <style>
+        /* Make sidebar background gray */
+        [data-testid="stSidebar"] {
+            background-color: #D3D3D3; /* Light gray */
+        }
+
+        /* Make sidebar tabs bold */
+        [data-testid="stSidebar"] .css-1n76uvr {
+            font-weight: bold !important;
+        }
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
+
+# Sidebar radio button
+selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Insights", "Recommendations", "Help"])
 
 # Placeholder for uploaded file
 if 'data_hc' not in st.session_state:
