@@ -53,8 +53,6 @@ if 'data_hc' not in st.session_state:
 
 # Overview and Purpose Tab
 if selected_tab == "About":
-    st.title("Overview and Purpose")
-    st.write("### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction")
     st.write("Healthcare organizations continuously seek ways to improve patient care and satisfaction.")
     st.write("- Efficient data preprocessing and cleaning.")
     st.write("- Sentiment classification using TextBlob and VADER.")
