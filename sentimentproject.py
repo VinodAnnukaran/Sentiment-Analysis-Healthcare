@@ -124,31 +124,17 @@ elif selected_tab == "Dataset Overview":
 
         # Show the shape of the dataset (number of rows and columns)
         st.write(f"### Dataset Shape: {st.session_state.data_hc.shape[0]} rows, {st.session_state.data_hc.shape[1]} columns")
-
-        # Display the columns before removal
-        st.write("### Columns Before Removal:")
-        st.write(st.session_state.data_hc.columns)
-
-        # Let users input the columns they want to remove
-        st.write("### Select columns to remove:")
-        columns_to_remove = st.multiselect(
-            "Select columns to remove", 
-            st.session_state.data_hc.columns.tolist()
-        )
-
-        if columns_to_remove:
-            # Dropping the selected columns
-            st.session_state.data_hc = st.session_state.data_hc.drop(columns=columns_to_remove)
-
-            # Display the columns after removal
-            st.write("### Columns After Removal:")
-            st.write(st.session_state.data_hc.columns)
-
-            # Display updated dataset preview
-            st.write("### Updated Dataset Preview:")
-            st.dataframe(st.session_state.data_hc.head())
-        else:
-            st.write("### No columns selected for removal.")
+        
+        # Remove the specified columns
+        columns_to_remove = [
+            'Patient Survey Star Rating Footnote',
+            'HCAHPS Answer Percent Footnote',
+            'Number of Completed Surveys Footnote',
+            'Survey Response Rate Percent Footnote'
+        ]
+        
+        # Dropping the columns
+        st.session_state.data_hc = st.session_state.drop(columns=columns_to_remove)
 
     else:
         st.warning("Please upload a CSV file to proceed.")
