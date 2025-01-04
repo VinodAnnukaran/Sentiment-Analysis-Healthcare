@@ -178,28 +178,37 @@ elif selected_tab == "Help":
     # Display the message using markdown
     st.markdown(message)
 
-    def collect_feedback():
-        """
-        Collects user feedback using a simple form.
+    import streamlit as st
 
-        Returns:
-            dict: A dictionary containing the collected feedback.
-        """
-        feedback = {}
-        feedback['Your Name'] = st.text_area("Your Name")
-        feedback['Your Feedback'] = st.text_area("Your Feedback")
+# Initialize an empty list to store feedback
+feedback_history = []
 
-        if st.button("Submit Feedback"):
-            st.success("Thank you for your feedback!")
-            return feedback
+def collect_feedback():
+    """
+    Collects user feedback and stores it in the history.
+    """
+    feedback = st.text_area("Please provide your feedback:")
+    if st.button("Submit Feedback"):
+        if feedback:
+            feedback_history.append(feedback)
+            st.success("Feedback submitted successfully!")
         else:
-            return None
+            st.warning("Please enter some feedback.")
 
-    # Collect feedback data
-    feedback_data = collect_feedback()
+def show_feedback_history():
+    """
+    Displays the collected feedback history.
+    """
+    st.header("Previous Feedback")
+    if feedback_history:
+        for i, feedback in enumerate(feedback_history):
+            st.write(f"**Feedback {i+1}:** {feedback}")
+    else:
+        st.info("No previous feedback found.")
 
-    # Check if feedback_data is not None before proceeding
-    if feedback_data:
-        with open("feedback.txt", "a") as f:
-            f.write(str(feedback_data) + "\n")
+# Main app logic
+st.title("Feedback App")
+
+collect_feedback()
+show_feedback_history()
 
