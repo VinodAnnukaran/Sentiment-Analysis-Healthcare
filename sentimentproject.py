@@ -100,9 +100,7 @@ if selected_tab == "About":
         - Huang, J., Li, X., Chen, Y., & Wang, Y. (2024). The impact of visual function on quality of life in patients with diabetic retinopathy. *Optometry and Vision Science, 101(6)*, 123-130. [https://doi.org/10.1097/OPX.00000000000000013](https://doi.org/10.1097/OPX.00000000000000013)
         - Statista. (2023). Number of public and private hospitals in Malaysia from 2017 to 2022. [https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia](https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia)
         """)
-
-    
-    
+  
 
 
 # Data Upload and Overview Tab
@@ -168,7 +166,7 @@ elif selected_tab == "Visualization and Sentiment Analysis":
 
 # Help Tab
 elif selected_tab == "Help":
-    st.title("Contact for any help related with the App")
+    st.title("User Feedback Form")
 
     def collect_feedback():
         """
@@ -178,7 +176,7 @@ elif selected_tab == "Help":
             dict: A dictionary containing the collected feedback.
         """
         feedback = {}
-        feedback['Your Name'] = st.text_area("Your Name"
+        feedback['Your Name'] = st.text_area("Your Name")
         feedback['Your Feedback'] = st.text_area("Your Feedback")
 
         if st.button("Submit Feedback"):
