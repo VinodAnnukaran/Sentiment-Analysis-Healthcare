@@ -96,25 +96,24 @@ elif selected_tab == "Sentiment Insights":
 # Help Tab
 elif selected_tab == "Help":
     st.title("Contact for any help related with the App")
-
-def collect_feedback():
+    def collect_feedback():
     """
     Collects user feedback using a simple form.
 
     Returns:
         dict: A dictionary containing the collected feedback.
     """
-
     feedback = {}
-
     feedback['rating'] = st.slider("How would you rate your experience?", 1, 5)
     feedback['comments'] = st.text_area("Please provide any additional comments or suggestions:")
 
-    if st.button("Submit Feedback"):
-        st.success("Thank you for your feedback!")
-        return feedback
+        if st.button("Submit Feedback"):
+            st.success("Thank you for your feedback!")
+            return feedback
+        else:
+            return None
     else:
-        return None
+    st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
 # --- Main app logic ---
 st.title("Feedback Form")
