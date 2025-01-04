@@ -166,31 +166,31 @@ elif selected_tab == "Recommendations":
 elif selected_tab == "Help": 
     st.title("User Feedback Form")
 
-    # Custom CSS to create a box around the entire content
-    st.markdown(
-        """
-        <style>
-         .feedback-box {
-                border: 2px solid #4CAF50;
-                border-radius: 10px;
-                padding: 20px;
-                background-color: #f9f9f9;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                max-width: 800px;
-                margin: 0 auto;
-                height: auto;
-                max-height: 600px;
-                overflow: auto;
-            }
-            .stTextInput, .stTextArea {
-                width: 100%;
-            }
-        </style>
-        """, unsafe_allow_html=True
-    )
+    # # Custom CSS to create a box around the entire content
+    # st.markdown(
+    #     """
+    #     <style>
+    #      .feedback-box {
+    #             border: 2px solid #4CAF50;
+    #             border-radius: 10px;
+    #             padding: 20px;
+    #             background-color: #f9f9f9;
+    #             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    #             max-width: 800px;
+    #             margin: 0 auto;
+    #             height: auto;
+    #             max-height: 600px;
+    #             overflow: auto;
+    #         }
+    #         .stTextInput, .stTextArea {
+    #             width: 100%;
+    #         }
+    #     </style>
+    #     """, unsafe_allow_html=True
+    # )
 
-    # Wrap the entire content in the box by applying the 'feedback-box' class
-    st.markdown('<div class="feedback-box">', unsafe_allow_html=True)
+    # # Wrap the entire content in the box by applying the 'feedback-box' class
+    # st.markdown('<div class="feedback-box">', unsafe_allow_html=True)
 
     # Emoji and contact information
     emoji = "ℹ️"
