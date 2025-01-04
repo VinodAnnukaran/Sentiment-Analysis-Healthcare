@@ -41,9 +41,6 @@ nltk.download('stopwords')
 # Streamlit App
 st.title("Leverage Sentiment Analysis to enhance patient experience and satsifaction (Inpatient)")
 
-# Display an image below the heading from an online source
-st.image("https://www.pexels.com/photo/concrete-road-between-trees-1563356", caption="This is an image", use_column_width=True)
-
 # Define tabs
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
@@ -55,7 +52,7 @@ if 'data_hc' not in st.session_state:
     st.session_state.data_hc = None  # Initialize in session state
 
 # Overview and Purpose Tab
-if selected_tab == "Overview and Purpose":
+if selected_tab == "About":
     st.title("Overview and Purpose")
     st.write("### Leveraging Sentiment Analysis to Enhance Patient Experience and Satisfaction")
     st.write("Healthcare organizations continuously seek ways to improve patient care and satisfaction.")
@@ -64,7 +61,7 @@ if selected_tab == "Overview and Purpose":
     st.write("- Insights through data visualization.")
 
 # Data Upload and Overview Tab
-elif selected_tab == "Data Upload and Overview":
+elif selected_tab == "Dataset Overview":
     st.title("Data Upload and Overview")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file is not None:
@@ -80,7 +77,7 @@ elif selected_tab == "Data Upload and Overview":
         st.warning("Please upload a CSV file to proceed.")
 
 # Data Cleaning and Processing Tab
-elif selected_tab == "Data Cleaning and Processing":
+elif selected_tab == "Sentiment Insights":
     st.title("Data Cleaning and Processing")
     if st.session_state.data_hc is not None:
         st.write("### Cleaning Dataset")
@@ -95,6 +92,41 @@ elif selected_tab == "Data Cleaning and Processing":
         st.write(st.session_state.data_hc.columns)
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
+
+# Help Tab
+elif selected_tab == "Help":
+    st.title("Contact for any help related with the App")
+
+def collect_feedback():
+    """
+    Collects user feedback using a simple form.
+
+    Returns:
+        dict: A dictionary containing the collected feedback.
+    """
+
+    feedback = {}
+
+    feedback['rating'] = st.slider("How would you rate your experience?", 1, 5)
+    feedback['comments'] = st.text_area("Please provide any additional comments or suggestions:")
+
+    if st.button("Submit Feedback"):
+        st.success("Thank you for your feedback!")
+        return feedback
+    else:
+        return None
+
+# --- Main app logic ---
+st.title("Feedback Form")
+
+feedback_data = collect_feedback()
+
+# --- Optional: Process and store feedback ---
+if feedback_data:
+    # You can store the feedback data in a file, database, or send it to an endpoint
+    # Here's a simple example of storing it in a file:
+    with open("feedback.txt", "a") as f:
+        f.write(str(feedback_data) + "\n")
 
 # Visualization and Sentiment Analysis Tab
 elif selected_tab == "Visualization and Sentiment Analysis":
