@@ -165,51 +165,70 @@ elif selected_tab == "Recommendations":
 elif selected_tab == "Help": 
     st.title("User Feedback Form")
 
-    # Emoji and contact information
-    emoji = "ℹ️"
-    contact_email = "vinodakk@gmail.com"
-    
-    # Concatenate message
-    message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have any feedback to make improvements to this app."
-    
-    # Display the message using markdown
-    st.markdown(message)
-
-    # Initialize an empty dictionary to store feedback (using session state for persistence)
-    if "feedback_history" not in st.session_state:
-        st.session_state.feedback_history = []
-
-    def collect_feedback():
+    # Custom CSS to create a box around the entire content
+    st.markdown(
         """
-        Collects user feedback and stores it in session state.
-        """
-        name = st.text_input("Please enter your name:")
-        feedback = st.text_area("Please provide your feedback:")
-        if st.button("Submit Feedback"):
-            if name and feedback:
-                # Append feedback as a dictionary
-                st.session_state.feedback_history.append({"name": name, "feedback": feedback})
-                st.success("Thank you! Your feedback has been submitted successfully.")
-            elif not name:
-                st.warning("Please enter your name.")
-            elif not feedback:
-                st.warning("Please provide your feedback.")
+        <style>
+            .feedback-box {
+                border: 2px solid #4CAF50;
+                border-radius: 10px;
+                padding: 20px;
+                background-color: #f9f9f9;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+        """, unsafe_allow_html=True
+    )
 
-    def show_feedback_history():
-        """
-        Displays the collected feedback history from session state, only if checkbox is selected.
-        """
-        if st.checkbox("Show Previous Feedback"):
-            st.header("Previous Feedback")
-            if st.session_state.feedback_history:
-                for i, entry in enumerate(st.session_state.feedback_history, 1):
-                    st.write(f"**Feedback {i}:**")
-                    st.write(f"- **Name:** {entry['name']}")
-                    st.write(f"- **Feedback:** {entry['feedback']}")
-                    st.markdown("---")
-            else:
-                st.info("No previous feedback found.")
+    # Wrap the entire content in the box
+    with st.markdown("<div class='feedback-box'>", unsafe_allow_html=True):
+        # Emoji and contact information
+        emoji = "ℹ️"
+        contact_email = "vinodakk@gmail.com"
+        
+        # Concatenate message
+        message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have any feedback to make improvements to this app."
+        
+        # Display the message using markdown
+        st.markdown(message)
 
-    # Collect new feedback and display history if checkbox is selected
-    collect_feedback()
-    show_feedback_history()
+        # Initialize an empty dictionary to store feedback (using session state for persistence)
+        if "feedback_history" not in st.session_state:
+            st.session_state.feedback_history = []
+
+        def collect_feedback():
+            """
+            Collects user feedback and stores it in session state.
+            """
+            name = st.text_input("Please enter your name:")
+            feedback = st.text_area("Please provide your feedback:")
+            if st.button("Submit Feedback"):
+                if name and feedback:
+                    # Append feedback as a dictionary
+                    st.session_state.feedback_history.append({"name": name, "feedback": feedback})
+                    st.success("Thank you! Your feedback has been submitted successfully.")
+                elif not name:
+                    st.warning("Please enter your name.")
+                elif not feedback:
+                    st.warning("Please provide your feedback.")
+
+        def show_feedback_history():
+            """
+            Displays the collected feedback history from session state, only if checkbox is selected.
+            """
+            if st.checkbox("Show Previous Feedback"):
+                st.header("Previous Feedback")
+                if st.session_state.feedback_history:
+                    for i, entry in enumerate(st.session_state.feedback_history, 1):
+                        st.write(f"**Feedback {i}:**")
+                        st.write(f"- **Name:** {entry['name']}")
+                        st.write(f"- **Feedback:** {entry['feedback']}")
+                        st.markdown("---")
+                else:
+                    st.info("No previous feedback found.")
+
+        # Collect new feedback and display history if checkbox is selected
+        collect_feedback()
+        show_feedback_history()
+
+    st.markdown("</div>", unsafe_allow_html=True)
