@@ -45,7 +45,7 @@ st.title("Leverage Sentiment Analysis to enhance patient experience and satisfac
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
 # Sidebar navigation
-#st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PLUS</h2>', unsafe_allow_html=True)
+#st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PR@</h2>', unsafe_allow_html=True)
 #selected_tab = st.sidebar.radio("", tabs)
 st.sidebar.markdown(
     """
