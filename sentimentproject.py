@@ -140,6 +140,13 @@ elif selected_tab == "Dataset Overview":
         st.write("### Updated Dataset Preview:")
         st.dataframe(st.session_state.data_hc.head())
 
+        # Convert to numeric, forcing non-numeric values to NaN
+        st.session_state.data_hc['Patient Survey Star Rating'] = pd.to_numeric(st.session_state.data_hc['Patient Survey Star Rating'], errors='coerce')
+        st.session_state.data_hc['HCAHPS Answer Percent'] = pd.to_numeric(st.session_state.data_hc['HCAHPS Answer Percent'], errors='coerce')
+        st.session_state.data_hc['HCAHPS Linear Mean Value'] = pd.to_numeric(st.session_state.data_hc['HCAHPS Linear Mean Value'], errors='coerce')
+        st.session_state.data_hc['Number of Completed Surveys'] = pd.to_numeric(st.session_state.data_hc['Number of Completed Surveys'], errors='coerce')
+        st.session_state.data_hc['Survey Response Rate Percent'] = pd.to_numeric(st.session_state.data_hc['Survey Response Rate Percent'], errors='coerce')
+
     else:
         st.warning("Please upload a CSV file to proceed.")
 
