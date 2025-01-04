@@ -77,6 +77,19 @@ st.markdown(
 # Sidebar radio button
 selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Insights", "Recommendations", "Help"])
 
+# Display content for the selected tab
+if selected_tab == "About":
+    st.write("Welcome to the **About** section! Here we describe the purpose of Sentilytics PLUS.")
+elif selected_tab == "Dataset Overview":
+    st.write("Explore the **Dataset Overview** here. This section provides data details and statistics.")
+elif selected_tab == "Sentiment Insights":
+    st.write("Dive into **Sentiment Insights**, analyzing patient feedback trends and scores.")
+elif selected_tab == "Recommendations":
+    st.write("In **Recommendations**, discover actionable strategies based on sentiment analysis.")
+elif selected_tab == "Help":
+    st.write("Visit the **Help** section for FAQs, tutorials, and support resources.")
+
+
 # Placeholder for uploaded file
 if 'data_hc' not in st.session_state:
     st.session_state.data_hc = None  # Initialize in session state
@@ -203,10 +216,7 @@ elif selected_tab == "Help":
                 st.write(f"**Feedback {i+1}:** {feedback}")
         else:
             st.info("No previous feedback found.")
-    
-    # Main app logic
-    st.title("Feedback App")
-    
+             
     collect_feedback()
     show_feedback_history()
 
