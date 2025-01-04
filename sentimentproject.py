@@ -39,7 +39,7 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 # Streamlit App
-st.title("Leverage Sentiment Analysis to enhance patient experience and satsifaction (Inpatient)")
+st.title("Leverage Sentiment Analysis to enhance patient experience and satisfaction (Inpatient)")
 
 # Define tabs
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
