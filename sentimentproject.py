@@ -136,6 +136,14 @@ elif selected_tab == "Dataset Overview":
         # Dropping the columns
         st.session_state.data_hc = st.session_state.drop(columns=columns_to_remove)
 
+        # Display the columns after removal
+        st.write("### Columns After Removal:")
+        st.write(st.session_state.data_hc.columns)
+
+        # Display the updated dataset preview
+        st.write("### Updated Dataset Preview:")
+        st.dataframe(st.session_state.data_hc.head())
+
     else:
         st.warning("Please upload a CSV file to proceed.")
 
