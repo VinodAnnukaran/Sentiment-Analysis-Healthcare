@@ -81,7 +81,7 @@ selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Ins
 if 'data_hc' not in st.session_state:
     st.session_state.data_hc = None  # Initialize in session state
 
-# Overview and Purpose Tab
+# About Tab
 if selected_tab == "About":
     st.subheader("Background")
     st.write("Patients’ rights are integral to medical ethics. This study aimed to perform sentiment analysis on patients’ feedback by machine learning method to identify positive, negative or neutral comments and to provide recommendation to enhance patient experience.")
@@ -101,7 +101,7 @@ if selected_tab == "About":
         - Statista. (2023). Number of public and private hospitals in Malaysia from 2017 to 2022. [https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia](https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia)
         """)
   
-# Data Upload and Overview Tab
+# Data Overview Tab
 elif selected_tab == "Dataset Overview":
     st.title("Dataset Overview")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
@@ -117,7 +117,7 @@ elif selected_tab == "Dataset Overview":
     else:
         st.warning("Please upload a CSV file to proceed.")
 
-# Data Cleaning and Processing Tab
+# Sentiment Insights Tab
 elif selected_tab == "Sentiment Insights":
     st.title("Sentiment Insights")
     if st.session_state.data_hc is not None:
@@ -162,6 +162,7 @@ elif selected_tab == "Recommendations":
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
+# Help Tab
 elif selected_tab == "Help": 
     st.title("User Feedback Form")
 
@@ -180,55 +181,57 @@ elif selected_tab == "Help":
         """, unsafe_allow_html=True
     )
 
-    # Wrap the entire content in the box
-    with st.markdown("<div class='feedback-box'>", unsafe_allow_html=True):
-        # Emoji and contact information
-        emoji = "ℹ️"
-        contact_email = "vinodakk@gmail.com"
-        
-        # Concatenate message
-        message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have any feedback to make improvements to this app."
-        
-        # Display the message using markdown
-        st.markdown(message)
+    # Wrap the entire content in the box by applying the 'feedback-box' class
+    st.markdown('<div class="feedback-box">', unsafe_allow_html=True)
 
-        # Initialize an empty dictionary to store feedback (using session state for persistence)
-        if "feedback_history" not in st.session_state:
-            st.session_state.feedback_history = []
+    # Emoji and contact information
+    emoji = "ℹ️"
+    contact_email = "vinodakk@gmail.com"
+    
+    # Concatenate message
+    message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have any feedback to make improvements to this app."
+    
+    # Display the message using markdown
+    st.markdown(message)
 
-        def collect_feedback():
-            """
-            Collects user feedback and stores it in session state.
-            """
-            name = st.text_input("Please enter your name:")
-            feedback = st.text_area("Please provide your feedback:")
-            if st.button("Submit Feedback"):
-                if name and feedback:
-                    # Append feedback as a dictionary
-                    st.session_state.feedback_history.append({"name": name, "feedback": feedback})
-                    st.success("Thank you! Your feedback has been submitted successfully.")
-                elif not name:
-                    st.warning("Please enter your name.")
-                elif not feedback:
-                    st.warning("Please provide your feedback.")
+    # Initialize an empty dictionary to store feedback (using session state for persistence)
+    if "feedback_history" not in st.session_state:
+        st.session_state.feedback_history = []
 
-        def show_feedback_history():
-            """
-            Displays the collected feedback history from session state, only if checkbox is selected.
-            """
-            if st.checkbox("Show Previous Feedback"):
-                st.header("Previous Feedback")
-                if st.session_state.feedback_history:
-                    for i, entry in enumerate(st.session_state.feedback_history, 1):
-                        st.write(f"**Feedback {i}:**")
-                        st.write(f"- **Name:** {entry['name']}")
-                        st.write(f"- **Feedback:** {entry['feedback']}")
-                        st.markdown("---")
-                else:
-                    st.info("No previous feedback found.")
+    def collect_feedback():
+        """
+        Collects user feedback and stores it in session state.
+        """
+        name = st.text_input("Please enter your name:")
+        feedback = st.text_area("Please provide your feedback:")
+        if st.button("Submit Feedback"):
+            if name and feedback:
+                # Append feedback as a dictionary
+                st.session_state.feedback_history.append({"name": name, "feedback": feedback})
+                st.success("Thank you! Your feedback has been submitted successfully.")
+            elif not name:
+                st.warning("Please enter your name.")
+            elif not feedback:
+                st.warning("Please provide your feedback.")
 
-        # Collect new feedback and display history if checkbox is selected
-        collect_feedback()
-        show_feedback_history()
+    def show_feedback_history():
+        """
+        Displays the collected feedback history from session state, only if checkbox is selected.
+        """
+        if st.checkbox("Show Previous Feedback"):
+            st.header("Previous Feedback")
+            if st.session_state.feedback_history:
+                for i, entry in enumerate(st.session_state.feedback_history, 1):
+                    st.write(f"**Feedback {i}:**")
+                    st.write(f"- **Name:** {entry['name']}")
+                    st.write(f"- **Feedback:** {entry['feedback']}")
+                    st.markdown("---")
+            else:
+                st.info("No previous feedback found.")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    # Collect new feedback and display history if checkbox is selected
+    collect_feedback()
+    show_feedback_history()
+
+    # Close the div for the box
+    st.markdown('</div>', unsafe_allow_html=True)
