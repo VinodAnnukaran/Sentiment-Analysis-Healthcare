@@ -103,7 +103,7 @@ if selected_tab == "About":
   
 # Data Upload and Overview Tab
 elif selected_tab == "Dataset Overview":
-    st.title("Data Upload and Overview")
+    st.title("Dataset Overview")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
     if uploaded_file is not None:
         # Read the file into the session state variable
@@ -119,7 +119,7 @@ elif selected_tab == "Dataset Overview":
 
 # Data Cleaning and Processing Tab
 elif selected_tab == "Sentiment Insights":
-    st.title("Data Cleaning and Processing")
+    st.title("Sentiment Insights")
     if st.session_state.data_hc is not None:
         st.write("### Cleaning Dataset")
         columns_to_remove = [
@@ -134,9 +134,9 @@ elif selected_tab == "Sentiment Insights":
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
-# Visualization and Sentiment Analysis Tab
-elif selected_tab == "Visualization and Sentiment Analysis":
-    st.title("Visualization and Sentiment Analysis")
+# Recommendations Tab
+elif selected_tab == "Recommendations":
+    st.title("Recommendations")
     if st.session_state.data_hc is not None:
         if 'HCAHPS Answer Description' in st.session_state.data_hc.columns:
             st.write("### Sentiment Analysis")
@@ -162,7 +162,6 @@ elif selected_tab == "Visualization and Sentiment Analysis":
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
-# Help Tab
 elif selected_tab == "Help":
     st.title("User Feedback Form")
 
@@ -176,32 +175,40 @@ elif selected_tab == "Help":
     # Display the message using markdown
     st.markdown(message)
 
-    # Initialize an empty list to store feedback
-    feedback_history = []
-    
+    # Initialize an empty dictionary to store feedback (using session state for persistence)
+    if "feedback_history" not in st.session_state:
+        st.session_state.feedback_history = []
+
     def collect_feedback():
         """
-        Collects user feedback and stores it in the history.
+        Collects user feedback and stores it in session state.
         """
+        name = st.text_input("Please enter your name:")
         feedback = st.text_area("Please provide your feedback:")
         if st.button("Submit Feedback"):
-            if feedback:
-                feedback_history.append(feedback)
-                st.success("Feedback submitted successfully!")
-            else:
-                st.warning("Please enter some feedback.")
-    
+            if name and feedback:
+                # Append feedback as a dictionary
+                st.session_state.feedback_history.append({"name": name, "feedback": feedback})
+                st.success("Thank you! Your feedback has been submitted successfully.")
+            elif not name:
+                st.warning("Please enter your name.")
+            elif not feedback:
+                st.warning("Please provide your feedback.")
+
     def show_feedback_history():
         """
-        Displays the collected feedback history.
+        Displays the collected feedback history from session state.
         """
         st.header("Previous Feedback")
-        if feedback_history:
-            for i, feedback in enumerate(feedback_history):
-                st.write(f"**Feedback {i+1}:** {feedback}")
+        if st.session_state.feedback_history:
+            for i, entry in enumerate(st.session_state.feedback_history, 1):
+                st.write(f"**Feedback {i}:**")
+                st.write(f"- **Name:** {entry['name']}")
+                st.write(f"- **Feedback:** {entry['feedback']}")
+                st.markdown("---")
         else:
             st.info("No previous feedback found.")
-             
+
+    # Collect new feedback and display history
     collect_feedback()
     show_feedback_history()
-
