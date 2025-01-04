@@ -45,13 +45,13 @@ st.title("Leverage Sentiment Analysis to enhance patient experience and satisfac
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
 # Sidebar navigation
-#st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PR@</h2>', unsafe_allow_html=True)
+#st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PRO</h2>', unsafe_allow_html=True)
 #selected_tab = st.sidebar.radio("", tabs)
 st.sidebar.markdown(
     """
     <div style="background-color: #F4F4F4; padding: 10px; border-radius: 10px; text-align: center;">
         <span style="font-size: 24px; font-weight: bold; color: #FF5733;">Sentilytics</span>
-        <span style="font-size: 24px; font-weight: bold; color: #4285F4;">PR@</span>
+        <span style="font-size: 24px; font-weight: bold; color: #4285F4;">PRO</span>
     </div>
     """, unsafe_allow_html=True
 )
