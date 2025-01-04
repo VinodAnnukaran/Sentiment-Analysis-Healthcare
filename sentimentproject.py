@@ -45,7 +45,7 @@ st.title("Leverage Sentiment Analysis to enhance patient experience and satisfac
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
 # Sidebar navigation
-selected_tab = st.sidebar.radio("Navigation", tabs)
+selected_tab = st.sidebar.radio("Carelyze PLUS", tabs)
 
 # Placeholder for uploaded file
 if 'data_hc' not in st.session_state:
