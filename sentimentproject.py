@@ -38,9 +38,6 @@ import streamlit as st
 nltk.download('punkt')
 nltk.download('stopwords')
 
-# Streamlit App
-st.title("Leverage Sentiment Analysis to enhance patient experience and satisfaction (Inpatient)")
-
 # Define tabs
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
@@ -76,6 +73,11 @@ st.markdown(
 
 # Sidebar radio button
 selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Insights", "Recommendations", "Help"])
+
+# Display the title only on the first tab (About)
+if selected_tab == "About":
+    # Streamlit App
+    st.title("Leverage Sentiment Analysis to enhance patient experience and satisfaction (Inpatient)")
 
 # Placeholder for uploaded file
 if 'data_hc' not in st.session_state:
