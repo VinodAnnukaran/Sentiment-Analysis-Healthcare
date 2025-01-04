@@ -173,6 +173,31 @@ elif selected_tab == "Dataset Overview":
             st.pyplot(plt)
             plt.clf()  # Clear the figure for the next plot
 
+            # Filter data for "Summary star rating"
+            filtered_data = st.session_state.data_hc[st.session_state.data_hc['HCAHPS Answer Description'] == 'Summary star rating']
+            
+            # Group by State and Facility, then calculate the average of 'Patient Survey Star Rating'
+            best_facility_statewise = filtered_data.groupby(['State', 'Facility Name'])['Patient Survey Star Rating'].mean().reset_index()
+            
+            # For each state, find the facility with the highest rating
+            best_facility_statewise = best_facility_statewise.dropna(subset=['Patient Survey Star Rating'])
+            
+            best_facility_per_state = best_facility_statewise.loc[best_facility_statewise.groupby('State')['Patient Survey Star Rating'].idxmax()]
+            
+            # Create a bar chart
+            chart = alt.Chart(best_facility_per_state).mark_bar().encode(
+                x=alt.X('Facility Name:N', title='Facility Name', sort='-y'),
+                y=alt.Y('Patient Survey Star Rating:Q', title='Patient Survey Star Rating'),
+                color='State:N',
+                tooltip=['Facility Name:N', 'State:N', 'Patient Survey Star Rating:Q']
+            ).properties(
+                title='Highest Rated Facility by State'
+            ).interactive()
+            
+            # Display the chart in the Streamlit app
+            st.altair_chart(chart, use_container_width=True)
+
+
     else:
         st.warning("Please upload a CSV file to proceed.")
 
