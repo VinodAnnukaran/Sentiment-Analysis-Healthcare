@@ -51,7 +51,7 @@ st.sidebar.markdown(
     """
     <div style="background-color: #F4F4F4; padding: 10px; border-radius: 10px; text-align: center;">
         <span style="font-size: 24px; font-weight: bold; color: #FF5733;">Sentilytics</span>
-        <span style="font-size: 24px; font-weight: bold; color: #4285F4;">PLUS</span>
+        <span style="font-size: 24px; font-weight: bold; color: #4285F4;">PR@</span>
     </div>
     """, unsafe_allow_html=True
 )
