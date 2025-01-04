@@ -147,6 +147,32 @@ elif selected_tab == "Dataset Overview":
         st.session_state.data_hc['Number of Completed Surveys'] = pd.to_numeric(st.session_state.data_hc['Number of Completed Surveys'], errors='coerce')
         st.session_state.data_hc['Survey Response Rate Percent'] = pd.to_numeric(st.session_state.data_hc['Survey Response Rate Percent'], errors='coerce')
 
+        #Distribution of Patient Survey Star Rating
+        # Define the columns to exclude
+        exclude_columns = [
+            "ZIP Code",
+            "HCAHPS Answer Percent",
+            "HCAHPS Linear Mean Value",
+            "Number of Completed Surveys",
+            "Survey Response Rate Percent"
+        ]
+        
+        # Select numerical columns and exclude the specified ones
+        numerical_columns = [
+            col for col in st.session_state.data_hc.select_dtypes(include=['int64', 'float64']).columns
+            if col not in exclude_columns
+        ]
+        
+        # Display the distribution for numerical variables
+        for col in numerical_columns:
+            plt.figure(figsize=(8, 4))
+            sns.histplot(st.session_state.data_hc[col], kde=True, bins=30)
+            plt.title(f"Distribution of {col}")
+            
+            # Display the plot in Streamlit
+            st.pyplot(plt)
+            plt.clf()  # Clear the figure for the next plot
+
     else:
         st.warning("Please upload a CSV file to proceed.")
 
