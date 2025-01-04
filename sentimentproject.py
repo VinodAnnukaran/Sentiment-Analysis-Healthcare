@@ -41,6 +41,9 @@ nltk.download('stopwords')
 # Streamlit App
 st.title("Leverage Sentiment Analysis to enhance patient experience and satsifaction (Inpatient)")
 
+# Display an image below the heading from an online source
+st.image("https://github.com/VinodAnnukaran/Sentiment-Analysis-Healthcare/blob/main/medical-care-service.jpeg", caption="This is an image", use_column_width=True)
+
 # Define tabs
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
