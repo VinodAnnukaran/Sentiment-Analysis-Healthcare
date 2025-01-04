@@ -125,7 +125,7 @@ elif selected_tab == "Dataset Overview":
         # Show the shape of the dataset (number of rows and columns)
         st.write(f"### Dataset Shape: {st.session_state.data_hc.shape[0]} rows, {st.session_state.data_hc.shape[1]} columns")
         
-        # Remove the specified columns
+        # Define the columns to be removed
         columns_to_remove = [
             'Patient Survey Star Rating Footnote',
             'HCAHPS Answer Percent Footnote',
@@ -133,8 +133,8 @@ elif selected_tab == "Dataset Overview":
             'Survey Response Rate Percent Footnote'
         ]
         
-        # Dropping the columns
-        st.session_state.data_hc = st.session_state.drop(columns=columns_to_remove)
+        # Drop the specified columns, check if they exist in the dataset first
+        st.session_state.data_hc = st.session_state.data_hc.drop(columns=[col for col in columns_to_remove if col in st.session_state.data_hc.columns])
 
         # Display the columns after removal
         st.write("### Columns After Removal:")
