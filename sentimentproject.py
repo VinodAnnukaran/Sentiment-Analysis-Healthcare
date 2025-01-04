@@ -54,16 +54,22 @@ if 'data_hc' not in st.session_state:
 # Overview and Purpose Tab
 if selected_tab == "About":
     st.subheader("Background")
-    st.write("Patients’ rights are integral to medical ethics. This study aimed to perform sentiment analysis and opinion mining on patients’ messages by a combination of lexicon-based and machine learning methods to identify positive or negative comments and to determine the different ward and staff names mentioned in patients’ messages.")
-    st.write("- Insights through data visualization.")
+    st.write("Patients’ rights are integral to medical ethics. This study aimed to perform sentiment analysis on patients’ feedback by machine learning method to identify positive, negative or neutral comments and to provide recommendation to enhance patient experience.")
     st.subheader("Limitations of Existing Research")
-    st.write("Some content under the first subheading.")
+    st.write("Current sentiment analysis tools also face significant limitations, such as: Potential Inaccuracies: Sentiment analysis tools often struggle with detecting nuances in language, such as sarcasm, irony, or idiomatic expressions, leading to misclassification of sentiments.")
     st.subheader("Data Used")
-    st.write("Some content under the first subheading.")
+    st.write("We have used a year 2023 dataset from Hospital Consumer Assessment of Healthcare Providers and Systems (HCAHPS). HCAHPS is a national, standardized survey of hospital patients about their experiences during a recent inpatient hospital stay")
+    st.write("There are 22 columns in this dataset and 444447 rows but for this analysis we have considered 50,000 records. https://data.cms.gov/provider-data/dataset/dgck-syfz")
     st.subheader("Model Performance")
     st.write("Some content under the first subheading.")
     st.subheader("References")
-    st.write("Some content under the first subheading.")
+    st.write("Zhang, Y., & Xu, H. (2024). A deep learning approach for sentiment analysis in healthcare: A case study on patient feedback. Procedia Computer Science, 205, 123-130. https://doi.org/10.1016/j.procs.2024.01.3139")
+    st.write("Mina, R., & Bahaa, I. (2024). User satisfaction with Arabic COVID-19 apps: Sentiment analysis of users’ reviews using machine learning techniques. Computers in Human Behavior, 145, Article 107760. https://doi.org/10.1016/j.chb.2024.107760")
+    st.write("Srisankar, M., & Lochanambal, K. P. (2024). A survey on sentiment analysis techniques in the medical domain. Medicon Agriculture & Environmental Sciences, 6(2), 4-9. https://doi.org/10.55162/MCAES.06.157")
+    st.write("Huang, J., Li, X., Chen, Y., & Wang, Y. (2024). The impact of visual function on quality of life in patients with diabetic retinopathy. Optometry and Vision Science, 101(6), 123-130. https://doi.org/10.1097/OPX.00000000000000013")
+    st.write("Statista. (2023). Number of public and private hospitals in Malaysia from 2017 to 2022. https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia")
+
+    
     
 
 
