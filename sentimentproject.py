@@ -178,37 +178,35 @@ elif selected_tab == "Help":
     # Display the message using markdown
     st.markdown(message)
 
-    import streamlit as st
-
-# Initialize an empty list to store feedback
-feedback_history = []
-
-def collect_feedback():
-    """
-    Collects user feedback and stores it in the history.
-    """
-    feedback = st.text_area("Please provide your feedback:")
-    if st.button("Submit Feedback"):
-        if feedback:
-            feedback_history.append(feedback)
-            st.success("Feedback submitted successfully!")
+    # Initialize an empty list to store feedback
+    feedback_history = []
+    
+    def collect_feedback():
+        """
+        Collects user feedback and stores it in the history.
+        """
+        feedback = st.text_area("Please provide your feedback:")
+        if st.button("Submit Feedback"):
+            if feedback:
+                feedback_history.append(feedback)
+                st.success("Feedback submitted successfully!")
+            else:
+                st.warning("Please enter some feedback.")
+    
+    def show_feedback_history():
+        """
+        Displays the collected feedback history.
+        """
+        st.header("Previous Feedback")
+        if feedback_history:
+            for i, feedback in enumerate(feedback_history):
+                st.write(f"**Feedback {i+1}:** {feedback}")
         else:
-            st.warning("Please enter some feedback.")
-
-def show_feedback_history():
-    """
-    Displays the collected feedback history.
-    """
-    st.header("Previous Feedback")
-    if feedback_history:
-        for i, feedback in enumerate(feedback_history):
-            st.write(f"**Feedback {i+1}:** {feedback}")
-    else:
-        st.info("No previous feedback found.")
-
-# Main app logic
-st.title("Feedback App")
-
-collect_feedback()
-show_feedback_history()
+            st.info("No previous feedback found.")
+    
+    # Main app logic
+    st.title("Feedback App")
+    
+    collect_feedback()
+    show_feedback_history()
 
