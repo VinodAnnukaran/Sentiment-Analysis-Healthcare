@@ -173,7 +173,7 @@ elif selected_tab == "Help":
             .feedback-box {
                 border: 2px solid #4CAF50;
                 border-radius: 10px;
-                padding: 20px;
+                padding: 30px;
                 background-color: #f9f9f9;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 max-width: 800px;
@@ -189,6 +189,7 @@ elif selected_tab == "Help":
     # Wrap the entire content in the box by applying the 'feedback-box' class
     st.markdown('<div class="feedback-box">', unsafe_allow_html=True)
 
+    
     # Emoji and contact information
     emoji = "ℹ️"
     contact_email = "vinodakk@gmail.com"
