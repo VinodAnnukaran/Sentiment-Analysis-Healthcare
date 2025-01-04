@@ -42,7 +42,7 @@ nltk.download('stopwords')
 st.title("Leverage Sentiment Analysis to enhance patient experience and satsifaction (Inpatient)")
 
 # Display an image below the heading from an online source
-st.image("https://www.pexels.com/photo/concrete-road-between-trees-1563356/", caption="This is an image", use_column_width=True)
+st.image("https://www.pexels.com/photo/concrete-road-between-trees-1563356", caption="This is an image", use_column_width=True)
 
 # Define tabs
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
