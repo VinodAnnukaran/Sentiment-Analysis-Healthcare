@@ -93,42 +93,6 @@ elif selected_tab == "Sentiment Insights":
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
-# Help Tab
-elif selected_tab == "Help":
-    st.title("Contact for any help related with the App")
-
-    def collect_feedback():
-        """
-        Collects user feedback using a simple form.
-
-        Returns:
-            dict: A dictionary containing the collected feedback.
-        """
-        feedback = {}
-        feedback['rating'] = st.slider("How would you rate your experience?", 1, 5)
-        feedback['comments'] = st.text_area("Please provide any additional comments or suggestions:")
-
-        if st.button("Submit Feedback"):
-            st.success("Thank you for your feedback!")
-            return feedback
-        else:
-            return None
-
-    # Collect feedback data
-    feedback_data = collect_feedback()
-
-    # Store feedback if provided
-    if feedback_data:
-        with open("feedback.txt", "a") as f:
-            f.write(str(feedback_data) + "\n")
-
-# --- Optional: Process and store feedback ---
-if feedback_data:
-    # You can store the feedback data in a file, database, or send it to an endpoint
-    # Here's a simple example of storing it in a file:
-    with open("feedback.txt", "a") as f:
-        f.write(str(feedback_data) + "\n")
-
 # Visualization and Sentiment Analysis Tab
 elif selected_tab == "Visualization and Sentiment Analysis":
     st.title("Visualization and Sentiment Analysis")
@@ -156,3 +120,33 @@ elif selected_tab == "Visualization and Sentiment Analysis":
             st.error("Column 'HCAHPS Answer Description' not found in the dataset.")
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
+
+# Help Tab
+elif selected_tab == "Help":
+    st.title("Contact for any help related with the App")
+
+    def collect_feedback():
+        """
+        Collects user feedback using a simple form.
+
+        Returns:
+            dict: A dictionary containing the collected feedback.
+        """
+        feedback = {}
+        feedback['rating'] = st.slider("How would you rate your experience?", 1, 5)
+        feedback['comments'] = st.text_area("Please provide any additional comments or suggestions:")
+
+        if st.button("Submit Feedback"):
+            st.success("Thank you for your feedback!")
+            return feedback
+        else:
+            return None
+
+    # Collect feedback data
+    feedback_data = collect_feedback()
+
+    # Check if feedback_data is not None before proceeding
+    if feedback_data:
+        with open("feedback.txt", "a") as f:
+            f.write(str(feedback_data) + "\n")
+
