@@ -1,47 +1,48 @@
 #Streamlit app to leverage sentiment analysis to enhance patient experience and satisfaction
-import streamlit as st
+# Importing Libraries
+# Basic Libraries
 import pandas as pd
-from textblob import TextBlob
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from wordcloud import WordCloud
+import numpy as np
+
+# Visualization Libraries
 import matplotlib.pyplot as plt
+import seaborn as sns
+import altair as alt
+from wordcloud import WordCloud
+
+# Text Processing Libraries
 import re
+import nltk
+from nltk import download
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from textblob import TextBlob
 
-# Helper functions for cleaning and sentiment analysis
-def clean_text(text):
-    # Clean the text by removing special characters, numbers, and extra spaces
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
-    text = text.lower()
-    return text
+# Sentiment Analysis Libraries
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-def label_sentiment_textblob(text):
-    # Use TextBlob to classify sentiment
-    blob = TextBlob(text)
-    polarity = blob.sentiment.polarity
-    if polarity > 0:
-        return 'Positive'
-    elif polarity < 0:
-        return 'Negative'
-    else:
-        return 'Neutral'
+# Data Analysis and Modeling Libraries
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import classification_report
 
-def label_sentiment_vader_adjusted(text):
-    # Use VADER sentiment analysis for classification
-    analyzer = SentimentIntensityAnalyzer()
-    score = analyzer.polarity_scores(text)['compound']
-    if score > 0.1:
-        return 'Positive'
-    elif score < -0.1:
-        return 'Negative'
-    else:
-        return 'Neutral'
+# Other Utilities
+from collections import Counter
 
+# Streamlit Library
+import streamlit as st
+
+# Ensure necessary NLTK resources are downloaded
+nltk.download('punkt')
+nltk.download('stopwords')
 
 # Streamlit App
-st.title("Patient Insight Pro (Inpatient)")
+st.title("Leverage Sentiment Analysis to enhance patient experience and satsifaction (Inpatient)")
 
 # Define tabs
-tabs = ["Overview and Purpose", "Data Upload and Overview", "Data Cleaning and Processing", "Visualization and Sentiment Analysis"]
+tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
 # Sidebar navigation
 selected_tab = st.sidebar.radio("Navigation", tabs)
