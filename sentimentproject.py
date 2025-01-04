@@ -54,9 +54,7 @@ if 'data_hc' not in st.session_state:
 # Overview and Purpose Tab
 if selected_tab == "About":
     st.subheader("Background")
-    st.write("Healthcare organizations continuously seek ways to improve patient care and satisfaction.")
-    st.write("- Efficient data preprocessing and cleaning.")
-    st.write("- Sentiment classification using TextBlob and VADER.")
+    st.write("Patients’ rights are integral to medical ethics. This study aimed to perform sentiment analysis and opinion mining on patients’ messages by a combination of lexicon-based and machine learning methods to identify positive or negative comments and to determine the different ward and staff names mentioned in patients’ messages.")
     st.write("- Insights through data visualization.")
     st.subheader("Limitations of Existing Research")
     st.write("Some content under the first subheading.")
