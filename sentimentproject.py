@@ -53,12 +53,20 @@ if 'data_hc' not in st.session_state:
 
 # Overview and Purpose Tab
 if selected_tab == "About":
+    st.subheader("Background")
     st.write("Healthcare organizations continuously seek ways to improve patient care and satisfaction.")
     st.write("- Efficient data preprocessing and cleaning.")
     st.write("- Sentiment classification using TextBlob and VADER.")
     st.write("- Insights through data visualization.")
-    st.markdown("<h2>Second Subheading</h2>")
-    st.write("Some content under the second subheading.")
+    st.subheader("Limitations of Existing Research")
+    st.write("Some content under the first subheading.")
+    st.subheader("Data Used")
+    st.write("Some content under the first subheading.")
+    st.subheader("Model Performance")
+    st.write("Some content under the first subheading.")
+    st.subheader("References")
+    st.write("Some content under the first subheading.")
+    
 
 
 # Data Upload and Overview Tab
