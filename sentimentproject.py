@@ -168,6 +168,16 @@ elif selected_tab == "Visualization and Sentiment Analysis":
 elif selected_tab == "Help":
     st.title("User Feedback Form")
 
+    # Emoji and contact information
+    emoji = "ℹ️"
+    contact_email = "vinodakk@gmail.com"
+    
+    # Concatenate message
+    message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have any feedback to make improvements to this app."
+    
+    # Display the message using markdown
+    st.markdown(message)
+
     def collect_feedback():
         """
         Collects user feedback using a simple form.
