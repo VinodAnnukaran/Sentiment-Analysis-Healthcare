@@ -178,8 +178,8 @@ elif selected_tab == "Help":
             dict: A dictionary containing the collected feedback.
         """
         feedback = {}
-        feedback['rating'] = st.slider("How would you rate your experience?", 1, 5)
-        feedback['comments'] = st.text_area("Please provide any additional comments or suggestions:")
+        feedback['Your Name'] = st.text_area("Your Name"
+        feedback['Your Feedback'] = st.text_area("Your Feedback")
 
         if st.button("Submit Feedback"):
             st.success("Thank you for your feedback!")
