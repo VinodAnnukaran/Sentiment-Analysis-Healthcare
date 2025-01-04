@@ -81,6 +81,8 @@ selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Ins
 if 'data_hc' not in st.session_state:
     st.session_state.data_hc = None  # Initialize in session state
 
+###########################################################################
+
 # About Tab
 if selected_tab == "About":
     st.subheader("Background")
@@ -100,7 +102,9 @@ if selected_tab == "About":
         - Huang, J., Li, X., Chen, Y., & Wang, Y. (2024). The impact of visual function on quality of life in patients with diabetic retinopathy. *Optometry and Vision Science, 101(6)*, 123-130. [https://doi.org/10.1097/OPX.00000000000000013](https://doi.org/10.1097/OPX.00000000000000013)
         - Statista. (2023). Number of public and private hospitals in Malaysia from 2017 to 2022. [https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia](https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia)
         """)
-  
+
+###########################################################################
+
 # Data Overview Tab
 elif selected_tab == "Dataset Overview":
     st.title("Dataset Overview")
@@ -116,6 +120,8 @@ elif selected_tab == "Dataset Overview":
         st.write(st.session_state.data_hc.isnull().sum())
     else:
         st.warning("Please upload a CSV file to proceed.")
+
+###########################################################################
 
 # Sentiment Insights Tab
 elif selected_tab == "Sentiment Insights":
@@ -133,6 +139,8 @@ elif selected_tab == "Sentiment Insights":
         st.write(st.session_state.data_hc.columns)
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
+
+###########################################################################
 
 # Recommendations Tab
 elif selected_tab == "Recommendations":
@@ -161,6 +169,8 @@ elif selected_tab == "Recommendations":
             st.error("Column 'HCAHPS Answer Description' not found in the dataset.")
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
+
+###########################################################################
 
 # Help Tab
 elif selected_tab == "Help": 
