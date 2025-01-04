@@ -136,10 +136,6 @@ elif selected_tab == "Dataset Overview":
         # Drop the specified columns, check if they exist in the dataset first
         st.session_state.data_hc = st.session_state.data_hc.drop(columns=[col for col in columns_to_remove if col in st.session_state.data_hc.columns])
 
-        # Display the columns after removal
-        st.write("### Columns After Removal:")
-        st.write(st.session_state.data_hc.columns)
-
         # Display the updated dataset preview
         st.write("### Updated Dataset Preview:")
         st.dataframe(st.session_state.data_hc.head())
