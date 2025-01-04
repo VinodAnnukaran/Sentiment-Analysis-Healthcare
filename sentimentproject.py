@@ -63,11 +63,13 @@ if selected_tab == "About":
     st.subheader("Model Performance")
     st.write("Some content under the first subheading.")
     st.subheader("References")
-    st.write("Zhang, Y., & Xu, H. (2024). A deep learning approach for sentiment analysis in healthcare: A case study on patient feedback. Procedia Computer Science, 205, 123-130. https://doi.org/10.1016/j.procs.2024.01.3139")
-    st.write("Mina, R., & Bahaa, I. (2024). User satisfaction with Arabic COVID-19 apps: Sentiment analysis of users’ reviews using machine learning techniques. Computers in Human Behavior, 145, Article 107760. https://doi.org/10.1016/j.chb.2024.107760")
-    st.write("Srisankar, M., & Lochanambal, K. P. (2024). A survey on sentiment analysis techniques in the medical domain. Medicon Agriculture & Environmental Sciences, 6(2), 4-9. https://doi.org/10.55162/MCAES.06.157")
-    st.write("Huang, J., Li, X., Chen, Y., & Wang, Y. (2024). The impact of visual function on quality of life in patients with diabetic retinopathy. Optometry and Vision Science, 101(6), 123-130. https://doi.org/10.1097/OPX.00000000000000013")
-    st.write("Statista. (2023). Number of public and private hospitals in Malaysia from 2017 to 2022. https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia")
+    st.write("""
+        - Zhang, Y., & Xu, H. (2024). A deep learning approach for sentiment analysis in healthcare: A case study on patient feedback. *Procedia Computer Science, 205*, 123-130. [https://doi.org/10.1016/j.procs.2024.01.3139](https://doi.org/10.1016/j.procs.2024.01.3139)
+        - Mina, R., & Bahaa, I. (2024). User satisfaction with Arabic COVID-19 apps: Sentiment analysis of users’ reviews using machine learning techniques. *Computers in Human Behavior, 145*, Article 107760. [https://doi.org/10.1016/j.chb.2024.107760](https://doi.org/10.1016/j.chb.2024.107760)
+        - Srisankar, M., & Lochanambal, K. P. (2024). A survey on sentiment analysis techniques in the medical domain. *Medicon Agriculture & Environmental Sciences, 6(2)*, 4-9. [https://doi.org/10.55162/MCAES.06.157](https://doi.org/10.55162/MCAES.06.157)
+        - Huang, J., Li, X., Chen, Y., & Wang, Y. (2024). The impact of visual function on quality of life in patients with diabetic retinopathy. *Optometry and Vision Science, 101(6)*, 123-130. [https://doi.org/10.1097/OPX.00000000000000013](https://doi.org/10.1097/OPX.00000000000000013)
+        - Statista. (2023). Number of public and private hospitals in Malaysia from 2017 to 2022. [https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia](https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia)
+        """)
 
     
     
