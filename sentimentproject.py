@@ -57,6 +57,9 @@ if selected_tab == "About":
     st.write("- Efficient data preprocessing and cleaning.")
     st.write("- Sentiment classification using TextBlob and VADER.")
     st.write("- Insights through data visualization.")
+    st.markdown("<h2>Second Subheading</h2>")
+    st.write("Some content under the second subheading.")
+
 
 # Data Upload and Overview Tab
 elif selected_tab == "Dataset Overview":
