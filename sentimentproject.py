@@ -199,88 +199,39 @@ elif selected_tab == "Help":
         st.session_state.feedback_history = []
 
     def collect_feedback():
-    """
-    Collects user feedback and stores it in session state.
-    """
-    name = st.text_input("Please enter your name:")
-    feedback = st.text_area("Please provide your feedback:")
-    if st.button("Submit Feedback"):
-        if name and feedback:
-            # Append feedback as a dictionary
-            st.session_state.feedback_history.append({"name": name, "feedback": feedback})
-            st.success("Thank you! Your feedback has been submitted successfully.")
-        elif not name:
-            st.warning("Please enter your name.")
-        elif not feedback:
-            st.warning("Please provide your feedback.")
+        """
+        Collects user feedback and stores it in session state.
+        """
+        name = st.text_input("Please enter your name:")
+        feedback = st.text_area("Please provide your feedback:")
+        if st.button("Submit Feedback"):
+            if name and feedback:
+                # Append feedback as a dictionary
+                st.session_state.feedback_history.append({"name": name, "feedback": feedback})
+                st.success("Thank you! Your feedback has been submitted successfully.")
+            elif not name:
+                st.warning("Please enter your name.")
+            elif not feedback:
+                st.warning("Please provide your feedback.")
 
-def show_feedback_history():
-    """
-    Displays the collected feedback history from session state, only if checkbox is selected.
-    """
-    if st.checkbox("Show Previous Feedback"):
-        st.header("Previous Feedback")
-        if st.session_state.feedback_history:
-            for i, entry in enumerate(st.session_state.feedback_history, 1):
-                st.write(f"**Feedback {i}:**")
-                st.write(f"- **Name:** {entry['name']}")
-                st.write(f"- **Feedback:** {entry['feedback']}")
-                st.markdown("---")
-        else:
-            st.info("No previous feedback found.")
+    def show_feedback_history():
+        """
+        Displays the collected feedback history from session state, only if checkbox is selected.
+        """
+        if st.checkbox("Show Previous Feedback"):
+            st.header("Previous Feedback")
+            if st.session_state.feedback_history:
+                for i, entry in enumerate(st.session_state.feedback_history, 1):
+                    st.write(f"**Feedback {i}:**")
+                    st.write(f"- **Name:** {entry['name']}")
+                    st.write(f"- **Feedback:** {entry['feedback']}")
+                    st.markdown("---")
+            else:
+                st.info("No previous feedback found.")
 
+    # Collect new feedback and display history if checkbox is selected
+    collect_feedback()
+    show_feedback_history()
 
-selected_tab = st.sidebar.radio("Navigation", ["Help"])
-
-if selected_tab == "Help":
-    st.title("User Feedback Form")
-
-    # Custom CSS for a styled box with improved formatting and layout
-    box_style = """
-    <style>
-        .feedback-box {
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 10px;  /* Add margin for better separation */
-            display: flex;  /* Arrange elements horizontally */
-            flex-direction: column;  /* Stack elements vertically */
-            align-items: center;  /* Center elements horizontally */
-        }
-
-        .message {
-            margin-bottom: 20px;
-            text-align: center;  /* Center message text */
-        }
-    </style>
-    """
-    st.markdown(box_style, unsafe_allow_html=True)
-
-    # Wrap the content within the styled box
-    with st.container():
-        st.markdown('<div class="feedback-box">', unsafe_allow_html=True)
-
-        # Emoji and contact information
-        emoji = "ℹ️"
-        contact_email = "vinodakk@gmail.com"
-
-        # Concatenate message
-        message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have feedback to make improvements to this app."
-
-        # Display the message using markdown with a dedicated class for styling
-        st.markdown(f'<div class="message">{message}</div>', unsafe_allow_html=True)
-
-        # Initialize feedback history in session state (if not already initialized)
-        if "feedback_history" not in st.session_state:
-            st.session_state.feedback_history = []
-
-        # Collect new feedback
-        collect_feedback()
-
-        # Display feedback history if checkbox is selected
-        show_feedback_history()
-
-        # Close the div for the styled box
-        st.markdown('</div>', unsafe_allow_html=True)
+    # Close the div for the box
+    st.markdown('</div>', unsafe_allow_html=True)
