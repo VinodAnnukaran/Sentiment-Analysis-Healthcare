@@ -174,13 +174,7 @@ elif selected_tab == "Recommendations":
 
 # Help Tab
 elif selected_tab == "Help": 
-    
-    # Emoji and contact information
-    emoji = "ℹ️"
-    contact_email = "vinodakk@gmail.com"
-    
-    # Concatenate message
-    message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have any feedback to make improvements to this app."
+
     st.title("User Feedback Form")
 
     # # Custom CSS to create a box around the entire content
@@ -208,6 +202,13 @@ elif selected_tab == "Help":
 
     # # Wrap the entire content in the box by applying the 'feedback-box' class
     # st.markdown('<div class="feedback-box">', unsafe_allow_html=True)
+
+    # Emoji and contact information
+    emoji = "ℹ️"
+    contact_email = "vinodakk@gmail.com"
+    
+    # Concatenate message
+    message = f"{emoji} You can always reach me at {contact_email} should you encounter any technical issues or have any feedback to make improvements to this app."
     
     # Display the message using markdown
     st.markdown(message)
