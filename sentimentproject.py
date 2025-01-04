@@ -45,9 +45,17 @@ st.title("Leverage Sentiment Analysis to enhance patient experience and satisfac
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
 # Sidebar navigation
-st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PLUS</h2>', unsafe_allow_html=True)
-selected_tab = st.sidebar.radio("", tabs)
-
+#st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PLUS</h2>', unsafe_allow_html=True)
+#selected_tab = st.sidebar.radio("", tabs)
+st.sidebar.image("logo.png", use_column_width=True)
+st.sidebar.markdown(
+    """
+    <div style="font-size: 24px; font-weight: bold; color: #FF5733; text-align: center; margin-bottom: 20px;">
+        Sentilytics <span style="color: #4285F4;">PLUS</span>
+    </div>
+    """, unsafe_allow_html=True
+)
+selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Insights", "Recommendations", "Help"])
 
 # Placeholder for uploaded file
 if 'data_hc' not in st.session_state:
