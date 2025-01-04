@@ -223,8 +223,8 @@ elif selected_tab == "Help":
         """
         Collects user feedback and stores it in session state.
         """
-        name = st.text_input("Please enter your name:")
-        feedback = st.text_area("Please provide your feedback:")
+        name = st.text_input("**Please enter your name:**")
+        feedback = st.text_area("**Please provide your feedback:**")
         if st.button("Submit Feedback"):
             if name and feedback:
                 # Append feedback as a dictionary
