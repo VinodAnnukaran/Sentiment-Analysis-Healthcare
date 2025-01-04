@@ -162,7 +162,7 @@ elif selected_tab == "Recommendations":
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
-elif selected_tab == "Help":
+elif selected_tab == "Help": 
     st.title("User Feedback Form")
 
     # Emoji and contact information
@@ -197,18 +197,19 @@ elif selected_tab == "Help":
 
     def show_feedback_history():
         """
-        Displays the collected feedback history from session state.
+        Displays the collected feedback history from session state, only if checkbox is selected.
         """
-        st.header("Previous Feedback")
-        if st.session_state.feedback_history:
-            for i, entry in enumerate(st.session_state.feedback_history, 1):
-                st.write(f"**Feedback {i}:**")
-                st.write(f"- **Name:** {entry['name']}")
-                st.write(f"- **Feedback:** {entry['feedback']}")
-                st.markdown("---")
-        else:
-            st.info("No previous feedback found.")
+        if st.checkbox("Show Previous Feedback"):
+            st.header("Previous Feedback")
+            if st.session_state.feedback_history:
+                for i, entry in enumerate(st.session_state.feedback_history, 1):
+                    st.write(f"**Feedback {i}:**")
+                    st.write(f"- **Name:** {entry['name']}")
+                    st.write(f"- **Feedback:** {entry['feedback']}")
+                    st.markdown("---")
+            else:
+                st.info("No previous feedback found.")
 
-    # Collect new feedback and display history
+    # Collect new feedback and display history if checkbox is selected
     collect_feedback()
     show_feedback_history()
