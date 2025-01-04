@@ -117,24 +117,24 @@ elif selected_tab == "Dataset Overview":
         st.write("### Dataset Preview")
         st.dataframe(st.session_state.data_hc.head())
 
-    # Display the columns before removal
-    st.write("Columns before removal:")
-    st.write(data_hc.columns)
-
-    # Remove the specified columns
-    columns_to_remove = [
-    'Patient Survey Star Rating Footnote',
-    'HCAHPS Answer Percent Footnote',
-    'Number of Completed Surveys Footnote',
-    'Survey Response Rate Percent Footnote'
-    ]
-
-    # Dropping the columns
-    data_hc = data_hc.drop(columns=columns_to_remove)
-
-    # Display the columns after removal
-    st.write("\nColumns after removal:")
-    st.write(data_hc.columns)
+        # Display the columns before removal
+        st.write("Columns before removal:")
+        st.write(data_hc.columns)
+    
+        # Remove the specified columns
+        columns_to_remove = [
+        'Patient Survey Star Rating Footnote',
+        'HCAHPS Answer Percent Footnote',
+        'Number of Completed Surveys Footnote',
+        'Survey Response Rate Percent Footnote'
+        ]
+    
+        # Dropping the columns
+        data_hc = data_hc.drop(columns=columns_to_remove)
+    
+        # Display the columns after removal
+        st.write("\nColumns after removal:")
+        st.write(data_hc.columns)
     
     else:
         st.warning("Please upload a CSV file to proceed.")
