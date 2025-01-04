@@ -225,7 +225,7 @@ elif selected_tab == "Help":
         """
         name = st.text_input("**Please enter your name:**")
         feedback = st.text_area("**Please provide your feedback:**")
-        if st.button("Submit Feedback"):
+        if st.button("**Submit Feedback**"):
             if name and feedback:
                 # Append feedback as a dictionary
                 st.session_state.feedback_history.append({"name": name, "feedback": feedback})
@@ -239,7 +239,7 @@ elif selected_tab == "Help":
         """
         Displays the collected feedback history from session state, only if checkbox is selected.
         """
-        if st.checkbox("Show Previous Feedback"):
+        if st.checkbox("**Show Previous Feedback**"):
             st.header("Previous Feedback")
             if st.session_state.feedback_history:
                 for i, entry in enumerate(st.session_state.feedback_history, 1):
