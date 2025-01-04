@@ -62,7 +62,7 @@ st.markdown(
     <style>
         /* Make sidebar background gray */
         [data-testid="stSidebar"] {
-            background-color: #D3D3D3; /* Light gray */
+            background-color: #E6F0FF; /* Light blue */
         }
 
         /* Make sidebar tabs bold */
