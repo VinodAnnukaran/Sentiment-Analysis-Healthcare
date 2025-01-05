@@ -120,7 +120,7 @@ elif selected_tab == "Dataset Overview":
 
         # Display original data
         #st.write("Original Data:")
-        st.dataframe(st.session_state.data_hc)
+        #st.dataframe(st.session_state.data_hc)
     
         # Identify duplicates
         duplicates = st.session_state.data_hc[st.session_state.data_hc.duplicated()]
@@ -129,21 +129,21 @@ elif selected_tab == "Dataset Overview":
         # Display number of duplicates and duplicate rows
         #st.write(f"Number of duplicate rows: {num_duplicates}")
         #st.write("Duplicate Rows:")
-        st.dataframe(duplicates)
+        #st.dataframe(duplicates)
     
         # Drop duplicates and reset index
         st.session_state.data_hc = st.session_state.data_hc.drop_duplicates().reset_index(drop=True)
     
+        # Show the shape of the dataset (number of rows and columns)
+        st.write(f"### Dataset Shape: {st.session_state.data_hc.shape[0]} rows, {st.session_state.data_hc.shape[1]} columns")
+
         # Display cleaned data
-        #st.write("Data after removing duplicates:")
+        st.write("Data after removing duplicates:")
         st.dataframe(st.session_state.data_hc)
 
         # Display dataset preview and shape information
         st.write("### Dataset Preview")
         st.dataframe(st.session_state.data_hc.head())
-
-        # Show the shape of the dataset (number of rows and columns)
-        st.write(f"### Dataset Shape: {st.session_state.data_hc.shape[0]} rows, {st.session_state.data_hc.shape[1]} columns")
         
         # Define the columns to be removed
         columns_to_remove = [
