@@ -161,6 +161,47 @@ elif selected_tab == "Dataset Overview":
         st.write("Dataset Preview:")
         st.dataframe(st.session_state.data_hc.head())
 
+        ##############################################################
+
+        # Step 1: Identify records to delete
+        if 'HCAHPS Answer Description' in st.session_state.data_hc.columns and 'Patient Survey Star Rating' in st.session_state.data_hc.columns:
+            # Filter data for records matching the conditions
+            records_to_delete = st.session_state.data_hc[
+                (st.session_state.data_hc['HCAHPS Answer Description'] == 'Summary star rating') &
+                (st.session_state.data_hc['Patient Survey Star Rating'] == 'Not Available')
+            ]
+    
+            # Extract Facility IDs from the filtered records
+            facility_ids_to_delete = records_to_delete['Facility ID'].unique()
+    
+            # Display the Facility IDs to delete
+            st.write("Facility IDs to delete:")
+            st.write(facility_ids_to_delete)
+    
+            # Step 2: Delete relevant records
+            # Filter out records with the identified Facility IDs
+            data_hc_cleaned = st.session_state.data_hc[
+                ~st.session_state.data_hc['Facility ID'].isin(facility_ids_to_delete)
+            ]
+
+            # Store the cleaned data in session state
+            st.session_state.cleaned_data = data_hc_cleaned
+    
+            # Display the dataset shapes for validation
+            st.write(f"Original dataset shape: {st.session_state.data_hc.shape}")
+            st.write(f"Cleaned dataset shape: {data_hc_cleaned.shape}")
+  
+            # Optionally display the cleaned dataset
+            st.write("Cleaned Dataset:")
+            st.dataframe(data_hc_cleaned)
+        else:
+            # Handle missing columns gracefully
+            st.error("The required columns 'HCAHPS Answer Description' or 'Patient Survey Star Rating' are missing in the uploaded file. Please upload a valid dataset.")
+            st.write("Available columns:")
+            st.write(st.session_state.data_hc.columns.tolist())
+
+        ##############################################################
+
         # Convert to numeric, forcing non-numeric values to NaN
         st.session_state.data_hc['Patient Survey Star Rating'] = pd.to_numeric(st.session_state.data_hc['Patient Survey Star Rating'], errors='coerce')
         st.session_state.data_hc['HCAHPS Answer Percent'] = pd.to_numeric(st.session_state.data_hc['HCAHPS Answer Percent'], errors='coerce')
@@ -168,7 +209,6 @@ elif selected_tab == "Dataset Overview":
         st.session_state.data_hc['Number of Completed Surveys'] = pd.to_numeric(st.session_state.data_hc['Number of Completed Surveys'], errors='coerce')
         st.session_state.data_hc['Survey Response Rate Percent'] = pd.to_numeric(st.session_state.data_hc['Survey Response Rate Percent'], errors='coerce')
 
- 
         #Distribution of Patient Survey Star Rating
         # Define the columns to exclude
         exclude_columns = [
