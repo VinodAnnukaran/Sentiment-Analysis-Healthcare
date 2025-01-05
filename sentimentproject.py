@@ -135,7 +135,7 @@ elif selected_tab == "Dataset Overview":
         st.session_state.data_hc = st.session_state.data_hc.drop_duplicates().reset_index(drop=True)
     
         # Show the shape of the dataset (number of rows and columns)
-        st.write(f"### Dataset Shape: {st.session_state.data_hc.shape[0]} rows, {st.session_state.data_hc.shape[1]} columns")
+        #st.write(f"### Dataset Shape: {st.session_state.data_hc.shape[0]} rows, {st.session_state.data_hc.shape[1]} columns")
 
         # Display cleaned data
         #st.write("Data after removing duplicates:")
@@ -158,8 +158,8 @@ elif selected_tab == "Dataset Overview":
 
         # Display the updated dataset preview
         #st.write("### Updated Dataset Preview:")
-        st.write("Dataset Preview:")
-        st.dataframe(st.session_state.data_hc.head())
+        #st.write("Dataset Preview:")
+        #st.dataframe(st.session_state.data_hc.head())
 
         ##############################################################
 
@@ -175,8 +175,8 @@ elif selected_tab == "Dataset Overview":
             facility_ids_to_delete = records_to_delete['Facility ID'].unique()
     
             # Display the Facility IDs to delete
-            st.write("Facility IDs to delete:")
-            st.write(facility_ids_to_delete)
+            #st.write("Facility IDs to delete:")
+            #st.write(facility_ids_to_delete)
     
             # Step 2: Delete relevant records
             # Filter out records with the identified Facility IDs
@@ -188,11 +188,14 @@ elif selected_tab == "Dataset Overview":
             st.session_state.cleaned_data = data_hc_cleaned
     
             # Display the dataset shapes for validation
-            st.write(f"Original dataset shape: {st.session_state.data_hc.shape}")
-            st.write(f"Cleaned dataset shape: {data_hc_cleaned.shape}")
+            #st.write(f"Original dataset shape: {st.session_state.data_hc.shape}")
+            #st.write(f"Dataset Overview: {data_hc_cleaned.shape}")
+
+            # Show the shape of the dataset (number of rows and columns)
+            st.write(f"### Dataset Shape: {data_hc_cleaned.shape[0]} rows, {data_hc_cleaned.shape[1]} columns")
   
             # Optionally display the cleaned dataset
-            st.write("Cleaned Dataset:")
+            st.write("Dataset Preview:")
             st.dataframe(data_hc_cleaned)
         else:
             # Handle missing columns gracefully
