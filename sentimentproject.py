@@ -118,6 +118,26 @@ elif selected_tab == "Dataset Overview":
         # Read the CSV file into the session state variable
         st.session_state.data_hc = pd.read_csv(uploaded_file)
 
+        # Display original data
+        st.write("Original Data:")
+        st.dataframe(st.session_state.data_hc)
+    
+        # Identify duplicates
+        duplicates = st.session_state.data_hc[st.session_state.data_hc.duplicated()]
+        num_duplicates = len(duplicates)
+    
+        # Display number of duplicates and duplicate rows
+        st.write(f"Number of duplicate rows: {num_duplicates}")
+        st.write("Duplicate Rows:")
+        st.dataframe(duplicates)
+    
+        # Drop duplicates and reset index
+        st.session_state.data_hc = st.session_state.data_hc.drop_duplicates().reset_index(drop=True)
+    
+        # Display cleaned data
+        st.write("Data after removing duplicates:")
+        st.dataframe(st.session_state.data_hc)
+
         # Display dataset preview and shape information
         st.write("### Dataset Preview")
         st.dataframe(st.session_state.data_hc.head())
