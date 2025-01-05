@@ -138,12 +138,12 @@ elif selected_tab == "Dataset Overview":
         st.write(f"### Dataset Shape: {st.session_state.data_hc.shape[0]} rows, {st.session_state.data_hc.shape[1]} columns")
 
         # Display cleaned data
-        st.write("Data after removing duplicates:")
-        st.dataframe(st.session_state.data_hc)
+        #st.write("Data after removing duplicates:")
+        #st.dataframe(st.session_state.data_hc)
 
         # Display dataset preview and shape information
-        st.write("### Dataset Preview")
-        st.dataframe(st.session_state.data_hc.head())
+        #st.write("### Dataset Preview")
+        #st.dataframe(st.session_state.data_hc.head())
         
         # Define the columns to be removed
         columns_to_remove = [
@@ -157,7 +157,8 @@ elif selected_tab == "Dataset Overview":
         st.session_state.data_hc = st.session_state.data_hc.drop(columns=[col for col in columns_to_remove if col in st.session_state.data_hc.columns])
 
         # Display the updated dataset preview
-        st.write("### Updated Dataset Preview:")
+        #st.write("### Updated Dataset Preview:")
+        st.write("Dataset Preview:")
         st.dataframe(st.session_state.data_hc.head())
 
         # Convert to numeric, forcing non-numeric values to NaN
