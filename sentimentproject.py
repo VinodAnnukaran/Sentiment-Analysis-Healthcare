@@ -488,25 +488,25 @@ elif selected_tab == "Dataset Overview":
         def main():
             st.title("Feedback Categorization and Visualization")
         
-                # Categorize feedback
-                st.session_state.data_hc['Feedback Category'] = st.session_state.data_hc['Cleaned_Answer_Description'].apply(categorize_feedback)
-        
-                # Group by category
-                feedback_volume = st.session_state.data_hc['Feedback Category'].value_counts()
-        
-                # Display results
-                st.write("### Volume of Feedback Across Categories")
-                st.bar_chart(feedback_volume)
-        
-                # Visualize using Seaborn
-                st.write("### Detailed Feedback Category Distribution")
-                plt.figure(figsize=(14, 8))
-                sns.barplot(x=feedback_volume.values, y=feedback_volume.index, palette="viridis")
-                plt.title("Volume of Feedback Across Categories", fontsize=16)
-                plt.xlabel("Volume of Feedback")
-                plt.ylabel("Feedback Category")
-                plt.tight_layout()
-                st.pyplot(plt)
+            # Categorize feedback
+            st.session_state.data_hc['Feedback Category'] = st.session_state.data_hc['Cleaned_Answer_Description'].apply(categorize_feedback)
+    
+            # Group by category
+            feedback_volume = st.session_state.data_hc['Feedback Category'].value_counts()
+    
+            # Display results
+            st.write("### Volume of Feedback Across Categories")
+            st.bar_chart(feedback_volume)
+    
+            # Visualize using Seaborn
+            st.write("### Detailed Feedback Category Distribution")
+            plt.figure(figsize=(14, 8))
+            sns.barplot(x=feedback_volume.values, y=feedback_volume.index, palette="viridis")
+            plt.title("Volume of Feedback Across Categories", fontsize=16)
+            plt.xlabel("Volume of Feedback")
+            plt.ylabel("Feedback Category")
+            plt.tight_layout()
+            st.pyplot(plt)
         
 ###############################################        
            
