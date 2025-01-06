@@ -504,8 +504,7 @@ elif selected_tab == "Dataset Overview":
                 #st.write(unique_categories)
 
                 # Display the unique categories in a simple list format
-                for category in unique_categories:
-                    st.write(category)
+                st.markdown("\n".join([f"- {category}" for category in unique_categories]))
                 
                 # Visualize feedback volume
                 #st.write("### Volume of Feedback Across Categories")
