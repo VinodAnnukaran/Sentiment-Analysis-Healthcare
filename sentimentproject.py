@@ -37,6 +37,9 @@ import streamlit as st
 # Ensure necessary NLTK resources are downloaded
 nltk.download('punkt')
 nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('punkt_tab')
+
 
 # Define tabs
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
@@ -264,9 +267,116 @@ elif selected_tab == "Dataset Overview":
             
 ###############################################
 
+        # Initialize lemmatizer and VADER analyzer
+        lemmatizer = WordNetLemmatizer()
+        analyzer = SentimentIntensityAnalyzer()
+        
+        # Function to clean and preprocess text
+        def clean_text(text):
+            if not isinstance(text, str):
+                text = str(text)
+        
+            # Step 1: Remove HTML tags and URLs
+            text = re.sub(r'<.*?>', '', text)  # Remove HTML tags
+            text = re.sub(r'http\S+|www\S+', '', text)  # Remove URLs
+        
+            # Step 2: Normalize text
+            text = text.lower()  # Convert to lowercase
+            text = re.sub(r'[^a-z\s]', '', text)  # Remove special characters and punctuation
+        
+            # Tokenize and remove stopwords
+            tokens = word_tokenize(text)
+            stop_words = set(stopwords.words('english'))
+            tokens = [word for word in tokens if word not in stop_words]
+        
+            # Perform lemmatization
+            tokens = [lemmatizer.lemmatize(word) for word in tokens]
+        
+            return ' '.join(tokens)
+        
+        # Function to label sentiment using TextBlob
+        def label_sentiment_textblob(text):
+            polarity = TextBlob(text).sentiment.polarity
+            if polarity > 0:
+                return 'positive'
+            elif polarity == 0:
+                return 'neutral'
+            else:
+                return 'negative'
+        
+        # Function to label sentiment using VADER with adjustable threshold
+        def label_sentiment_vader_adjusted(text, neutral_threshold=0.1):
+            sentiment_score = analyzer.polarity_scores(text)
+            compound_score = sentiment_score['compound']
+            if compound_score > neutral_threshold:
+                return 'positive'
+            elif compound_score < -neutral_threshold:
+                return 'negative'
+            else:
+                return 'neutral'
+        
+        # Function to refine sentiment based on rules
+        def refine_sentiment(row):
+            text = row['Cleaned_Answer_Description']
+            textblob_sentiment = row['TextBlob_Sentiment']
+            vader_sentiment = row['VADER_Sentiment']
+        
+            # Override if specific terms are present
+            if "never" in text:
+                return 'negative'
+        
+            # Default to VADER if results mismatch
+            if textblob_sentiment != vader_sentiment:
+                return vader_sentiment
+            return textblob_sentiment
+        
+        # Streamlit app
+        def main():
+        
+                # Ensure the required column exists
+                if 'HCAHPS Answer Description' in data.columns:
+        
+                    # Clean text data
+                    st.session_state.data_hc['Cleaned_Answer_Description'] = (
+                        st.session_state.data_hc['HCAHPS Answer Description']
+                        .fillna("")
+                        .apply(clean_text)
+                    )
+        
+                    # Apply TextBlob sentiment labeling
+                    st.session_state.data_hc['TextBlob_Sentiment'] = (
+                        st.session_state.data_hc['Cleaned_Answer_Description']
+                        .apply(label_sentiment_textblob)
+                    )
+        
+                    # Apply VADER sentiment labeling
+                    st.session_state.data_hc['VADER_Sentiment'] = (
+                        st.session_state.data_hc['Cleaned_Answer_Description']
+                        .apply(label_sentiment_vader_adjusted)
+                    )
+        
+                    # Add polarity scores for analysis
+                    st.session_state.data_hc['TextBlob_Polarity'] = (
+                        st.session_state.data_hc['Cleaned_Answer_Description']
+                        .apply(lambda x: TextBlob(x).sentiment.polarity)
+                    )
+                    st.session_state.data_hc['VADER_Compound'] = (
+                        st.session_state.data_hc['Cleaned_Answer_Description']
+                        .apply(lambda x: analyzer.polarity_scores(x)['compound'])
+                    )
+        
+                    # Refine sentiment
+                    st.session_state.data_hc['Final_Sentiment'] = (
+                        st.session_state.data_hc.apply(refine_sentiment, axis=1)
+                    )
+        
+                else:
+                    st.error("The uploaded file must contain the column 'HCAHPS Answer Description'.")
+        
+        if __name__ == "__main__":
+            main()
+
     
-
-
 ###############################################    
            
 
@@ -406,3 +516,4 @@ elif selected_tab == "Help":
 
     # Close the div for the box
     st.markdown('</div>', unsafe_allow_html=True)
+
