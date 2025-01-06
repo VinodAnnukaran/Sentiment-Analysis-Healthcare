@@ -350,85 +350,85 @@ elif selected_tab == "Dataset Overview":
             
             return textblob_sentiment
 
-            # Categorize feedback based on description
-            def categorize_feedback(description):
-                description = description.lower()  # Convert to lowercase for easier matching
-                
-               # Define the categories with associated keywords
-                categories = {
-                    "Nurse Communication": [
-                        "nurse always communicated well", 
-                        "nurse sometimes never communicated well", 
-                        "nurse usually communicated well"
-                    ],
-                    "Nurse Treatment": [
-                        "nurse always treated courtesy respect", 
-                        "nurse sometimes never treated courtesy respect", 
-                        "nurse usually treated courtesy respect"
-                    ],
-                    "Nurse Listening": [
-                        "nurse always listened carefully", 
-                        "nurse sometimes never listened carefully", 
-                        "nurse usually listened carefully"
-                    ],
-                    "Nurse Explanation": [
-                        "nurse always explained thing could understand", 
-                        "nurse sometimes never explained thing could understand", 
-                        "nurse usually explained thing could understand"
-                    ],
-                    "Doctor Communication": [
-                        "doctor always communicated well", 
-                        "doctor sometimes never communicated well", 
-                        "doctor usually communicated well"
-                    ],
-                    "Doctor Treatment": [
-                        "doctor always treated courtesy respect", 
-                        "doctor sometimes never treated courtesy respect", 
-                        "doctor usually treated courtesy respect"
-                    ],
-                    "Doctor Listening": [
-                        "doctor always listened carefully", 
-                        "doctor sometimes never listened carefully", 
-                        "doctor usually listened carefully"
-                    ],
-                    "Doctor Explanation": [
-                        "doctor always explained thing could understand", 
-                        "doctor sometimes never explained thing could understand", 
-                        "doctor usually explained thing could understand"
-                    ],
-                    "Staff Responsiveness": [
-                        "patient always received help soon wanted", 
-                        "patient sometimes never received help soon wanted", 
-                        "patient usually received help soon wanted"
-                    ],
-                    "Hospital Cleanliness": [
-                        "room always clean", 
-                        "room sometimes never clean", 
-                        "room usually clean"
-                    ],
-                    "Hospital Ward Quietness": [
-                        "always quiet night", 
-                        "sometimes never quiet night", 
-                        "usually quiet night"
-                    ],
-                    "Hospital Rating": [
-                        "patient gave rating lower low", 
-                        "patient gave rating medium", 
-                        "patient gave rating high"
-                    ],
-                    "Recommend Hospital": [
-                        "patient would recommend hospital probably would definitely would recommend", 
-                        "yes patient would definitely recommend hospital", 
-                        "yes patient would probably recommend hospital"
-                    ]
-                }
-                
-                for category, phrases in categories.items():
-                    if any(phrase in description for phrase in phrases):
-                        return category
+        # Categorize feedback based on description
+        def categorize_feedback(description):
+            description = description.lower()  # Convert to lowercase for easier matching
             
-                return "Other"  # Return "Other" if no category matches
+           # Define the categories with associated keywords
+            categories = {
+                "Nurse Communication": [
+                    "nurse always communicated well", 
+                    "nurse sometimes never communicated well", 
+                    "nurse usually communicated well"
+                ],
+                "Nurse Treatment": [
+                    "nurse always treated courtesy respect", 
+                    "nurse sometimes never treated courtesy respect", 
+                    "nurse usually treated courtesy respect"
+                ],
+                "Nurse Listening": [
+                    "nurse always listened carefully", 
+                    "nurse sometimes never listened carefully", 
+                    "nurse usually listened carefully"
+                ],
+                "Nurse Explanation": [
+                    "nurse always explained thing could understand", 
+                    "nurse sometimes never explained thing could understand", 
+                    "nurse usually explained thing could understand"
+                ],
+                "Doctor Communication": [
+                    "doctor always communicated well", 
+                    "doctor sometimes never communicated well", 
+                    "doctor usually communicated well"
+                ],
+                "Doctor Treatment": [
+                    "doctor always treated courtesy respect", 
+                    "doctor sometimes never treated courtesy respect", 
+                    "doctor usually treated courtesy respect"
+                ],
+                "Doctor Listening": [
+                    "doctor always listened carefully", 
+                    "doctor sometimes never listened carefully", 
+                    "doctor usually listened carefully"
+                ],
+                "Doctor Explanation": [
+                    "doctor always explained thing could understand", 
+                    "doctor sometimes never explained thing could understand", 
+                    "doctor usually explained thing could understand"
+                ],
+                "Staff Responsiveness": [
+                    "patient always received help soon wanted", 
+                    "patient sometimes never received help soon wanted", 
+                    "patient usually received help soon wanted"
+                ],
+                "Hospital Cleanliness": [
+                    "room always clean", 
+                    "room sometimes never clean", 
+                    "room usually clean"
+                ],
+                "Hospital Ward Quietness": [
+                    "always quiet night", 
+                    "sometimes never quiet night", 
+                    "usually quiet night"
+                ],
+                "Hospital Rating": [
+                    "patient gave rating lower low", 
+                    "patient gave rating medium", 
+                    "patient gave rating high"
+                ],
+                "Recommend Hospital": [
+                    "patient would recommend hospital probably would definitely would recommend", 
+                    "yes patient would definitely recommend hospital", 
+                    "yes patient would probably recommend hospital"
+                ]
+            }
+                
+            for category, phrases in categories.items():
+                if any(phrase in description for phrase in phrases):
+                    return category
         
+            return "Other"  # Return "Other" if no category matches
+    
         # Streamlit app
         def main():
             """
@@ -442,12 +442,6 @@ elif selected_tab == "Dataset Overview":
                     .apply(clean_text)
                 )
 
-                # Apply feedback categorization
-                st.session_state.data_hc['Feedback Category'] = (
-                    st.session_state.data_hc['Cleaned_Answer_Description']
-                    .apply(categorize_feedback)
-                )
-        
                 # Apply TextBlob sentiment labeling
                 st.session_state.data_hc['TextBlob_Sentiment'] = (
                     st.session_state.data_hc['Cleaned_Answer_Description']
@@ -473,6 +467,12 @@ elif selected_tab == "Dataset Overview":
                 # Refine sentiment
                 st.session_state.data_hc['Final_Sentiment'] = (
                     st.session_state.data_hc.apply(refine_sentiment, axis=1)
+                )
+
+                # Apply feedback categorization
+                st.session_state.data_hc['Feedback Category'] = (
+                    st.session_state.data_hc['Cleaned_Answer_Description']
+                    .apply(categorize_feedback)
                 )
 
                 # Display the cleaned data and results in the app
