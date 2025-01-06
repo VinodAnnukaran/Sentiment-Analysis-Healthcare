@@ -589,70 +589,70 @@ elif selected_tab == "Sentiment Insights":
     
 ###########################
     
-        # Preprocessing function to tokenize and remove stopwords
-        def preprocess_text(text):
-            stop_words = set(stopwords.words('english'))
-            exclude_keywords = {'patient', 'nurse', 'hospital', 'doctor'}  # Keywords to exclude
-            tokens = word_tokenize(text.lower())
-            return [word for word in tokens if word.isalpha() and word not in stop_words and word not in exclude_keywords]        
-        
-        filtered_data = st.session_state.data_hc[~st.session_state.data_hc['HCAHPS Answer Description'].str.contains('linear mean score|star rating', case=False, na=False)]
-        
-        # Display sentiment distribution (Final Sentiment)
-        st.write("### Sentiment Distribution")
+    # Preprocessing function to tokenize and remove stopwords
+    def preprocess_text(text):
+        stop_words = set(stopwords.words('english'))
+        exclude_keywords = {'patient', 'nurse', 'hospital', 'doctor'}  # Keywords to exclude
+        tokens = word_tokenize(text.lower())
+        return [word for word in tokens if word.isalpha() and word not in stop_words and word not in exclude_keywords]        
+    
+    filtered_data = st.session_state.data_hc[~st.session_state.data_hc['HCAHPS Answer Description'].str.contains('linear mean score|star rating', case=False, na=False)]
+    
+    # Display sentiment distribution (Final Sentiment)
+    st.write("### Sentiment Distribution")
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.countplot(x='Final_Sentiment', data=filtered_data, palette='Set2', ax=ax)
+    
+    # Add data labels
+    for p in ax.patches:
+        ax.annotate(f'{p.get_height()}',
+                    (p.get_x() + p.get_width() / 2, p.get_height()),
+                    ha='center', va='center', fontsize=12, color='black', xytext=(0, 8), textcoords='offset points')
+    
+    # Title and labels
+    ax.set_title('Distribution of Sentiments', fontsize=16)
+    ax.set_xlabel('Sentiment', fontsize=14)
+    ax.set_ylabel('Count', fontsize=14)
+    st.pyplot(fig)
+    
+    # Helper function to get keywords and plot
+    def plot_top_keywords(text, title, palette):
+        words = preprocess_text(text)
+        top_keywords = Counter(words).most_common(10)
+        df = pd.DataFrame(top_keywords, columns=['Keyword', 'Count'])
+    
         fig, ax = plt.subplots(figsize=(10, 6))
-        sns.countplot(x='Final_Sentiment', data=filtered_data, palette='Set2', ax=ax)
-        
-        # Add data labels
-        for p in ax.patches:
-            ax.annotate(f'{p.get_height()}',
-                        (p.get_x() + p.get_width() / 2, p.get_height()),
-                        ha='center', va='center', fontsize=12, color='black', xytext=(0, 8), textcoords='offset points')
-        
-        # Title and labels
-        ax.set_title('Distribution of Sentiments', fontsize=16)
-        ax.set_xlabel('Sentiment', fontsize=14)
-        ax.set_ylabel('Count', fontsize=14)
+        sns.barplot(x='Count', y='Keyword', data=df, palette=palette, ax=ax)
+        ax.set_title(title, fontsize=16)
+        ax.set_xlabel('Count', fontsize=14)
+        ax.set_ylabel('Keyword', fontsize=14)
         st.pyplot(fig)
-        
-        # Helper function to get keywords and plot
-        def plot_top_keywords(text, title, palette):
-            words = preprocess_text(text)
-            top_keywords = Counter(words).most_common(10)
-            df = pd.DataFrame(top_keywords, columns=['Keyword', 'Count'])
-        
-            fig, ax = plt.subplots(figsize=(10, 6))
-            sns.barplot(x='Count', y='Keyword', data=df, palette=palette, ax=ax)
-            ax.set_title(title, fontsize=16)
-            ax.set_xlabel('Count', fontsize=14)
-            ax.set_ylabel('Keyword', fontsize=14)
-            st.pyplot(fig)
-        
-        # Extract text for each sentiment
-        positive_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'positive']['Cleaned_Answer_Description'])
-        negative_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'negative']['Cleaned_Answer_Description'])
-        neutral_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'neutral']['Cleaned_Answer_Description'])
-        
-        # Plot top keywords
-        st.write("### Top Keywords by Sentiment")
-        plot_top_keywords(positive_text, 'Top 10 Positive Keywords', 'Greens_r')
-        plot_top_keywords(negative_text, 'Top 10 Negative Keywords', 'Reds_r')
-        
-        # Word cloud generation function
-        def generate_wordcloud(text, title):
-            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-            fig, ax = plt.subplots(figsize=(10, 6))
-            ax.imshow(wordcloud, interpolation='bilinear')
-            ax.set_title(title, fontsize=16)
-            ax.axis('off')
-            st.pyplot(fig)
-        
-        # Generate word clouds for all sentiments
-        st.write("### Word Clouds")
-        generate_wordcloud(' '.join(filtered_data['Cleaned_Answer_Description']), 'Word Cloud for All Text')
-        generate_wordcloud(positive_text, 'Word Cloud for Positive Sentiment')
-        generate_wordcloud(negative_text, 'Word Cloud for Negative Sentiment')
-        generate_wordcloud(neutral_text, 'Word Cloud for Neutral Sentiment')
+    
+    # Extract text for each sentiment
+    positive_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'positive']['Cleaned_Answer_Description'])
+    negative_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'negative']['Cleaned_Answer_Description'])
+    neutral_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'neutral']['Cleaned_Answer_Description'])
+    
+    # Plot top keywords
+    st.write("### Top Keywords by Sentiment")
+    plot_top_keywords(positive_text, 'Top 10 Positive Keywords', 'Greens_r')
+    plot_top_keywords(negative_text, 'Top 10 Negative Keywords', 'Reds_r')
+    
+    # Word cloud generation function
+    def generate_wordcloud(text, title):
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.imshow(wordcloud, interpolation='bilinear')
+        ax.set_title(title, fontsize=16)
+        ax.axis('off')
+        st.pyplot(fig)
+    
+    # Generate word clouds for all sentiments
+    st.write("### Word Clouds")
+    generate_wordcloud(' '.join(filtered_data['Cleaned_Answer_Description']), 'Word Cloud for All Text')
+    generate_wordcloud(positive_text, 'Word Cloud for Positive Sentiment')
+    generate_wordcloud(negative_text, 'Word Cloud for Negative Sentiment')
+    generate_wordcloud(neutral_text, 'Word Cloud for Neutral Sentiment')
 
 
 
