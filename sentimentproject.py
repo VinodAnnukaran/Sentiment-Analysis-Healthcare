@@ -373,11 +373,13 @@ elif selected_tab == "Dataset Overview":
                 else:
                     st.error("The uploaded file must contain the column 'HCAHPS Answer Description'.")
         
-        if __name__ == "__main__":
-            main()
-
     
 ###############################################    
+
+    
+
+
+###############################################        
            
 
     else:
