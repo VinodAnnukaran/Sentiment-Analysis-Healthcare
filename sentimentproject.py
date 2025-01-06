@@ -347,7 +347,7 @@ elif selected_tab == "Dataset Overview":
             # Default to VADER if results mismatch
             if textblob_sentiment != vader_sentiment:
                 return vader_sentiment
-            else:
+            
             return textblob_sentiment
 
             # Categorize feedback based on description
