@@ -534,36 +534,40 @@ elif selected_tab == "Dataset Overview":
                 compliments = st.session_state.data_hc[st.session_state.data_hc['Feedback Keyword'] == 'Compliment']
         
                 # Get the top complaints and top compliments
-                top_complaints = complaints['Cleaned_Answer_Description'].value_counts().head(10)
-                top_compliments = compliments['Cleaned_Answer_Description'].value_counts().head(10)
+                top_complaints = complaints['Cleaned_Answer_Description'].value_counts().head(10).index.tolist()
+                top_compliments = compliments['Cleaned_Answer_Description'].value_counts().head(10).index.tolist()
+
+                # Sort the descriptions alphabetically
+                top_complaints_sorted = sorted(top_complaints)
+                top_compliments_sorted = sorted(top_compliments)
                 
                 # Display the top complaints and top compliments in Streamlit
-                #st.write("### Top Complaints:")
-                #st.write(top_complaints)
+                st.write("### Top Complaints")
+                st.write("\n".join(top_complaints_sorted))
                 
-                #st.write("\n### Top Compliments:")
-                #st.write(top_compliments)
+                st.write("\n### Top Compliments")
+                st.write("\n".join(top_compliments_sorted))
 
                 # Visualize the top complaints and compliments
                 #st.write("### Visualizations:")
         
                 # Plotting the top complaints and compliments
-                fig, ax = plt.subplots(1, 2, figsize=(14, 8))
+                #fig, ax = plt.subplots(1, 2, figsize=(14, 8))
         
                 # Top Complaints Visualization
-                sns.barplot(x=top_complaints.values, y=top_complaints.index, palette="coolwarm", ax=ax[0])
-                ax[0].set_title("Top Complaints", fontsize=16)
-                ax[0].set_xlabel("Frequency")
-                ax[0].set_ylabel("Complaint Description")
+                #sns.barplot(x=top_complaints.values, y=top_complaints.index, palette="coolwarm", ax=ax[0])
+                #ax[0].set_title("Top Complaints", fontsize=16)
+                #ax[0].set_xlabel("Frequency")
+                #ax[0].set_ylabel("Complaint Description")
         
                 # Top Compliments Visualization
-                sns.barplot(x=top_compliments.values, y=top_compliments.index, palette="viridis", ax=ax[1])
-                ax[1].set_title("Top Compliments", fontsize=16)
-                ax[1].set_xlabel("Frequency")
-                ax[1].set_ylabel("Compliment Description")
+                #sns.barplot(x=top_compliments.values, y=top_compliments.index, palette="viridis", ax=ax[1])
+                #ax[1].set_title("Top Compliments", fontsize=16)
+                #ax[1].set_xlabel("Frequency")
+                #ax[1].set_ylabel("Compliment Description")
         
                 # Display the plot in Streamlit
-                st.pyplot(fig)
+                #st.pyplot(fig)
 
 ###################################             
 
