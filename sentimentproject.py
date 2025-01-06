@@ -570,20 +570,12 @@ elif selected_tab == "Dataset Overview":
                 # Display the plot in Streamlit
                 #st.pyplot(fig)
 
-###################################             
-
+    ###################################
         
         # Ensures this runs only when executed directly
         if __name__ == "__main__":
             main()
                 
-###############################################
-        
-    
-
-###############################################        
-           
-
     else:
         st.warning("Please upload a CSV file to proceed.")
 
