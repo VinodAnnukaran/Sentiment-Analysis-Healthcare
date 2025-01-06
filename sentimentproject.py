@@ -782,7 +782,7 @@ elif selected_tab == "Recommendations":
         
         # Display recommendations
         st.write("Recommendations based on feedback:")
-        st.write(facility_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendati
+        st.write(facility_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
 
         
     else:
