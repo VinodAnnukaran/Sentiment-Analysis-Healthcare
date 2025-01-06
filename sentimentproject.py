@@ -762,16 +762,16 @@ elif selected_tab == "Recommendations":
         facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
         
         # Show data related to the selected facility
-        st.write(f"Feedback data for {facility_name}:")
+        #st.write(f"Feedback data for {facility_name}:")
         #st.write(facility_data)
-        st.write(facility_data[['Feedback Category','HCAHPS Answer Description', 'Patient Survey Star Rating']])
+        #st.write(facility_data[['Feedback Category','HCAHPS Answer Description', 'Patient Survey Star Rating']])
         
         # Selecting the column 'HCAHPS Answer Description' and 'Final_Sentiment'
         facility_data['Feedback_Category'] = facility_data['HCAHPS Answer Description'].apply(categorize_feedback)
         
         # Display the categories of feedback
         st.write(f"Feedback categories for {facility_name}:")
-        st.write(facility_data[['HCAHPS Answer Description', 'Feedback_Category', 'Final_Sentiment']])
+        st.write(facility_data[['Feedback Category','HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
         
         # Generate recommendations for each row based on sentiment and category
         facility_data['Recommendation'] = facility_data.apply(lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1)
