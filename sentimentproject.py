@@ -416,7 +416,7 @@ elif selected_tab == "Dataset Overview":
                     "patient gave rating medium", 
                     "patient gave rating high"
                 ],
-                "Recommend Hospital": [
+                "Hospital Recommendation": [
                     "patient would recommend hospital probably would definitely would recommend", 
                     "yes patient would definitely recommend hospital", 
                     "yes patient would probably recommend hospital"
