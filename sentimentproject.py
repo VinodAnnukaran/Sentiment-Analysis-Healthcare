@@ -534,8 +534,8 @@ elif selected_tab == "Dataset Overview":
                 compliments = st.session_state.data_hc[st.session_state.data_hc['Feedback Keyword'] == 'Compliment']
         
                 # Get the top complaints and top compliments using the entire dataset
-                top_complaints = st.session_state.data_hc['Cleaned_Answer_Description'].value_counts().head(10)
-                top_compliments = st.session_state.data_hc['Cleaned_Answer_Description'].value_counts().head(10)
+                top_complaints = st.session_state.data_hc['complaints'].value_counts().head(10)
+                top_compliments = st.session_state.data_hc['compliments'].value_counts().head(10)
                 
                 # Display the top complaints and top compliments in Streamlit
                 st.write("### Top Complaints:")
