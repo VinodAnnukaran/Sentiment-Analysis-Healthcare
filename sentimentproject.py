@@ -760,6 +760,15 @@ elif selected_tab == "Recommendations":
         
         # Filter Data for the Selected Facility
         facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
+
+        # Filter out rows with "Linear Mean Score" and "Star Rating" in 'HCAHPS Answer Description'
+        filtered_data = facility_data[
+            ~facility_data['HCAHPS Answer Description'].isin(["Linear Mean Score", "Star Rating"])
+        ]
+
+        # Display the categories of feedback
+        st.write(f"Feedback categories for {facility_name}:")
+        st.write(filtered_data[['Feedback Category', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
         
         # Show data related to the selected facility
         #st.write(f"Feedback data for {facility_name}:")
