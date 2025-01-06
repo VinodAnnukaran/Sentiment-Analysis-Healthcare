@@ -507,6 +507,9 @@ elif selected_tab == "Dataset Overview":
             plt.ylabel("Feedback Category")
             plt.tight_layout()
             st.pyplot(plt)
+
+        if __name__ == "__main__":
+        main
         
 ###############################################        
            
