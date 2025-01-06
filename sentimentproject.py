@@ -538,14 +538,14 @@ elif selected_tab == "Dataset Overview":
                 top_compliments = compliments['Cleaned_Answer_Description'].value_counts().head(10)
                 
                 # Display the top complaints and top compliments in Streamlit
-                st.write("### Top Complaints:")
-                st.write(top_complaints)
+                #st.write("### Top Complaints:")
+                #st.write(top_complaints)
                 
-                st.write("\n### Top Compliments:")
-                st.write(top_compliments)
+                #st.write("\n### Top Compliments:")
+                #st.write(top_compliments)
 
                 # Visualize the top complaints and compliments
-                st.write("### Visualizations:")
+                #st.write("### Visualizations:")
         
                 # Plotting the top complaints and compliments
                 fig, ax = plt.subplots(1, 2, figsize=(14, 8))
