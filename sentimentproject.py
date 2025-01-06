@@ -655,12 +655,7 @@ elif selected_tab == "Sentiment Insights":
     generate_wordcloud(negative_text, 'Word Cloud for Negative Sentiment')
     generate_wordcloud(neutral_text, 'Word Cloud for Neutral Sentiment')
 
-
-
 ###########################
-    
-
-    
 
 ###########################################################################
 
@@ -768,7 +763,8 @@ elif selected_tab == "Recommendations":
         
         # Show data related to the selected facility
         st.write(f"Feedback data for {facility_name}:")
-        st.write(facility_data)
+        #st.write(facility_data)
+        st.write(facility_data[['HCAHPS Answer Description', 'Patient Survey Star Rating']])
         
         # Selecting the column 'HCAHPS Answer Description' and 'Final_Sentiment'
         facility_data['Feedback_Category'] = facility_data['HCAHPS Answer Description'].apply(categorize_feedback)
