@@ -769,18 +769,27 @@ elif selected_tab == "Recommendations":
         # Categorize feedback based on 'HCAHPS Answer Description'
         filtered_data['Feedback_Category'] = filtered_data['HCAHPS Answer Description'].apply(categorize_feedback)
         
-        # Generate recommendations for each row based on sentiment and category
-        filtered_data['Recommendation'] = filtered_data.apply(
+        # Display all feedback for the selected facility
+        st.write(f"All feedback for {facility_name}:")
+        st.write(filtered_data[['HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment', 'Feedback_Category']])
+        
+        # Feedback Selection
+        selected_feedback = st.selectbox(
+            "Select Feedback for Recommendation", 
+            filtered_data['HCAHPS Answer Description'].unique()
+        )
+        
+        # Filter data based on the selected feedback
+        feedback_data = filtered_data[filtered_data['HCAHPS Answer Description'] == selected_feedback]
+        
+        # Generate recommendation for the selected feedback
+        feedback_data['Recommendation'] = feedback_data.apply(
             lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
         )
         
-        # Display the filtered feedback categories
-        st.write(f"Feedback categories for {facility_name}:")
-        st.write(filtered_data[['Feedback Category', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
-        
-        # Display recommendations based on feedback
-        st.write("Recommendations based on feedback:")
-        st.write(filtered_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
+        # Display the recommendation for the selected feedback
+        st.write("Recommendation for the selected feedback:")
+        st.write(feedback_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
         
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
