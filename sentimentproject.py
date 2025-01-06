@@ -763,8 +763,8 @@ elif selected_tab == "Recommendations":
         
         # Show data related to the selected facility
         st.write(f"Feedback data for {facility_name}:")
-        st.write(facility_data)
-        #st.write(facility_data[['HCAHPS Answer Description', 'Patient Survey Star Rating']])
+        #st.write(facility_data)
+        st.write(facility_data[['Feedback Category','HCAHPS Answer Description', 'Patient Survey Star Rating']])
         
         # Selecting the column 'HCAHPS Answer Description' and 'Final_Sentiment'
         facility_data['Feedback_Category'] = facility_data['HCAHPS Answer Description'].apply(categorize_feedback)
