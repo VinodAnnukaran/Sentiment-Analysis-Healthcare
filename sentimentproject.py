@@ -489,10 +489,10 @@ elif selected_tab == "Dataset Overview":
             st.title("Feedback Categorization and Visualization")
         
                 # Categorize feedback
-                data_hc['Feedback Category'] = data_hc['Cleaned_Answer_Description'].apply(categorize_feedback)
+                st.session_state.data_hc['Feedback Category'] = st.session_state.data_hc['Cleaned_Answer_Description'].apply(categorize_feedback)
         
                 # Group by category
-                feedback_volume = data_hc['Feedback Category'].value_counts()
+                feedback_volume = st.session_state.data_hc['Feedback Category'].value_counts()
         
                 # Display results
                 st.write("### Volume of Feedback Across Categories")
