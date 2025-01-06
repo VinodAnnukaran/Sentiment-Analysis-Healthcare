@@ -481,12 +481,15 @@ elif selected_tab == "Dataset Overview":
 
                 # Group by category
                 #feedback_volume = st.session_state.data_hc['Feedback Category'].value_counts()
+
+                # Unique Feedback Categories
+                st.write("### Unique Feedback Categories")
+                unique_categories = st.session_state.data_hc['Feedback Category'].unique()
+                st.write(unique_categories)
         
                 # Visualize feedback volume
                 #st.write("### Volume of Feedback Across Categories")
                 #st.bar_chart(feedback_volume)
-                st.write("### Feedback Categories")
-                st.session_state.data_hc['Feedback Category']                
         
                 # Detailed Feedback Category Distribution
                 #st.write("### Detailed Feedback Category Distribution")
