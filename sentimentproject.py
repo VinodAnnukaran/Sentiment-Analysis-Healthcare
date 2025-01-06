@@ -376,9 +376,138 @@ elif selected_tab == "Dataset Overview":
     
 ###############################################    
 
-    
-
-
+        # Define a function to categorize feedback based on the provided categories
+        def categorize_feedback(description):
+            description = description.lower()  # Convert to lowercase for easier matching
+        
+            # Nurse communication categories
+            if "nurse always communicated well" in description:
+                return "Nurse Communication"
+            elif "nurse sometimes never communicated well" in description:
+                return "Nurse Communication"
+            elif "nurse usually communicated well" in description:
+                return "Nurse Communication"
+        
+            # Nurse treatment categories
+            elif "nurse always treated courtesy respect" in description:
+                return "Nurse Treatment"
+            elif "nurse sometimes never treated courtesy respect" in description:
+                return "Nurse Treatment"
+            elif "nurse usually treated courtesy respect" in description:
+                return "Nurse Treatment"
+        
+            # Nurse listening categories
+            elif "nurse always listened carefully" in description:
+                return "Nurse Listening"
+            elif "nurse sometimes never listened carefully" in description:
+                return "Nurse Listening"
+            elif "nurse usually listened carefully" in description:
+                return "Nurse Listening"
+        
+            # Nurse explanation categories
+            elif "nurse always explained thing could understand" in description:
+                return "Nurse Explanation"
+            elif "nurse sometimes never explained thing could understand" in description:
+                return "Nurse Explanation"
+            elif "nurse usually explained thing could understand" in description:
+                return "Nurse Explanation"
+        
+            # Doctor communication categories
+            elif "doctor always communicated well" in description:
+                return "Doctor Communication"
+            elif "doctor sometimes never communicated well" in description:
+                return "Doctor Communication"
+            elif "doctor usually communicated well" in description:
+                return "Doctor Communication"
+        
+            # Doctor treatment categories
+            elif "doctor always treated courtesy respect" in description:
+                return "Doctor Treatment"
+            elif "doctor sometimes never treated courtesy respect" in description:
+                return "Doctor Treatment"
+            elif "doctor usually treated courtesy respect" in description:
+                return "Doctor Treatment"
+        
+            # Doctor listening categories
+            elif "doctor always listened carefully" in description:
+                return "Doctor Listening"
+            elif "doctor sometimes never listened carefully" in description:
+                return "Doctor Listening"
+            elif "doctor usually listened carefully" in description:
+                return "Doctor Listening"
+        
+            # Doctor explanation categories
+            elif "doctor always explained thing could understand" in description:
+                return "Doctor Explanation"
+            elif "doctor sometimes never explained thing could understand" in description:
+                return "Doctor Explanation"
+            elif "doctor usually explained thing could understand" in description:
+                return "Doctor Explanation"
+        
+            # Patient help categories
+            elif "patient always received help soon wanted" in description:
+                return "Staff Responsiveness"
+            elif "patient sometimes never received help soon wanted" in description:
+                return "Staff Responsiveness"
+            elif "patient usually received help soon wanted" in description:
+                return "Staff Responsiveness"
+        
+            # Cleanliness categories
+            elif "room always clean" in description:
+                return "Hospital Cleanliness"
+            elif "room sometimes never clean" in description:
+                return "Hospital Cleanliness"
+            elif "room usually clean" in description:
+                return "Hospital Cleanliness"
+        
+            # Quietness categories
+            elif "always quiet night" in description:
+                return "Hospital Ward Quietness"
+            elif "sometimes never quiet night" in description:
+                return "Hospital Ward Quietness"
+            elif "usually quiet night" in description:
+                return "Hospital Ward Quietness"
+        
+            # Hospital rating categories
+            elif "patient gave rating lower low" in description:
+                return "Hospital Rating"
+            elif "patient gave rating medium" in description:
+                return "Hospital Rating"
+            elif "patient gave rating high" in description:
+                return "Hospital Rating"
+        
+            # Recommend hospital categories
+            elif "patient would recommend hospital probably would definitely would recommend" in description:
+                return "Recommend Hospital"
+            elif "yes patient would definitely recommend hospital" in description:
+                return "Recommend Hospital"
+            elif "yes patient would probably recommend hospital" in description:
+                return "Recommend Hospital"
+        
+        # Streamlit app starts here
+        def main():
+            st.title("Feedback Categorization and Visualization")
+        
+                # Categorize feedback
+                data_hc['Feedback Category'] = data_hc['Cleaned_Answer_Description'].apply(categorize_feedback)
+        
+                # Group by category
+                feedback_volume = data_hc['Feedback Category'].value_counts()
+        
+                # Display results
+                st.write("### Volume of Feedback Across Categories")
+                st.bar_chart(feedback_volume)
+        
+                # Visualize using Seaborn
+                st.write("### Detailed Feedback Category Distribution")
+                plt.figure(figsize=(14, 8))
+                sns.barplot(x=feedback_volume.values, y=feedback_volume.index, palette="viridis")
+                plt.title("Volume of Feedback Across Categories", fontsize=16)
+                plt.xlabel("Volume of Feedback")
+                plt.ylabel("Feedback Category")
+                plt.tight_layout()
+                st.pyplot(plt)
+        
 ###############################################        
            
 
