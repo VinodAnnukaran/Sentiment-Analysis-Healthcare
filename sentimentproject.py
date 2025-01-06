@@ -763,7 +763,7 @@ elif selected_tab == "Recommendations":
         
         # Filter out rows with "Linear Mean Score" and "Star Rating" in 'HCAHPS Answer Description'
         filtered_data = facility_data[
-            ~facility_data['HCAHPS Answer Description'].isin(["linear mean score", "star rating"])
+            ~facility_data['HCAHPS Answer Description'].str.lower().isin(["linear mean score", "star rating"])
         ]
         
         # Categorize feedback based on 'HCAHPS Answer Description'
