@@ -476,8 +476,8 @@ elif selected_tab == "Dataset Overview":
                 )
 
                 # Display the cleaned data and results in the app
-                st.write("Processed Sentiment Data:")
-                st.dataframe(st.session_state.data_hc[['Cleaned_Answer_Description', 'TextBlob_Sentiment', 'VADER_Sentiment', 'Final_Sentiment']])
+                #st.write("Processed Sentiment Data:")
+                #st.dataframe(st.session_state.data_hc[['Cleaned_Answer_Description', 'TextBlob_Sentiment', 'VADER_Sentiment', 'Final_Sentiment']])
 
                 # Group by category
                 #feedback_volume = st.session_state.data_hc['Feedback Category'].value_counts()
