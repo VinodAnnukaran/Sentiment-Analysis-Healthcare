@@ -369,12 +369,11 @@ elif selected_tab == "Dataset Overview":
                     st.session_state.data_hc['Final_Sentiment'] = (
                         st.session_state.data_hc.apply(refine_sentiment, axis=1)
                     )
-        
+                    
+        # Ensuring this runs only when executed directly
         if __name__ == "__main__":
-            main
-        
-    
-###############################################    
+            main()    
+       
 
         # Define a function to categorize feedback based on the provided categories
         def categorize_feedback(description):
@@ -508,9 +507,7 @@ elif selected_tab == "Dataset Overview":
             plt.tight_layout()
             st.pyplot(plt)
 
-        if __name__ == "__main__":
-        main
-        
+
 ###############################################        
            
 
