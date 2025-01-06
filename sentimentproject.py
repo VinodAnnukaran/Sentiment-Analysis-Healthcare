@@ -370,8 +370,8 @@ elif selected_tab == "Dataset Overview":
                         st.session_state.data_hc.apply(refine_sentiment, axis=1)
                     )
         
-                else:
-                    st.error("The uploaded file must contain the column 'HCAHPS Answer Description'.")
+            if __name__ == "__main__":
+                main
         
     
 ###############################################    
