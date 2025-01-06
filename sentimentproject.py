@@ -485,8 +485,12 @@ elif selected_tab == "Dataset Overview":
                 # Unique Feedback Categories
                 st.write("### Feedback Categories")
                 unique_categories = sorted(st.session_state.data_hc['Feedback Category'].unique())
-                st.write(unique_categories)
-        
+                #st.write(unique_categories)
+
+                # Display the unique categories in a simple list format
+                for category in unique_categories:
+                    st.write(category)
+                
                 # Visualize feedback volume
                 #st.write("### Volume of Feedback Across Categories")
                 #st.bar_chart(feedback_volume)
