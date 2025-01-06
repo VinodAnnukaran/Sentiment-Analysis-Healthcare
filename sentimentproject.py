@@ -441,6 +441,12 @@ elif selected_tab == "Dataset Overview":
                     .fillna("")
                     .apply(clean_text)
                 )
+
+                # Apply feedback categorization
+                st.session_state.data_hc['Feedback Category'] = (
+                    st.session_state.data_hc['Cleaned_Answer_Description']
+                    .apply(categorize_feedback)
+                )
         
                 # Apply TextBlob sentiment labeling
                 st.session_state.data_hc['TextBlob_Sentiment'] = (
