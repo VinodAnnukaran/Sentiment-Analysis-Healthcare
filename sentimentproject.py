@@ -760,35 +760,27 @@ elif selected_tab == "Recommendations":
         
         # Filter Data for the Selected Facility
         facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
-
+        
         # Filter out rows with "Linear Mean Score" and "Star Rating" in 'HCAHPS Answer Description'
         filtered_data = facility_data[
             ~facility_data['HCAHPS Answer Description'].isin(["Linear Mean Score", "Star Rating"])
         ]
-
-        # Display the categories of feedback
+        
+        # Categorize feedback based on 'HCAHPS Answer Description'
+        filtered_data['Feedback_Category'] = filtered_data['HCAHPS Answer Description'].apply(categorize_feedback)
+        
+        # Generate recommendations for each row based on sentiment and category
+        filtered_data['Recommendation'] = filtered_data.apply(
+            lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
+        )
+        
+        # Display the filtered feedback categories
         st.write(f"Feedback categories for {facility_name}:")
         st.write(filtered_data[['Feedback Category', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
         
-        # Show data related to the selected facility
-        #st.write(f"Feedback data for {facility_name}:")
-        #st.write(facility_data)
-        #st.write(facility_data[['Feedback Category','HCAHPS Answer Description', 'Patient Survey Star Rating']])
-        
-        # Selecting the column 'HCAHPS Answer Description' and 'Final_Sentiment'
-        facility_data['Feedback_Category'] = facility_data['HCAHPS Answer Description'].apply(categorize_feedback)
-        
-        # Display the categories of feedback
-        st.write(f"Feedback categories for {facility_name}:")
-        st.write(facility_data[['Feedback Category','HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
-        
-        # Generate recommendations for each row based on sentiment and category
-        facility_data['Recommendation'] = facility_data.apply(lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1)
-        
-        # Display recommendations
+        # Display recommendations based on feedback
         st.write("Recommendations based on feedback:")
-        st.write(facility_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
-
+        st.write(filtered_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
         
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
