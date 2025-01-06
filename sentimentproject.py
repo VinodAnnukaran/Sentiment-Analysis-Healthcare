@@ -771,7 +771,7 @@ elif selected_tab == "Recommendations":
         
         # Display all feedback for the selected facility
         st.write(f"All feedback for {facility_name}:")
-        st.write(filtered_data[['HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment', 'Feedback_Category']])
+        st.write(filtered_data[['Feedback_Category','HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
         
         # Feedback Selection
         selected_feedback = st.selectbox(
