@@ -387,6 +387,10 @@ elif selected_tab == "Dataset Overview":
                 st.session_state.data_hc['Final_Sentiment'] = (
                     st.session_state.data_hc.apply(refine_sentiment, axis=1)
                 )
+
+                # Display the cleaned data and results in the app
+                st.write("Processed Sentiment Data:")
+                st.dataframe(st.session_state.data_hc[['Cleaned_Answer_Description', 'TextBlob_Sentiment', 'VADER_Sentiment', 'Final_Sentiment']])
         
         # Ensures this runs only when executed directly
         if __name__ == "__main__":
