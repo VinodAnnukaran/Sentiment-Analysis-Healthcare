@@ -668,27 +668,123 @@ elif selected_tab == "Sentiment Insights":
 elif selected_tab == "Recommendations":
     st.title("Recommendations")
     if st.session_state.data_hc is not None:
-        if 'HCAHPS Answer Description' in st.session_state.data_hc.columns:
-            st.write("### Sentiment Analysis")
-            st.session_state.data_hc['Cleaned_Answer_Description'] = st.session_state.data_hc['HCAHPS Answer Description'].fillna("").apply(clean_text)
-            st.session_state.data_hc['TextBlob_Sentiment'] = st.session_state.data_hc['Cleaned_Answer_Description'].apply(label_sentiment_textblob)
-            st.session_state.data_hc['VADER_Sentiment'] = st.session_state.data_hc['Cleaned_Answer_Description'].apply(label_sentiment_vader_adjusted)
+        # Categorize feedback based on description
+        def categorize_feedback(description):
+            description = description.lower()  # Convert to lowercase for easier matching
+            
+            # Define the categories with associated keywords
+            categories = {
+                "Nurse Communication": [
+                    "nurse always communicated well", 
+                    "nurse sometimes never communicated well", 
+                    "nurse usually communicated well"
+                ],
+                "Nurse Treatment": [
+                    "nurse always treated courtesy respect", 
+                    "nurse sometimes never treated courtesy respect", 
+                    "nurse usually treated courtesy respect"
+                ],
+                "Nurse Listening": [
+                    "nurse always listened carefully", 
+                    "nurse sometimes never listened carefully", 
+                    "nurse usually listened carefully"
+                ],
+                "Nurse Explanation": [
+                    "nurse always explained thing could understand", 
+                    "nurse sometimes never explained thing could understand", 
+                    "nurse usually explained thing could understand"
+                ],
+                "Doctor Communication": [
+                    "doctor always communicated well", 
+                    "doctor sometimes never communicated well", 
+                    "doctor usually communicated well"
+                ],
+                "Doctor Treatment": [
+                    "doctor always treated courtesy respect", 
+                    "doctor sometimes never treated courtesy respect", 
+                    "doctor usually treated courtesy respect"
+                ],
+                "Doctor Listening": [
+                    "doctor always listened carefully", 
+                    "doctor sometimes never listened carefully", 
+                    "doctor usually listened carefully"
+                ],
+                "Doctor Explanation": [
+                    "doctor always explained thing could understand", 
+                    "doctor sometimes never explained thing could understand", 
+                    "doctor usually explained thing could understand"
+                ],
+                "Staff Responsiveness": [
+                    "patient always received help soon wanted", 
+                    "patient sometimes never received help soon wanted", 
+                    "patient usually received help soon wanted"
+                ],
+                "Hospital Cleanliness": [
+                    "room always clean", 
+                    "room sometimes never clean", 
+                    "room usually clean"
+                ],
+                "Hospital Ward Quietness": [
+                    "always quiet night", 
+                    "sometimes never quiet night", 
+                    "usually quiet night"
+                ],
+                "Hospital Rating": [
+                    "patient gave rating lower low", 
+                    "patient gave rating medium", 
+                    "patient gave rating high"
+                ],
+                "Hospital Recommendation": [
+                    "patient would recommend hospital probably would definitely would recommend", 
+                    "yes patient would definitely recommend hospital", 
+                    "yes patient would probably recommend hospital"
+                ]
+            }
+            
+            for category, phrases in categories.items():
+                if any(phrase in description for phrase in phrases):
+                    return category
+            
+            return "Other"  # Return "Other" if no category matches
+        
+        # Generate custom recommendation based on sentiment and feedback
+        def generate_recommendation(facility_name, sentiment, category):
+            # Custom recommendation logic based on sentiment
+            if sentiment == 'Positive':
+                return f"Great job, {facility_name}! Continue excelling in {category}. Keep up the good work!"
+            elif sentiment == 'Negative':
+                return f"{facility_name}, there are areas of improvement needed in {category}. Address these concerns to improve patient satisfaction."
+            elif sentiment == 'Neutral':
+                return f"{facility_name}, {category} is generally neutral. Consider seeking feedback for further improvement."
+            else:
+                return f"{facility_name}, feedback on {category} is mixed. Investigate the concerns to enhance patient experience."
+        
+        
+        # Facility Selection
+        facility_name = st.selectbox("Select Facility", st.session_state.data_hc['Facility Name'].unique())
+        
+        # Filter Data for the Selected Facility
+        facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
+        
+        # Show data related to the selected facility
+        st.write(f"Feedback data for {facility_name}:")
+        st.write(facility_data)
+        
+        # Selecting the column 'HCAHPS Answer Description' and 'Final_Sentiment'
+        facility_data['Feedback_Category'] = facility_data['HCAHPS Answer Description'].apply(categorize_feedback)
+        
+        # Display the categories of feedback
+        st.write(f"Feedback categories for {facility_name}:")
+        st.write(facility_data[['HCAHPS Answer Description', 'Feedback_Category', 'Final_Sentiment']])
+        
+        # Generate recommendations for each row based on sentiment and category
+        facility_data['Recommendation'] = facility_data.apply(lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1)
+        
+        # Display recommendations
+        st.write("Recommendations based on feedback:")
+        st.write(facility_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendati
 
-            # Visualize sentiment distribution
-            st.write("### Sentiment Distribution")
-            sentiment_counts = st.session_state.data_hc['VADER_Sentiment'].value_counts()
-            st.bar_chart(sentiment_counts)
-
-            # Word Cloud
-            st.write("### Word Cloud")
-            all_text = ' '.join(st.session_state.data_hc['Cleaned_Answer_Description'])
-            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
-            plt.figure(figsize=(10, 6))
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis('off')
-            st.pyplot(plt)
-        else:
-            st.error("Column 'HCAHPS Answer Description' not found in the dataset.")
+        
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
