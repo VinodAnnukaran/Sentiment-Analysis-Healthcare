@@ -577,7 +577,8 @@ elif selected_tab == "Dataset Overview":
             main()
                 
     else:
-        st.warning("Please upload a CSV file to proceed.")
+        st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
+
 
 ###########################################################################
 # SENTIMENT INSIGHTS
@@ -660,8 +661,6 @@ elif selected_tab == "Sentiment Insights":
     
 
     
-    else:
-        st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
 
 ###########################################################################
 
