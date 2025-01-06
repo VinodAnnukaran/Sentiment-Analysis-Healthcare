@@ -480,21 +480,23 @@ elif selected_tab == "Dataset Overview":
                 st.dataframe(st.session_state.data_hc[['Cleaned_Answer_Description', 'TextBlob_Sentiment', 'VADER_Sentiment', 'Final_Sentiment']])
 
                 # Group by category
-                feedback_volume = st.session_state.data_hc['Feedback Category'].value_counts()
+                #feedback_volume = st.session_state.data_hc['Feedback Category'].value_counts()
         
                 # Visualize feedback volume
-                st.write("### Volume of Feedback Across Categories")
-                st.bar_chart(feedback_volume)
+                #st.write("### Volume of Feedback Across Categories")
+                #st.bar_chart(feedback_volume)
+                st.write("### Feedback Categories")
+                st.session_state.data_hc['Feedback Category']                
         
                 # Detailed Feedback Category Distribution
-                st.write("### Detailed Feedback Category Distribution")
-                plt.figure(figsize=(14, 8))
-                sns.barplot(x=feedback_volume.values, y=feedback_volume.index, palette="viridis")
-                plt.title("Volume of Feedback Across Categories", fontsize=16)
-                plt.xlabel("Volume of Feedback")
-                plt.ylabel("Feedback Category")
-                plt.tight_layout()
-                st.pyplot(plt)
+                #st.write("### Detailed Feedback Category Distribution")
+                #plt.figure(figsize=(14, 8))
+                #sns.barplot(x=feedback_volume.values, y=feedback_volume.index, palette="viridis")
+                #plt.title("Volume of Feedback Across Categories", fontsize=16)
+                #plt.xlabel("Volume of Feedback")
+                #plt.ylabel("Feedback Category")
+                #plt.tight_layout()
+                #st.pyplot(plt)
 
         
         # Ensures this runs only when executed directly
