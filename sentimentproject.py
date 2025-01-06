@@ -334,7 +334,7 @@ elif selected_tab == "Dataset Overview":
         def main():
         
                 # Ensure the required column exists
-                if 'HCAHPS Answer Description' in data.columns:
+                if 'HCAHPS Answer Description' in st.session_state.data_hc.columns:
         
                     # Clean text data
                     st.session_state.data_hc['Cleaned_Answer_Description'] = (
