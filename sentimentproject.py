@@ -80,7 +80,7 @@ selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Ins
 # Display the title only on the first tab (About)
 if selected_tab == "About":
     # Streamlit App
-    st.title("Leverage Sentiment Analysis to enhance patient experience and satisfaction (Inpatient)")
+    st.title("Leveraging Machine Learning for Sentiment Analysis of Patient Feedback to Drive Healthcare Improvements (Inpatient)")
 
 # Placeholder for uploaded file
 if 'data_hc' not in st.session_state:
