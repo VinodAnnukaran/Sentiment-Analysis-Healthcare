@@ -789,7 +789,8 @@ elif selected_tab == "Recommendations":
         
         # Display the recommendation for the selected feedback
         st.write("Recommendation for the selected feedback:")
-        st.write(feedback_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
+        #st.write(feedback_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
+        st.write(feedback_data[['Recommendation']])
         
     else:
         st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
