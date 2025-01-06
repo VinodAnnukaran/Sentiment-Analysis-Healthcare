@@ -541,12 +541,13 @@ elif selected_tab == "Dataset Overview":
                 top_complaints_sorted = sorted(top_complaints)
                 top_compliments_sorted = sorted(top_compliments)
                 
-                # Display the top complaints and top compliments in Streamlit
-                st.write("### Top Complaints")
-                st.write("\n"(top_complaints_sorted))
+                # Display sorted top complaints
+                st.write("### Top Complaints (Descriptions Only - Sorted):")
+                st.write("\n".join(top_complaints_sorted))  # Correct use of join
                 
-                st.write("\n### Top Compliments")
-                st.write("\n"(top_compliments_sorted))
+                # Display sorted top compliments
+                st.write("\n### Top Compliments (Descriptions Only - Sorted):")
+                st.write("\n".join(top_compliments_sorted))
 
                 # Visualize the top complaints and compliments
                 #st.write("### Visualizations:")
