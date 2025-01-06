@@ -529,9 +529,13 @@ elif selected_tab == "Dataset Overview":
                     .apply(categorize_keywords)
                 )
 
-                # Get the top complaints and top compliments
-                top_complaints = complaints['Cleaned_Answer_Description'].value_counts().head(10)
-                top_compliments = compliments['Cleaned_Answer_Description'].value_counts().head(10)
+                # Extract complaints and compliments separately
+                complaints = st.session_state.data_hc[st.session_state.data_hc['Feedback Keyword'] == 'Complaint']
+                compliments = st.session_state.data_hc[st.session_state.data_hc['Feedback Keyword'] == 'Compliment']
+        
+                # Get the top complaints and top compliments using the entire dataset
+                top_complaints = st.session_state.data_hc['Cleaned_Answer_Description'].value_counts().head(10)
+                top_compliments = st.session_state.data_hc['Cleaned_Answer_Description'].value_counts().head(10)
                 
                 # Display the top complaints and top compliments in Streamlit
                 st.write("### Top Complaints:")
