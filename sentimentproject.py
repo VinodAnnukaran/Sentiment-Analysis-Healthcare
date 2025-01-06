@@ -428,6 +428,22 @@ elif selected_tab == "Dataset Overview":
                     return category
         
             return "Other"  # Return "Other" if no category matches
+
+        # categorize_keywords function
+        def categorize_keywords(description):
+            description = description.lower()
+        
+            # Define keywords or phrases for complaints
+            complaint_keywords = ['never', 'not', 'problem', 'issue', 'disappointed', 'bad', 'poor', 'worst', 'unhappy']
+            compliment_keywords = ['always', 'great', 'good', 'excellent', 'best', 'satisfied', 'wonderful', 'happy', 'love','usually','well']
+        
+            # Identify complaints or compliments based on keywords
+            if any(keyword in description for keyword in complaint_keywords):
+                return 'Complaint'
+            elif any(keyword in description for keyword in compliment_keywords):
+                return 'Compliment'
+            else:
+                return 'Neutral'
     
         # Streamlit app
         def main():
@@ -504,6 +520,48 @@ elif selected_tab == "Dataset Overview":
                 #plt.ylabel("Feedback Category")
                 #plt.tight_layout()
                 #st.pyplot(plt)
+
+    ###################################
+        
+                # Apply feedback Keyword
+                st.session_state.data_hc['Feedback Keyword'] = (
+                    st.session_state.data_hc['Cleaned_Answer_Description']
+                    .apply(categorize_keywords)
+                )
+
+                # Get the top complaints and top compliments
+                top_complaints = complaints['Cleaned_Answer_Description'].value_counts().head(10)
+                top_compliments = compliments['Cleaned_Answer_Description'].value_counts().head(10)
+                
+                # Display the top complaints and top compliments in Streamlit
+                st.write("### Top Complaints:")
+                st.write(top_complaints)
+                
+                st.write("\n### Top Compliments:")
+                st.write(top_compliments)
+
+                # Visualize the top complaints and compliments
+                st.write("### Visualizations:")
+        
+                # Plotting the top complaints and compliments
+                fig, ax = plt.subplots(1, 2, figsize=(14, 8))
+        
+                # Top Complaints Visualization
+                sns.barplot(x=top_complaints.values, y=top_complaints.index, palette="coolwarm", ax=ax[0])
+                ax[0].set_title("Top Complaints", fontsize=16)
+                ax[0].set_xlabel("Frequency")
+                ax[0].set_ylabel("Complaint Description")
+        
+                # Top Compliments Visualization
+                sns.barplot(x=top_compliments.values, y=top_compliments.index, palette="viridis", ax=ax[1])
+                ax[1].set_title("Top Compliments", fontsize=16)
+                ax[1].set_xlabel("Frequency")
+                ax[1].set_ylabel("Compliment Description")
+        
+                # Display the plot in Streamlit
+                st.pyplot(fig)
+
+###################################             
 
         
         # Ensures this runs only when executed directly
