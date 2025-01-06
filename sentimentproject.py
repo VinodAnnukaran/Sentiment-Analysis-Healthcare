@@ -542,12 +542,13 @@ elif selected_tab == "Dataset Overview":
                 top_compliments_sorted = sorted(top_compliments)
                 
                 # Display sorted top complaints
-                st.write("### Top Complaints (Descriptions Only - Sorted):")
-                st.write("\n".join(top_complaints_sorted))  # Correct use of join
+                st.write("### Top Complaints")
+                st.markdown("\n".join([f"- {item}" for item in top_complaints_sorted]))
                 
                 # Display sorted top compliments
-                st.write("\n### Top Compliments (Descriptions Only - Sorted):")
-                st.write("\n".join(top_compliments_sorted))
+                st.write("\n### Top Compliments")
+                st.markdown("\n".join([f"- {item}" for item in top_compliments_sorted]))
+
 
                 # Visualize the top complaints and compliments
                 #st.write("### Visualizations:")
