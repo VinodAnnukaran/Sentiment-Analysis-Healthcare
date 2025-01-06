@@ -543,10 +543,10 @@ elif selected_tab == "Dataset Overview":
                 
                 # Display the top complaints and top compliments in Streamlit
                 st.write("### Top Complaints")
-                st.write("\n".join(top_complaints_sorted))
+                st.write("\n"(top_complaints_sorted))
                 
                 st.write("\n### Top Compliments")
-                st.write("\n".join(top_compliments_sorted))
+                st.write("\n"(top_compliments_sorted))
 
                 # Visualize the top complaints and compliments
                 #st.write("### Visualizations:")
