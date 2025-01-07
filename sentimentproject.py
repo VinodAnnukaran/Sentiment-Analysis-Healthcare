@@ -291,9 +291,10 @@ elif selected_tab == "Dataset Overview":
             
 ###############################################
         
-        # Initialize lemmatizer and VADER analyzer
+        # Initialize lemmatizer, VADER analyzer, and stopwords
         lemmatizer = WordNetLemmatizer()
         analyzer = SentimentIntensityAnalyzer()
+        stop_words = set(stopwords.words('english'))  # Preprocessing stopwords only once
         
         # Function to clean and preprocess text
         def clean_text(text):
@@ -305,23 +306,14 @@ elif selected_tab == "Dataset Overview":
             if not isinstance(text, str):
                 text = str(text)
         
-            # Remove HTML tags and URLs
-            text = re.sub(r'<.*?>', '', text)  # HTML tags
-            text = re.sub(r'http\S+|www\S+', '', text)  # URLs
+            # Remove HTML tags and URLs, normalize text (lowercase, remove special characters)
+            text = re.sub(r'<.*?>|http\S+|www\S+', '', text)  # Combined regex for HTML tags and URLs
+            text = re.sub(r'[^a-z\s]', '', text.lower())  # Remove special characters and convert to lowercase
         
-            # Normalize text
-            text = text.lower()  # Lowercase
-            text = re.sub(r'[^a-z\s]', '', text)  # Remove special characters
-        
-            # Tokenize and remove stopwords
-            tokens = word_tokenize(text)
-            stop_words = set(stopwords.words('english'))
-            tokens = [word for word in tokens if word not in stop_words]
-        
-            # Perform lemmatization
-            lemmatized_tokens = [lemmatizer.lemmatize(word) for word in tokens]
+            # Tokenize, remove stopwords, and lemmatize
+            tokens = [lemmatizer.lemmatize(word) for word in word_tokenize(text) if word not in stop_words]
             
-            return ' '.join(lemmatized_tokens)
+            return ' '.join(tokens)
         
         # Function to label sentiment using TextBlob
         def label_sentiment_textblob(text):
@@ -349,8 +341,7 @@ elif selected_tab == "Dataset Overview":
                 return 'positive'
             elif compound_score < -neutral_threshold:
                 return 'negative'
-            else:
-                return 'neutral'
+            return 'neutral'
         
         # Function to refine sentiment based on rules
         def refine_sentiment(row):
@@ -367,10 +358,7 @@ elif selected_tab == "Dataset Overview":
                 return 'negative'
         
             # Default to VADER if results mismatch
-            if textblob_sentiment != vader_sentiment:
-                return vader_sentiment
-            
-            return textblob_sentiment
+            return vader_sentiment if textblob_sentiment != vader_sentiment else textblob_sentiment
 
         # Categorize feedback based on description
         def categorize_feedback(description):
