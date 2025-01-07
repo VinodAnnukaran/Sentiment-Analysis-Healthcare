@@ -855,15 +855,15 @@ elif selected_tab == "Recommendations":
 
         # Function to generate recommendations based on sentiment and category
         def generate_recommendation(facility_name, sentiment, category):
-            # Using markdown formatting for bold text
+            # Using HTML inline CSS for color formatting
             if sentiment == 'positive':
-                return f"Great job, **{facility_name}**! Continue excelling in **{category}**. Keep up the good work!"
+                return f"<span style='color: green;'>Great job, <strong>{facility_name}</strong>! Continue excelling in <strong>{category}</strong>. Keep up the good work!</span>"
             elif sentiment == 'negative':
-                return f"**{facility_name}**, improvements are needed in **{category}**. Address these concerns to enhance patient satisfaction."
+                return f"<span style='color: red;'><strong>{facility_name}</strong>, improvements are needed in <strong>{category}</strong>. Address these concerns to enhance patient satisfaction.</span>"
             elif sentiment == 'neutral':
-                return f"**{facility_name}**, {category} feedback is neutral. Consider further feedback to identify improvement opportunities."
+                return f"<span style='color: black;'><strong>{facility_name}</strong>, {category} feedback is neutral. Consider further feedback to identify improvement opportunities.</span>"
             else:
-                return f"**{facility_name}**, feedback on **{category}** is mixed. Investigate further to improve patient experience."
+                return f"<span style='color: gray;'><strong>{facility_name}</strong>, feedback on <strong>{category}</strong> is mixed. Investigate further to improve patient experience.</span>"
 
         # Facility selection dropdown
         facility_name = st.selectbox("**Select Facility**", st.session_state.data_hc['Facility Name'].unique())
@@ -912,7 +912,7 @@ elif selected_tab == "Recommendations":
         st.dataframe(filtered_data[['Feedback_Category', 'Cleaned_Answer_Description', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
 
         # Feedback selection dropdown for recommendations
-        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['Cleaned_Answer_Description'].unique())
+        selected_feedback = st.selectbox("**Select Feedback for Recommendation**", filtered_data['Cleaned_Answer_Description'].unique())
 
         # Generate recommendation for the selected feedback
         feedback_data = filtered_data[filtered_data['Cleaned_Answer_Description'] == selected_feedback].copy()
@@ -921,14 +921,14 @@ elif selected_tab == "Recommendations":
         )
 
         # Display recommendation for selected feedback
-        st.write("Recommendation for the selected feedback:")
+        st.write("**Recommendation for the selected feedback:**")
         #st.dataframe(feedback_data[['Recommendation']])
 
         # Assuming `generate_recommendation` has been applied correctly and returned the formatted message
         recommendation_message = feedback_data['Recommendation'].iloc[0]  # Get the first recommendation if multiple exist
         
         # Display the formatted message using st.markdown for proper rendering of bold text
-        st.markdown(recommendation_message)
+        st.markdown(recommendation_message, unsafe_allow_html=True)
     
     else:
         st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
