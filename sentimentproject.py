@@ -785,7 +785,7 @@ elif selected_tab == "Recommendations":
         # Exclude specific descriptions from the 'Cleaned_Answer_Description' column
         excluded_values = ["linear mean score", "star rating"]
 
-        # Clean the 'HCAHPS Answer Description' column by stripping any leading/trailing spaces and converting to lowercase
+        # Clean the 'Cleaned_Answer_Description' column by stripping any leading/trailing spaces and converting to lowercase
         filtered_data = facility_data[
             ~facility_data['Cleaned_Answer_Description']
             .str.strip()  # Remove leading/trailing spaces
@@ -798,7 +798,7 @@ elif selected_tab == "Recommendations":
 
         # Display filtered feedback
         st.write(f"Feedback for {facility_name}:")
-        st.dataframe(filtered_data[['Feedback_Category', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
+        st.dataframe(filtered_data[['Feedback_Category', 'Cleaned_Answer_Description', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
 
         # Feedback selection dropdown for recommendations
         selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['Cleaned_Answer_Description'].unique())
