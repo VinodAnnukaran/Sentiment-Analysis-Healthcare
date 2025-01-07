@@ -753,6 +753,8 @@ elif selected_tab == "Recommendations":
                     r"patient strongly agree understood responsiblities left hospital",
                     r"patient agree understood medication left hospital",
                     r"patient disagree strongly disagree understood medication left hospital",
+                    r"patient disagree strongly disagree staff took preference account",
+                    r"patient agree understood responsiblities left hospital",
                     r"patient strongly agree understood medication left hospital"
                 ],
                  "Discharge information": [
