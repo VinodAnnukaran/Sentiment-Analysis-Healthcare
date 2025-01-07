@@ -684,7 +684,6 @@ elif selected_tab == "Sentiment Insights":
     
     ###########################################################################
     
-    # Recommendations Tab
 elif selected_tab == "Recommendations":
     st.title("Recommendations")
 
@@ -760,6 +759,7 @@ elif selected_tab == "Recommendations":
                 ]
             }
 
+            # Categorize based on matching patterns
             for category, patterns in categories.items():
                 if any(re.search(pattern, description) for pattern in patterns):
                     return category
@@ -782,30 +782,30 @@ elif selected_tab == "Recommendations":
         # Filter data for the selected facility
         facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
 
-        # Exclude specific descriptions from the data
+        # Exclude specific descriptions from the 'Cleaned_Answer_Description' column
         excluded_values = ["linear mean score", "star rating"]
 
         filtered_data = facility_data[
             ~facility_data['Cleaned_Answer_Description'].str.lower().isin([value.lower() for value in excluded_values])
         ]
 
-        # Categorize feedback
+        # Categorize feedback using the cleaned description
         filtered_data['Feedback_Category'] = filtered_data['Cleaned_Answer_Description'].apply(categorize_feedback)
 
-        # Display feedback for the selected facility
+        # Display filtered feedback
         st.write(f"Feedback for {facility_name}:")
-        st.dataframe(filtered_data[['Feedback_Category', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
+        st.dataframe(filtered_data[['Feedback_Category', 'Cleaned_Answer_Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
 
-        # Feedback selection dropdown
-        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['HCAHPS Answer Description'].unique())
+        # Feedback selection dropdown for recommendations
+        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['Cleaned_Answer_Description'].unique())
 
         # Generate recommendation for the selected feedback
-        feedback_data = filtered_data[filtered_data['HCAHPS Answer Description'] == selected_feedback].copy()
+        feedback_data = filtered_data[filtered_data['Cleaned_Answer_Description'] == selected_feedback].copy()
         feedback_data['Recommendation'] = feedback_data.apply(
             lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
         )
 
-        # Display recommendation
+        # Display recommendation for selected feedback
         st.write("Recommendation for the selected feedback:")
         st.dataframe(feedback_data[['Recommendation']])
     else:
