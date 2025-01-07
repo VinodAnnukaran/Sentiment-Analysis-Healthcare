@@ -911,7 +911,7 @@ elif selected_tab == "Recommendations":
         st.dataframe(filtered_data[['Feedback_Category', 'Cleaned_Answer_Description', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
 
         # Feedback selection dropdown for recommendations
-        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['HCAHPS Answer Description'].unique())
+        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['Cleaned_Answer_Description'].unique())
 
         # Generate recommendation for the selected feedback
         feedback_data = filtered_data[filtered_data['Cleaned_Answer_Description'] == selected_feedback].copy()
