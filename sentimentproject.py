@@ -90,6 +90,7 @@ if selected_tab == "About":
             color: black; /* Black color */
             text-align: center;
             margin-top: 20px;
+            margin-bottom: 40px; /* Space below the title */
         }
         </style>
         <div class="custom-title">
