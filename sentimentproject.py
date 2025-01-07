@@ -45,13 +45,13 @@ nltk.download('punkt_tab')
 tabs = ["About", "Dataset Overview", "Sentiment Insights", "Recommendations","Help"]
 
 # Sidebar navigation
-#st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PRO</h2>', unsafe_allow_html=True)
+#st.sidebar.markdown('<h2 style="margin-bottom: 0;">Sentilytics PLUS</h2>', unsafe_allow_html=True)
 #selected_tab = st.sidebar.radio("", tabs)
 st.sidebar.markdown(
     """
     <div style="background-color: #F4F4F4; padding: 10px; border-radius: 10px; text-align: center;">
         <span style="font-size: 24px; font-weight: bold; color: #FF5733;">Sentilytics</span>
-        <span style="font-size: 24px; font-weight: bold; color: #4285F4;">PRO</span>
+        <span style="font-size: 24px; font-weight: bold; color: #4285F4;">PLUS</span>
     </div>
     """, unsafe_allow_html=True
 )
@@ -79,8 +79,26 @@ selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Ins
 
 # Display the title only on the first tab (About)
 if selected_tab == "About":
-    # Streamlit App
-    st.title("Leveraging Machine Learning for Sentiment Analysis of Patient Feedback to Drive Healthcare Improvements (Inpatient)")
+    # Streamlit App with a custom font
+    st.markdown(
+        """
+        <style>
+        .custom-title {
+            font-family: 'Georgia', serif;
+            font-size: 32px;
+            font-weight: bold;
+            color: #2E8B57; /* Dark green color */
+            text-align: center;
+            margin-top: 20px;
+        }
+        </style>
+        <div class="custom-title">
+        Leveraging Machine Learning for Sentiment Analysis of Patient Feedback to Drive Healthcare Improvements (Inpatient)
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 # Placeholder for uploaded file
 if 'data_hc' not in st.session_state:
