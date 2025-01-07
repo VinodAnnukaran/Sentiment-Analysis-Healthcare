@@ -564,19 +564,14 @@ elif selected_tab == "Dataset Overview":
                 
                 # Display sorted top complaints
                 st.write("### Top Complaints")
-                st.markdown(
-                    "\n".join([f"<span style='color:red;'>- {item}</span>" for item in top_complaints_sorted]),
-                    unsafe_allow_html=True
-                )
+                for item in top_complaints_sorted:
+                    st.markdown(f"<span style='color:red;'>- {item}</span>", unsafe_allow_html=True)
 
-                
                 # Display sorted top compliments
                 st.write("### Top Compliments")
-                st.markdown(
-                    "\n".join([f"<span style='color:green;'>- {item}</span>" for item in top_compliments_sorted]),
-                    unsafe_allow_html=True
-                )
-
+                for item in top_compliments_sorted:
+                    st.markdown(f"<span style='color:green;'>- {item}</span>", unsafe_allow_html=True)
+                
                 # Visualize the top complaints and compliments
                 #st.write("### Visualizations:")
         
