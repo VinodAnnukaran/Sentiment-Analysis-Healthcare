@@ -708,9 +708,9 @@ elif selected_tab == "Recommendations":
                     r"nurse usually listened carefully"
                 ],
                 "Nurse Explanation": [
-                    r"nurse always explained.*understand", 
-                    r"nurse sometimes never explained.*understand", 
-                    r"nurse usually explained.*understand"
+                    r"nurse always explained thing could understand", 
+                    r"nurse sometimes never explained thing could understand", 
+                    r"nurse usually explained thing could understand"
                 ],
                 "Doctor Communication": [
                     r"doctor always communicated well", 
@@ -728,14 +728,57 @@ elif selected_tab == "Recommendations":
                     r"doctor usually listened carefully"
                 ],
                 "Doctor Explanation": [
-                    r"doctor always explained.*understand", 
-                    r"doctor sometimes never explained.*understand", 
-                    r"doctor usually explained.*understand"
+                    r"doctor always explained thing could understand", 
+                    r"doctor sometimes never explained thing could understand", 
+                    r"doctor usually explained thing could understand"
                 ],
                 "Staff Responsiveness": [
                     r"patient always received help soon wanted", 
                     r"patient sometimes never received help soon wanted", 
-                    r"patient usually received help soon wanted"
+                    r"patient usually received help soon wanted",
+                    r"patient always received call button help soon wanted",
+                    r"patient sometimes never received call button help soon wanted",
+                    r"patient usually received call button help soon wanted",
+                    r"patient always received bathroom help soon wanted",
+                    r"patient sometimes never received bathroom help soon wanted",
+                    r"patient usually received bathroom help soon wanted"
+                ],
+                "Care Transition": [
+                    r"patient agree understood care left hospital", 
+                    r"patient disagree strongly disagree understood care left hospital", 
+                    r"patient strongly agree understood care left hospital",
+                    r"patient agree staff took preference account",
+                    r"patient strongly agree staff took preference account",
+                    r"patient disagree strongly disagree understood responsiblities left hospital",
+                    r"patient strongly agree understood responsiblities left hospital",
+                    r"patient agree understood medication left hospital",
+                    r"patient disagree strongly disagree understood medication left hospital",
+                    r"patient strongly agree understood medication left hospital"
+                ],
+                 "Discharge information": [
+                    r"staff give patient information help discharge", 
+                    r"staff give patient information possible symptom", 
+                    r"yes staff give patient information possible symptom",
+                    r"staff always explained new medication",
+                    r"staff sometimes never explained new medication",
+                    r"staff usually explained new medication",
+                    r"staff always explained possible side effect",
+                    r"staff sometimes never explained possible side effect",
+                    r"staff usually explained possible side effect",
+                    r"staff give patient information",
+                    r"yes staff give patient information",
+                    r"patient usually received bathroom help soon wanted"
+                ],
+                "Communication about medicines": [
+                    r"staff always explained", 
+                    r"staff sometimes never explained", 
+                    r"staff usually explained",
+                    r"staff always explained new medication",
+                    r"staff sometimes never explained new medication",
+                    r"staff usually explained new medication",
+                    r"staff always explained possible side effect",
+                    r"staff sometimes never explained possible side effect",
+                    r"staff usually explained possible side effect"
                 ],
                 "Hospital Cleanliness": [
                     r"room always clean", 
