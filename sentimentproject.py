@@ -374,74 +374,117 @@ elif selected_tab == "Dataset Overview":
 
         # Categorize feedback based on description
         def categorize_feedback(description):
-            description = description.lower()  # Convert to lowercase for easier matching
-            
-           # Define the categories with associated keywords
+            description = description.lower()  # Normalize text to lowercase
             categories = {
                 "Nurse Communication": [
-                    "nurse always communicated well", 
-                    "nurse sometimes never communicated well", 
-                    "nurse usually communicated well"
+                    r"nurse always communicated well", 
+                    r"nurse sometimes never communicated well", 
+                    r"nurse usually communicated well"
                 ],
                 "Nurse Treatment": [
-                    "nurse always treated courtesy respect", 
-                    "nurse sometimes never treated courtesy respect", 
-                    "nurse usually treated courtesy respect"
+                    r"nurse always treated courtesy respect", 
+                    r"nurse sometimes never treated courtesy respect", 
+                    r"nurse usually treated courtesy respect"
                 ],
                 "Nurse Listening": [
-                    "nurse always listened carefully", 
-                    "nurse sometimes never listened carefully", 
-                    "nurse usually listened carefully"
+                    r"nurse always listened carefully", 
+                    r"nurse sometimes never listened carefully", 
+                    r"nurse usually listened carefully"
                 ],
                 "Nurse Explanation": [
-                    "nurse always explained thing could understand", 
-                    "nurse sometimes never explained thing could understand", 
-                    "nurse usually explained thing could understand"
+                    r"nurse always explained thing could understand", 
+                    r"nurse sometimes never explained thing could understand", 
+                    r"nurse usually explained thing could understand"
                 ],
                 "Doctor Communication": [
-                    "doctor always communicated well", 
-                    "doctor sometimes never communicated well", 
-                    "doctor usually communicated well"
+                    r"doctor always communicated well", 
+                    r"doctor sometimes never communicated well", 
+                    r"doctor usually communicated well"
                 ],
                 "Doctor Treatment": [
-                    "doctor always treated courtesy respect", 
-                    "doctor sometimes never treated courtesy respect", 
-                    "doctor usually treated courtesy respect"
+                    r"doctor always treated courtesy respect", 
+                    r"doctor sometimes never treated courtesy respect", 
+                    r"doctor usually treated courtesy respect"
                 ],
                 "Doctor Listening": [
-                    "doctor always listened carefully", 
-                    "doctor sometimes never listened carefully", 
-                    "doctor usually listened carefully"
+                    r"doctor always listened carefully", 
+                    r"doctor sometimes never listened carefully", 
+                    r"doctor usually listened carefully"
                 ],
                 "Doctor Explanation": [
-                    "doctor always explained thing could understand", 
-                    "doctor sometimes never explained thing could understand", 
-                    "doctor usually explained thing could understand"
+                    r"doctor always explained thing could understand", 
+                    r"doctor sometimes never explained thing could understand", 
+                    r"doctor usually explained thing could understand"
                 ],
                 "Staff Responsiveness": [
-                    "patient always received help soon wanted", 
-                    "patient sometimes never received help soon wanted", 
-                    "patient usually received help soon wanted"
+                    r"patient always received help soon wanted", 
+                    r"patient sometimes never received help soon wanted", 
+                    r"patient usually received help soon wanted",
+                    r"patient always received call button help soon wanted",
+                    r"patient sometimes never received call button help soon wanted",
+                    r"patient usually received call button help soon wanted",
+                    r"patient always received bathroom help soon wanted",
+                    r"patient sometimes never received bathroom help soon wanted",
+                    r"patient usually received bathroom help soon wanted"
+                ],
+                "Care Transition": [
+                    r"patient agree understood care left hospital", 
+                    r"patient disagree strongly disagree understood care left hospital", 
+                    r"patient strongly agree understood care left hospital",
+                    r"patient agree staff took preference account",
+                    r"patient strongly agree staff took preference account",
+                    r"patient disagree strongly disagree understood responsiblities left hospital",
+                    r"patient strongly agree understood responsiblities left hospital",
+                    r"patient agree understood medication left hospital",
+                    r"patient disagree strongly disagree understood medication left hospital",
+                    r"patient disagree strongly disagree staff took preference account",
+                    r"patient agree understood responsiblities left hospital",
+                    r"patient strongly agree understood medication left hospital"
+                ],
+                 "Discharge information": [
+                    r"staff give patient information help discharge", 
+                    r"staff give patient information possible symptom", 
+                    r"yes staff give patient information possible symptom",
+                    r"staff always explained new medication",
+                    r"staff sometimes never explained new medication",
+                    r"staff usually explained new medication",
+                    r"staff always explained possible side effect",
+                    r"staff sometimes never explained possible side effect",
+                    r"staff usually explained possible side effect",
+                    r"staff give patient information",
+                    r"yes staff give patient information",
+                    r"patient usually received bathroom help soon wanted"
+                ],
+                "Communication about medicines": [
+                    r"staff always explained", 
+                    r"staff sometimes never explained", 
+                    r"staff usually explained",
+                    r"staff always explained new medication",
+                    r"staff sometimes never explained new medication",
+                    r"staff usually explained new medication",
+                    r"staff always explained possible side effect",
+                    r"staff sometimes never explained possible side effect",
+                    r"staff usually explained possible side effect"
                 ],
                 "Hospital Cleanliness": [
-                    "room always clean", 
-                    "room sometimes never clean", 
-                    "room usually clean"
+                    r"room always clean", 
+                    r"room sometimes never clean", 
+                    r"room usually clean"
                 ],
                 "Hospital Ward Quietness": [
-                    "always quiet night", 
-                    "sometimes never quiet night", 
-                    "usually quiet night"
+                    r"always quiet night", 
+                    r"sometimes never quiet night", 
+                    r"usually quiet night"
                 ],
                 "Hospital Rating": [
-                    "patient gave rating lower low", 
-                    "patient gave rating medium", 
-                    "patient gave rating high"
+                    r"patient gave rating.*low", 
+                    r"patient gave rating.*medium", 
+                    r"patient gave rating.*high"
                 ],
                 "Hospital Recommendation": [
-                    "patient would recommend hospital probably would definitely would recommend", 
-                    "yes patient would definitely recommend hospital", 
-                    "yes patient would probably recommend hospital"
+                    r"patient would recommend hospital.*would recommend", 
+                    r"yes patient would definitely recommend hospital", 
+                    r"yes patient would probably recommend hospital"
                 ]
             }
                 
