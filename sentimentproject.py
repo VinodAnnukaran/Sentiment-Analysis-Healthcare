@@ -855,11 +855,11 @@ elif selected_tab == "Recommendations":
 
         # Function to generate recommendations based on sentiment and category
         def generate_recommendation(facility_name, sentiment, category):
-            if sentiment == 'Positive':
+            if sentiment == 'positive':
                 return f"Great job, {facility_name}! Continue excelling in {category}. Keep up the good work!"
-            elif sentiment == 'Negative':
+            elif sentiment == 'negative':
                 return f"{facility_name}, improvements are needed in {category}. Address these concerns to enhance patient satisfaction."
-            elif sentiment == 'Neutral':
+            elif sentiment == 'neutral':
                 return f"{facility_name}, {category} feedback is neutral. Consider further feedback to identify improvement opportunities."
             else:
                 return f"{facility_name}, feedback on {category} is mixed. Investigate further to improve patient experience."
@@ -911,7 +911,7 @@ elif selected_tab == "Recommendations":
         st.dataframe(filtered_data[['Feedback_Category', 'Cleaned_Answer_Description', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
 
         # Feedback selection dropdown for recommendations
-        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['Feedback_Category'].unique())
+        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['HCAHPS Answer Description'].unique())
 
         # Generate recommendation for the selected feedback
         feedback_data = filtered_data[filtered_data['Cleaned_Answer_Description'] == selected_feedback].copy()
