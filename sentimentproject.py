@@ -79,7 +79,7 @@ selected_tab = st.sidebar.radio("", ["About", "Dataset Overview", "Sentiment Ins
 
 # Display the title only on the first tab (About)
 if selected_tab == "About":
-    # Streamlit App with a custom font and mixed colors
+    # Streamlit App with a custom font and black color
     st.markdown(
         """
         <style>
@@ -87,16 +87,13 @@ if selected_tab == "About":
             font-family: 'Georgia', serif;
             font-size: 32px;
             font-weight: bold;
-            color: black; /* Default black color */
+            color: black; /* Black color */
             text-align: center;
             margin-top: 20px;
         }
-        .custom-title span {
-            color: red; /* Highlighted part in red */
-        }
         </style>
         <div class="custom-title">
-        Leveraging Machine Learning for Sentiment Analysis of <span>Patient Feedback</span> to Drive Healthcare Improvements (Inpatient)
+        Leveraging Machine Learning for Sentiment Analysis of Patient Feedback to Drive Healthcare Improvements (Inpatient)
         </div>
         """,
         unsafe_allow_html=True
