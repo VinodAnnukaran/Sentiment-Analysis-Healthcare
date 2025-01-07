@@ -828,7 +828,29 @@ elif selected_tab == "Recommendations":
         facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
 
         # Exclude specific descriptions from the 'Cleaned_Answer_Description' column
-        excluded_values = ["linear mean score", "star rating"]
+        excluded_values = [
+            "nurse communication linear mean score",
+            "doctor communication linear mean score",
+            "staff responsiveness linear mean score",
+            "communication medicine linear mean score",
+            "discharge information linear mean score",
+            "care transition linear mean score",
+            "cleanliness linear mean score",
+            "quietness linear mean score",
+            "overall hospital rating linear mean score",
+            "recommend hospital linear mean score",            
+            "nurse communication star rating",
+            "doctor communication star rating",
+            "staff responsiveness star rating",
+            "communication medicine star rating",
+            "discharge information star rating",
+            "care transition star rating",
+            "cleanliness star rating",
+            "quietness star rating",
+            "overall hospital rating star rating",
+            "recommend hospital star rating",
+            "summary star rating"
+        ]
 
         # Clean the 'Cleaned_Answer_Description' column by stripping any leading/trailing spaces and converting to lowercase
         filtered_data = facility_data[
