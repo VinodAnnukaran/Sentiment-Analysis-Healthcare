@@ -908,7 +908,7 @@ elif selected_tab == "Recommendations":
         filtered_data['Feedback_Category'] = filtered_data['Cleaned_Answer_Description'].apply(categorize_feedback)
 
         # Display filtered feedback
-        st.write(f"Feedback for **{facility_name}**:")
+        st.write(f"**Feedback for** **{facility_name}**:")
         st.dataframe(filtered_data[['Feedback_Category', 'Cleaned_Answer_Description', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
 
         # Feedback selection dropdown for recommendations
