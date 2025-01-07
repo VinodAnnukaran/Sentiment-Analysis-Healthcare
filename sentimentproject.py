@@ -855,14 +855,15 @@ elif selected_tab == "Recommendations":
 
         # Function to generate recommendations based on sentiment and category
         def generate_recommendation(facility_name, sentiment, category):
+            # Using markdown formatting for bold text
             if sentiment == 'positive':
-                return f"Great job, {facility_name}! Continue excelling in {category}. Keep up the good work!"
+                return f"Great job, **{facility_name}**! Continue excelling in **{category}**. Keep up the good work!"
             elif sentiment == 'negative':
-                return f"{facility_name}, improvements are needed in {category}. Address these concerns to enhance patient satisfaction."
+                return f"**{facility_name}**, improvements are needed in **{category}**. Address these concerns to enhance patient satisfaction."
             elif sentiment == 'neutral':
-                return f"{facility_name}, {category} feedback is neutral. Consider further feedback to identify improvement opportunities."
+                return f"**{facility_name}**, {category} feedback is neutral. Consider further feedback to identify improvement opportunities."
             else:
-                return f"{facility_name}, feedback on {category} is mixed. Investigate further to improve patient experience."
+                return f"**{facility_name}**, feedback on **{category}** is mixed. Investigate further to improve patient experience."
 
         # Facility selection dropdown
         facility_name = st.selectbox("**Select Facility**", st.session_state.data_hc['Facility Name'].unique())
@@ -921,7 +922,14 @@ elif selected_tab == "Recommendations":
 
         # Display recommendation for selected feedback
         st.write("Recommendation for the selected feedback:")
-        st.dataframe(feedback_data[['Recommendation']])
+        #st.dataframe(feedback_data[['Recommendation']])
+
+        # Assuming `generate_recommendation` has been applied correctly and returned the formatted message
+        recommendation_message = feedback_data['Recommendation'].iloc[0]  # Get the first recommendation if multiple exist
+        
+        # Display the formatted message using st.markdown for proper rendering of bold text
+        st.markdown(recommendation_message)
+    
     else:
         st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
 
