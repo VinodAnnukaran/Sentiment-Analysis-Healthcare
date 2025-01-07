@@ -124,8 +124,14 @@ if selected_tab == "About":
         - Mina, R., & Bahaa, I. (2024). User satisfaction with Arabic COVID-19 apps: Sentiment analysis of users’ reviews using machine learning techniques. *Computers in Human Behavior, 145*, Article 107760. [https://doi.org/10.1016/j.chb.2024.107760](https://doi.org/10.1016/j.chb.2024.107760)
         - Srisankar, M., & Lochanambal, K. P. (2024). A survey on sentiment analysis techniques in the medical domain. *Medicon Agriculture & Environmental Sciences, 6(2)*, 4-9. [https://doi.org/10.55162/MCAES.06.157](https://doi.org/10.55162/MCAES.06.157)
         - Huang, J., Li, X., Chen, Y., & Wang, Y. (2024). The impact of visual function on quality of life in patients with diabetic retinopathy. *Optometry and Vision Science, 101(6)*, 123-130. [https://doi.org/10.1097/OPX.00000000000000013](https://doi.org/10.1097/OPX.00000000000000013)
-        - Statista. (2023). Number of public and private hospitals in Malaysia from 2017 to 2022. [https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia](https://www.statista.com/statistics/794860/number-of-public-and-private-hospitals-malaysia)
-        """)
+        - Ministry of Health Malaysia. (2023). *Health facts 2023*. [https://www.moh.gov.my/moh/resources/Penerbitan/Penerbitan%20Utama/4._Health_Facts_2023-compressed_.pdf](https://www.moh.gov.my/moh/resources/Penerbitan/Penerbitan%20Utama/4._Health_Facts_2023-compressed_.pdf)
+        - Khaleghparast, S., Maleki, M., Hajianfar, G., Soumari, E., Oveisi, M., Maleki Golandouz, H., Noohi, F., Gholampour Dehaki, M., Golpira, R., Mazloomzadeh, S., Arabian, M., & Kalayinia, S. (2023). Development of a patients’ satisfaction analysis system using machine learning and lexicon-based methods. *BMC Health Services Research, 23(1)*, Article 100. [https://doi.org/10.1186/s12913-023-09260-7](https://doi.org/10.1186/s12913-023-09260-7)
+        - Aung, T. T., & Myo, K. (2023). Deep learning-based method for sentiment analysis for patients’ drug reviews. *PeerJ Computer Science, 9*, Article e1976. [https://doi.org/10.7717/peerj-cs.1976](https://doi.org/10.7717/peerj-cs.1976)
+        - Giorgi, M., & Sgorbati, S. (2023). Sentiment analysis in healthcare: A methodological review. *Museo Naturalistico, 12(1)*, 1-15.
+        - Khanbhai, M., Anyadi, P., Symons, J., Flott, K., Darzi, A., & Mayer, E. (2021). Applying natural language processing and machine learning techniques to patient experience feedback: A systematic review. *BMJ Health & Care Informatics, 28*, e100262. [https://doi.org/10.1136/bmjhci-2020-100262](https://doi.org/10.1136/bmjhci-2020-100262)
+        - Sadeghi, A., & Pahlavani, P. (2023). A novel hybrid model for sentiment analysis based on deep learning and ensemble methods. *IEEE Access, 11*, 14567-14580. [https://doi.org/10.1109/ACCESS.2023.10602211](https://doi.org/10.1109/ACCESS.2023.10602211)
+    """)
+
 
 ###########################################################################
 ###########################################################################
