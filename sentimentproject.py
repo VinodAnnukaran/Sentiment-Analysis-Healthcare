@@ -577,7 +577,7 @@ elif selected_tab == "Dataset Overview":
             main()
                 
     else:
-        st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
+        st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
 
 
 ###########################################################################
@@ -587,213 +587,214 @@ elif selected_tab == "Dataset Overview":
 # Sentiment Insights Tab
 elif selected_tab == "Sentiment Insights":
     st.title("Sentiment Insights")
-    
-###########################
-    
-    # Preprocessing function to tokenize and remove stopwords
-    def preprocess_text(text):
-        stop_words = set(stopwords.words('english'))
-        exclude_keywords = {'patient', 'nurse', 'hospital', 'doctor'}  # Keywords to exclude
-        tokens = word_tokenize(text.lower())
-        return [word for word in tokens if word.isalpha() and word not in stop_words and word not in exclude_keywords]        
-    
-    filtered_data = st.session_state.data_hc[~st.session_state.data_hc['HCAHPS Answer Description'].str.contains('linear mean score|star rating', case=False, na=False)]
-    
-    # Display sentiment distribution (Final Sentiment)
-    st.write("### Sentiment Distribution")
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.countplot(x='Final_Sentiment', data=filtered_data, palette='Set2', ax=ax)
-    
-    # Add data labels
-    for p in ax.patches:
-        ax.annotate(f'{p.get_height()}',
-                    (p.get_x() + p.get_width() / 2, p.get_height()),
-                    ha='center', va='center', fontsize=12, color='black', xytext=(0, 8), textcoords='offset points')
-    
-    # Title and labels
-    ax.set_title('Distribution of Sentiments', fontsize=16)
-    ax.set_xlabel('Sentiment', fontsize=14)
-    ax.set_ylabel('Count', fontsize=14)
-    st.pyplot(fig)
-    
-    # Helper function to get keywords and plot
-    def plot_top_keywords(text, title, palette):
-        words = preprocess_text(text)
-        top_keywords = Counter(words).most_common(10)
-        df = pd.DataFrame(top_keywords, columns=['Keyword', 'Count'])
-    
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.barplot(x='Count', y='Keyword', data=df, palette=palette, ax=ax)
-        ax.set_title(title, fontsize=16)
-        ax.set_xlabel('Count', fontsize=14)
-        ax.set_ylabel('Keyword', fontsize=14)
-        st.pyplot(fig)
-    
-    # Extract text for each sentiment
-    positive_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'positive']['Cleaned_Answer_Description'])
-    negative_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'negative']['Cleaned_Answer_Description'])
-    neutral_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'neutral']['Cleaned_Answer_Description'])
-    
-    # Plot top keywords
-    st.write("### Top Keywords by Sentiment")
-    plot_top_keywords(positive_text, 'Top 10 Positive Keywords', 'Greens_r')
-    plot_top_keywords(negative_text, 'Top 10 Negative Keywords', 'Reds_r')
-    
-    # Word cloud generation function
-    def generate_wordcloud(text, title):
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.imshow(wordcloud, interpolation='bilinear')
-        ax.set_title(title, fontsize=16)
-        ax.axis('off')
-        st.pyplot(fig)
-    
-    # Generate word clouds for all sentiments
-    st.write("### Word Clouds")
-    generate_wordcloud(' '.join(filtered_data['Cleaned_Answer_Description']), 'Word Cloud for All Text')
-    generate_wordcloud(positive_text, 'Word Cloud for Positive Sentiment')
-    generate_wordcloud(negative_text, 'Word Cloud for Negative Sentiment')
-    generate_wordcloud(neutral_text, 'Word Cloud for Neutral Sentiment')
-
-###########################
-
-###########################################################################
-
-# Recommendations Tab
-elif selected_tab == "Recommendations":
-    st.title("Recommendations")
     if st.session_state.data_hc is not None:
-        # Categorize feedback based on description
-        def categorize_feedback(description):
-            description = description.lower()  # Convert to lowercase for easier matching
+    
+###########################
+    
+        # Preprocessing function to tokenize and remove stopwords
+        def preprocess_text(text):
+            stop_words = set(stopwords.words('english'))
+            exclude_keywords = {'patient', 'nurse', 'hospital', 'doctor'}  # Keywords to exclude
+            tokens = word_tokenize(text.lower())
+            return [word for word in tokens if word.isalpha() and word not in stop_words and word not in exclude_keywords]        
+        
+        filtered_data = st.session_state.data_hc[~st.session_state.data_hc['HCAHPS Answer Description'].str.contains('linear mean score|star rating', case=False, na=False)]
+        
+        # Display sentiment distribution (Final Sentiment)
+        st.write("### Sentiment Distribution")
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.countplot(x='Final_Sentiment', data=filtered_data, palette='Set2', ax=ax)
+        
+        # Add data labels
+        for p in ax.patches:
+            ax.annotate(f'{p.get_height()}',
+                        (p.get_x() + p.get_width() / 2, p.get_height()),
+                        ha='center', va='center', fontsize=12, color='black', xytext=(0, 8), textcoords='offset points')
+        
+        # Title and labels
+        ax.set_title('Distribution of Sentiments', fontsize=16)
+        ax.set_xlabel('Sentiment', fontsize=14)
+        ax.set_ylabel('Count', fontsize=14)
+        st.pyplot(fig)
+        
+        # Helper function to get keywords and plot
+        def plot_top_keywords(text, title, palette):
+            words = preprocess_text(text)
+            top_keywords = Counter(words).most_common(10)
+            df = pd.DataFrame(top_keywords, columns=['Keyword', 'Count'])
+        
+            fig, ax = plt.subplots(figsize=(10, 6))
+            sns.barplot(x='Count', y='Keyword', data=df, palette=palette, ax=ax)
+            ax.set_title(title, fontsize=16)
+            ax.set_xlabel('Count', fontsize=14)
+            ax.set_ylabel('Keyword', fontsize=14)
+            st.pyplot(fig)
+        
+        # Extract text for each sentiment
+        positive_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'positive']['Cleaned_Answer_Description'])
+        negative_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'negative']['Cleaned_Answer_Description'])
+        neutral_text = ' '.join(filtered_data[filtered_data['Final_Sentiment'] == 'neutral']['Cleaned_Answer_Description'])
+        
+        # Plot top keywords
+        st.write("### Top Keywords by Sentiment")
+        plot_top_keywords(positive_text, 'Top 10 Positive Keywords', 'Greens_r')
+        plot_top_keywords(negative_text, 'Top 10 Negative Keywords', 'Reds_r')
+        
+        # Word cloud generation function
+        def generate_wordcloud(text, title):
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.imshow(wordcloud, interpolation='bilinear')
+            ax.set_title(title, fontsize=16)
+            ax.axis('off')
+            st.pyplot(fig)
+        
+        # Generate word clouds for all sentiments
+        st.write("### Word Clouds")
+        generate_wordcloud(' '.join(filtered_data['Cleaned_Answer_Description']), 'Word Cloud for All Text')
+        generate_wordcloud(positive_text, 'Word Cloud for Positive Sentiment')
+        generate_wordcloud(negative_text, 'Word Cloud for Negative Sentiment')
+        generate_wordcloud(neutral_text, 'Word Cloud for Neutral Sentiment')
+    
+    ###########################
+    
+    ###########################################################################
+    
+    # Recommendations Tab
+    elif selected_tab == "Recommendations":
+        st.title("Recommendations")
+        if st.session_state.data_hc is not None:
+            # Categorize feedback based on description
+            def categorize_feedback(description):
+                description = description.lower()  # Convert to lowercase for easier matching
+                
+                # Define the categories with associated keywords
+                categories = {
+                    "Nurse Communication": [
+                        "nurse always communicated well", 
+                        "nurse sometimes never communicated well", 
+                        "nurse usually communicated well"
+                    ],
+                    "Nurse Treatment": [
+                        "nurse always treated courtesy respect", 
+                        "nurse sometimes never treated courtesy respect", 
+                        "nurse usually treated courtesy respect"
+                    ],
+                    "Nurse Listening": [
+                        "nurse always listened carefully", 
+                        "nurse sometimes never listened carefully", 
+                        "nurse usually listened carefully"
+                    ],
+                    "Nurse Explanation": [
+                        "nurse always explained thing could understand", 
+                        "nurse sometimes never explained thing could understand", 
+                        "nurse usually explained thing could understand"
+                    ],
+                    "Doctor Communication": [
+                        "doctor always communicated well", 
+                        "doctor sometimes never communicated well", 
+                        "doctor usually communicated well"
+                    ],
+                    "Doctor Treatment": [
+                        "doctor always treated courtesy respect", 
+                        "doctor sometimes never treated courtesy respect", 
+                        "doctor usually treated courtesy respect"
+                    ],
+                    "Doctor Listening": [
+                        "doctor always listened carefully", 
+                        "doctor sometimes never listened carefully", 
+                        "doctor usually listened carefully"
+                    ],
+                    "Doctor Explanation": [
+                        "doctor always explained thing could understand", 
+                        "doctor sometimes never explained thing could understand", 
+                        "doctor usually explained thing could understand"
+                    ],
+                    "Staff Responsiveness": [
+                        "patient always received help soon wanted", 
+                        "patient sometimes never received help soon wanted", 
+                        "patient usually received help soon wanted"
+                    ],
+                    "Hospital Cleanliness": [
+                        "room always clean", 
+                        "room sometimes never clean", 
+                        "room usually clean"
+                    ],
+                    "Hospital Ward Quietness": [
+                        "always quiet night", 
+                        "sometimes never quiet night", 
+                        "usually quiet night"
+                    ],
+                    "Hospital Rating": [
+                        "patient gave rating lower low", 
+                        "patient gave rating medium", 
+                        "patient gave rating high"
+                    ],
+                    "Hospital Recommendation": [
+                        "patient would recommend hospital probably would definitely would recommend", 
+                        "yes patient would definitely recommend hospital", 
+                        "yes patient would probably recommend hospital"
+                    ]
+                }
+                
+                for category, phrases in categories.items():
+                    if any(phrase in description for phrase in phrases):
+                        return category
+                
+                return "Other"  # Return "Other" if no category matches
             
-            # Define the categories with associated keywords
-            categories = {
-                "Nurse Communication": [
-                    "nurse always communicated well", 
-                    "nurse sometimes never communicated well", 
-                    "nurse usually communicated well"
-                ],
-                "Nurse Treatment": [
-                    "nurse always treated courtesy respect", 
-                    "nurse sometimes never treated courtesy respect", 
-                    "nurse usually treated courtesy respect"
-                ],
-                "Nurse Listening": [
-                    "nurse always listened carefully", 
-                    "nurse sometimes never listened carefully", 
-                    "nurse usually listened carefully"
-                ],
-                "Nurse Explanation": [
-                    "nurse always explained thing could understand", 
-                    "nurse sometimes never explained thing could understand", 
-                    "nurse usually explained thing could understand"
-                ],
-                "Doctor Communication": [
-                    "doctor always communicated well", 
-                    "doctor sometimes never communicated well", 
-                    "doctor usually communicated well"
-                ],
-                "Doctor Treatment": [
-                    "doctor always treated courtesy respect", 
-                    "doctor sometimes never treated courtesy respect", 
-                    "doctor usually treated courtesy respect"
-                ],
-                "Doctor Listening": [
-                    "doctor always listened carefully", 
-                    "doctor sometimes never listened carefully", 
-                    "doctor usually listened carefully"
-                ],
-                "Doctor Explanation": [
-                    "doctor always explained thing could understand", 
-                    "doctor sometimes never explained thing could understand", 
-                    "doctor usually explained thing could understand"
-                ],
-                "Staff Responsiveness": [
-                    "patient always received help soon wanted", 
-                    "patient sometimes never received help soon wanted", 
-                    "patient usually received help soon wanted"
-                ],
-                "Hospital Cleanliness": [
-                    "room always clean", 
-                    "room sometimes never clean", 
-                    "room usually clean"
-                ],
-                "Hospital Ward Quietness": [
-                    "always quiet night", 
-                    "sometimes never quiet night", 
-                    "usually quiet night"
-                ],
-                "Hospital Rating": [
-                    "patient gave rating lower low", 
-                    "patient gave rating medium", 
-                    "patient gave rating high"
-                ],
-                "Hospital Recommendation": [
-                    "patient would recommend hospital probably would definitely would recommend", 
-                    "yes patient would definitely recommend hospital", 
-                    "yes patient would probably recommend hospital"
-                ]
-            }
+            # Generate custom recommendation based on sentiment and feedback
+            def generate_recommendation(facility_name, sentiment, category):
+                # Custom recommendation logic based on sentiment
+                if sentiment == 'Positive':
+                    return f"Great job, {facility_name}! Continue excelling in {category}. Keep up the good work!"
+                elif sentiment == 'Negative':
+                    return f"{facility_name}, there are areas of improvement needed in {category}. Address these concerns to improve patient satisfaction."
+                elif sentiment == 'Neutral':
+                    return f"{facility_name}, {category} is generally neutral. Consider seeking feedback for further improvement."
+                else:
+                    return f"{facility_name}, feedback on {category} is mixed. Investigate the concerns to enhance patient experience."
             
-            for category, phrases in categories.items():
-                if any(phrase in description for phrase in phrases):
-                    return category
             
-            return "Other"  # Return "Other" if no category matches
-        
-        # Generate custom recommendation based on sentiment and feedback
-        def generate_recommendation(facility_name, sentiment, category):
-            # Custom recommendation logic based on sentiment
-            if sentiment == 'Positive':
-                return f"Great job, {facility_name}! Continue excelling in {category}. Keep up the good work!"
-            elif sentiment == 'Negative':
-                return f"{facility_name}, there are areas of improvement needed in {category}. Address these concerns to improve patient satisfaction."
-            elif sentiment == 'Neutral':
-                return f"{facility_name}, {category} is generally neutral. Consider seeking feedback for further improvement."
-            else:
-                return f"{facility_name}, feedback on {category} is mixed. Investigate the concerns to enhance patient experience."
-        
-        
-        # Facility Selection
-        facility_name = st.selectbox("Select Facility", st.session_state.data_hc['Facility Name'].unique())
-        
-        # Filter Data for the Selected Facility
-        facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
-        
-        # Filter out rows with "Linear Mean Score" and "Star Rating" in 'HCAHPS Answer Description'
-        filtered_data = facility_data[
-            ~facility_data['HCAHPS Answer Description'].str.lower().isin(["linear mean score", "star rating"])
-        ]
-        
-        # Categorize feedback based on 'HCAHPS Answer Description'
-        filtered_data['Feedback_Category'] = filtered_data['HCAHPS Answer Description'].apply(categorize_feedback)
-        
-        # Display all feedback for the selected facility
-        st.write(f"All feedback for {facility_name}:")
-        st.write(filtered_data[['Feedback_Category','HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
-        
-        # Feedback Selection
-        selected_feedback = st.selectbox(
-            "Select Feedback for Recommendation", 
-            filtered_data['HCAHPS Answer Description'].unique()
-        )
-        
-        # Filter data based on the selected feedback
-        feedback_data = filtered_data[filtered_data['HCAHPS Answer Description'] == selected_feedback]
-        
-        # Generate recommendation for the selected feedback
-        feedback_data['Recommendation'] = feedback_data.apply(
-            lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
-        )
-        
-        # Display the recommendation for the selected feedback
-        st.write("Recommendation for the selected feedback:")
-        #st.write(feedback_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
-        st.write(feedback_data[['Recommendation']])
-        
-    else:
-        st.warning("Please upload a CSV file in the 'Data Upload and Overview' tab.")
+            # Facility Selection
+            facility_name = st.selectbox("Select Facility", st.session_state.data_hc['Facility Name'].unique())
+            
+            # Filter Data for the Selected Facility
+            facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
+            
+            # Filter out rows with "Linear Mean Score" and "Star Rating" in 'HCAHPS Answer Description'
+            filtered_data = facility_data[
+                ~facility_data['HCAHPS Answer Description'].str.lower().isin(["linear mean score", "star rating"])
+            ]
+            
+            # Categorize feedback based on 'HCAHPS Answer Description'
+            filtered_data['Feedback_Category'] = filtered_data['HCAHPS Answer Description'].apply(categorize_feedback)
+            
+            # Display all feedback for the selected facility
+            st.write(f"All feedback for {facility_name}:")
+            st.write(filtered_data[['Feedback_Category','HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
+            
+            # Feedback Selection
+            selected_feedback = st.selectbox(
+                "Select Feedback for Recommendation", 
+                filtered_data['HCAHPS Answer Description'].unique()
+            )
+            
+            # Filter data based on the selected feedback
+            feedback_data = filtered_data[filtered_data['HCAHPS Answer Description'] == selected_feedback]
+            
+            # Generate recommendation for the selected feedback
+            feedback_data['Recommendation'] = feedback_data.apply(
+                lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
+            )
+            
+            # Display the recommendation for the selected feedback
+            st.write("Recommendation for the selected feedback:")
+            #st.write(feedback_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
+            st.write(feedback_data[['Recommendation']])
+            
+        else:
+            st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
 
 ###########################################################################
 
