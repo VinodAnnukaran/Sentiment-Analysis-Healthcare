@@ -784,11 +784,11 @@ elif selected_tab == "Recommendations":
 
         # Exclude specific descriptions
         filtered_data = facility_data[
-            ~facility_data['HCAHPS Answer Description'].str.lower().isin(["linear mean score", "star rating"])
+            ~facility_data['Cleaned_Answer_Description'].str.lower().isin(["linear mean score", "star rating"])
         ]
 
         # Categorize feedback
-        filtered_data['Feedback_Category'] = filtered_data['HCAHPS Answer Description'].apply(categorize_feedback)
+        filtered_data['Feedback_Category'] = filtered_data['Cleaned_Answer_Description'].apply(categorize_feedback)
 
         # Display feedback for the selected facility
         st.write(f"Feedback for {facility_name}:")
@@ -798,7 +798,7 @@ elif selected_tab == "Recommendations":
         selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['HCAHPS Answer Description'].unique())
 
         # Generate recommendation for the selected feedback
-        feedback_data = filtered_data[filtered_data['HCAHPS Answer Description'] == selected_feedback].copy()
+        feedback_data = filtered_data[filtered_data['Cleaned_Answer_Description'] == selected_feedback].copy()
         feedback_data['Recommendation'] = feedback_data.apply(
             lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
         )
