@@ -662,140 +662,129 @@ elif selected_tab == "Sentiment Insights":
     ###########################################################################
     
     # Recommendations Tab
-    elif selected_tab == "Recommendations":
-        st.title("Recommendations")
-        if st.session_state.data_hc is not None:
-            # Categorize feedback based on description
-            def categorize_feedback(description):
-                description = description.lower()  # Convert to lowercase for easier matching
-                
-                # Define the categories with associated keywords
-                categories = {
-                    "Nurse Communication": [
-                        "nurse always communicated well", 
-                        "nurse sometimes never communicated well", 
-                        "nurse usually communicated well"
-                    ],
-                    "Nurse Treatment": [
-                        "nurse always treated courtesy respect", 
-                        "nurse sometimes never treated courtesy respect", 
-                        "nurse usually treated courtesy respect"
-                    ],
-                    "Nurse Listening": [
-                        "nurse always listened carefully", 
-                        "nurse sometimes never listened carefully", 
-                        "nurse usually listened carefully"
-                    ],
-                    "Nurse Explanation": [
-                        "nurse always explained thing could understand", 
-                        "nurse sometimes never explained thing could understand", 
-                        "nurse usually explained thing could understand"
-                    ],
-                    "Doctor Communication": [
-                        "doctor always communicated well", 
-                        "doctor sometimes never communicated well", 
-                        "doctor usually communicated well"
-                    ],
-                    "Doctor Treatment": [
-                        "doctor always treated courtesy respect", 
-                        "doctor sometimes never treated courtesy respect", 
-                        "doctor usually treated courtesy respect"
-                    ],
-                    "Doctor Listening": [
-                        "doctor always listened carefully", 
-                        "doctor sometimes never listened carefully", 
-                        "doctor usually listened carefully"
-                    ],
-                    "Doctor Explanation": [
-                        "doctor always explained thing could understand", 
-                        "doctor sometimes never explained thing could understand", 
-                        "doctor usually explained thing could understand"
-                    ],
-                    "Staff Responsiveness": [
-                        "patient always received help soon wanted", 
-                        "patient sometimes never received help soon wanted", 
-                        "patient usually received help soon wanted"
-                    ],
-                    "Hospital Cleanliness": [
-                        "room always clean", 
-                        "room sometimes never clean", 
-                        "room usually clean"
-                    ],
-                    "Hospital Ward Quietness": [
-                        "always quiet night", 
-                        "sometimes never quiet night", 
-                        "usually quiet night"
-                    ],
-                    "Hospital Rating": [
-                        "patient gave rating lower low", 
-                        "patient gave rating medium", 
-                        "patient gave rating high"
-                    ],
-                    "Hospital Recommendation": [
-                        "patient would recommend hospital probably would definitely would recommend", 
-                        "yes patient would definitely recommend hospital", 
-                        "yes patient would probably recommend hospital"
-                    ]
-                }
-                
-                for category, phrases in categories.items():
-                    if any(phrase in description for phrase in phrases):
-                        return category
-                
-                return "Other"  # Return "Other" if no category matches
-            
-            # Generate custom recommendation based on sentiment and feedback
-            def generate_recommendation(facility_name, sentiment, category):
-                # Custom recommendation logic based on sentiment
-                if sentiment == 'Positive':
-                    return f"Great job, {facility_name}! Continue excelling in {category}. Keep up the good work!"
-                elif sentiment == 'Negative':
-                    return f"{facility_name}, there are areas of improvement needed in {category}. Address these concerns to improve patient satisfaction."
-                elif sentiment == 'Neutral':
-                    return f"{facility_name}, {category} is generally neutral. Consider seeking feedback for further improvement."
-                else:
-                    return f"{facility_name}, feedback on {category} is mixed. Investigate the concerns to enhance patient experience."
-            
-            
-            # Facility Selection
-            facility_name = st.selectbox("Select Facility", st.session_state.data_hc['Facility Name'].unique())
-            
-            # Filter Data for the Selected Facility
-            facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
-            
-            # Filter out rows with "Linear Mean Score" and "Star Rating" in 'HCAHPS Answer Description'
-            filtered_data = facility_data[
-                ~facility_data['HCAHPS Answer Description'].str.lower().isin(["linear mean score", "star rating"])
-            ]
-            
-            # Categorize feedback based on 'HCAHPS Answer Description'
-            filtered_data['Feedback_Category'] = filtered_data['HCAHPS Answer Description'].apply(categorize_feedback)
-            
-            # Display all feedback for the selected facility
-            st.write(f"All feedback for {facility_name}:")
-            st.write(filtered_data[['Feedback_Category','HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
-            
-            # Feedback Selection
-            selected_feedback = st.selectbox(
-                "Select Feedback for Recommendation", 
-                filtered_data['HCAHPS Answer Description'].unique()
-            )
-            
-            # Filter data based on the selected feedback
-            feedback_data = filtered_data[filtered_data['HCAHPS Answer Description'] == selected_feedback]
-            
-            # Generate recommendation for the selected feedback
-            feedback_data['Recommendation'] = feedback_data.apply(
-                lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
-            )
-            
-            # Display the recommendation for the selected feedback
-            st.write("Recommendation for the selected feedback:")
-            #st.write(feedback_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
-            st.write(feedback_data[['Recommendation']])
-            
-        else:
-            st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
+elif selected_tab == "Recommendations":
+    st.title("Recommendations")
+
+    if st.session_state.data_hc is not None:
+        # Function to categorize feedback based on description
+        def categorize_feedback(description):
+            description = description.lower()  # Normalize text to lowercase
+            categories = {
+                "Nurse Communication": [
+                    r"nurse always communicated well", 
+                    r"nurse sometimes never communicated well", 
+                    r"nurse usually communicated well"
+                ],
+                "Nurse Treatment": [
+                    r"nurse always treated courtesy respect", 
+                    r"nurse sometimes never treated courtesy respect", 
+                    r"nurse usually treated courtesy respect"
+                ],
+                "Nurse Listening": [
+                    r"nurse always listened carefully", 
+                    r"nurse sometimes never listened carefully", 
+                    r"nurse usually listened carefully"
+                ],
+                "Nurse Explanation": [
+                    r"nurse always explained.*understand", 
+                    r"nurse sometimes never explained.*understand", 
+                    r"nurse usually explained.*understand"
+                ],
+                "Doctor Communication": [
+                    r"doctor always communicated well", 
+                    r"doctor sometimes never communicated well", 
+                    r"doctor usually communicated well"
+                ],
+                "Doctor Treatment": [
+                    r"doctor always treated courtesy respect", 
+                    r"doctor sometimes never treated courtesy respect", 
+                    r"doctor usually treated courtesy respect"
+                ],
+                "Doctor Listening": [
+                    r"doctor always listened carefully", 
+                    r"doctor sometimes never listened carefully", 
+                    r"doctor usually listened carefully"
+                ],
+                "Doctor Explanation": [
+                    r"doctor always explained.*understand", 
+                    r"doctor sometimes never explained.*understand", 
+                    r"doctor usually explained.*understand"
+                ],
+                "Staff Responsiveness": [
+                    r"patient always received help soon wanted", 
+                    r"patient sometimes never received help soon wanted", 
+                    r"patient usually received help soon wanted"
+                ],
+                "Hospital Cleanliness": [
+                    r"room always clean", 
+                    r"room sometimes never clean", 
+                    r"room usually clean"
+                ],
+                "Hospital Ward Quietness": [
+                    r"always quiet night", 
+                    r"sometimes never quiet night", 
+                    r"usually quiet night"
+                ],
+                "Hospital Rating": [
+                    r"patient gave rating.*low", 
+                    r"patient gave rating.*medium", 
+                    r"patient gave rating.*high"
+                ],
+                "Hospital Recommendation": [
+                    r"patient would recommend hospital.*would recommend", 
+                    r"yes patient would definitely recommend hospital", 
+                    r"yes patient would probably recommend hospital"
+                ]
+            }
+
+            for category, patterns in categories.items():
+                if any(re.search(pattern, description) for pattern in patterns):
+                    return category
+            return "Other"  # Default category for unmatched descriptions
+
+        # Function to generate recommendations based on sentiment and category
+        def generate_recommendation(facility_name, sentiment, category):
+            if sentiment == 'Positive':
+                return f"Great job, {facility_name}! Continue excelling in {category}. Keep up the good work!"
+            elif sentiment == 'Negative':
+                return f"{facility_name}, improvements are needed in {category}. Address these concerns to enhance patient satisfaction."
+            elif sentiment == 'Neutral':
+                return f"{facility_name}, {category} feedback is neutral. Consider further feedback to identify improvement opportunities."
+            else:
+                return f"{facility_name}, feedback on {category} is mixed. Investigate further to improve patient experience."
+
+        # Facility selection dropdown
+        facility_name = st.selectbox("Select Facility", st.session_state.data_hc['Facility Name'].unique())
+
+        # Filter data for the selected facility
+        facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
+
+        # Exclude specific descriptions
+        filtered_data = facility_data[
+            ~facility_data['HCAHPS Answer Description'].str.lower().isin(["linear mean score", "star rating"])
+        ]
+
+        # Categorize feedback
+        filtered_data['Feedback_Category'] = filtered_data['HCAHPS Answer Description'].apply(categorize_feedback)
+
+        # Display feedback for the selected facility
+        st.write(f"Feedback for {facility_name}:")
+        st.dataframe(filtered_data[['Feedback_Category', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
+
+        # Feedback selection dropdown
+        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['HCAHPS Answer Description'].unique())
+
+        # Generate recommendation for the selected feedback
+        feedback_data = filtered_data[filtered_data['HCAHPS Answer Description'] == selected_feedback].copy()
+        feedback_data['Recommendation'] = feedback_data.apply(
+            lambda row: generate_recommendation(facility_name, row['Final_Sentiment'], row['Feedback_Category']), axis=1
+        )
+
+        # Display recommendation
+        st.write("Recommendation for the selected feedback:")
+        st.dataframe(feedback_data[['Recommendation']])
+    else:
+        st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
 
 ###########################################################################
 
