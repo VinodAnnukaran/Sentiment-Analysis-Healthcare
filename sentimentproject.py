@@ -865,7 +865,7 @@ elif selected_tab == "Recommendations":
                 return f"{facility_name}, feedback on {category} is mixed. Investigate further to improve patient experience."
 
         # Facility selection dropdown
-        facility_name = st.selectbox("Select Facility", st.session_state.data_hc['Facility Name'].unique())
+        facility_name = st.selectbox("**Select Facility**", st.session_state.data_hc['Facility Name'].unique())
 
         # Filter data for the selected facility
         facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
@@ -907,11 +907,11 @@ elif selected_tab == "Recommendations":
         filtered_data['Feedback_Category'] = filtered_data['Cleaned_Answer_Description'].apply(categorize_feedback)
 
         # Display filtered feedback
-        st.write(f"Feedback for {facility_name}:")
+        st.write(f"Feedback for **{facility_name}**:")
         st.dataframe(filtered_data[['Feedback_Category', 'Cleaned_Answer_Description', 'HCAHPS Answer Description', 'Patient Survey Star Rating', 'Final_Sentiment']])
 
         # Feedback selection dropdown for recommendations
-        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['Cleaned_Answer_Description'].unique())
+        selected_feedback = st.selectbox("Select Feedback for Recommendation", filtered_data['HCAHPS Answer Description'].unique())
 
         # Generate recommendation for the selected feedback
         feedback_data = filtered_data[filtered_data['Cleaned_Answer_Description'] == selected_feedback].copy()
