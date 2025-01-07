@@ -782,9 +782,11 @@ elif selected_tab == "Recommendations":
         # Filter data for the selected facility
         facility_data = st.session_state.data_hc[st.session_state.data_hc['Facility Name'] == facility_name]
 
-        # Exclude specific descriptions
+        # Exclude specific descriptions from the data
+        excluded_values = ["linear mean score", "star rating"]
+
         filtered_data = facility_data[
-            ~facility_data['Cleaned_Answer_Description'].str.lower().isin(["linear mean score", "star rating"])
+            ~facility_data['Cleaned_Answer_Description'].str.lower().isin([value.lower() for value in excluded_values])
         ]
 
         # Categorize feedback
