@@ -656,7 +656,8 @@ elif selected_tab == "Sentiment Insights":
         generate_wordcloud(negative_text, 'Word Cloud for Negative Sentiment')
         generate_wordcloud(neutral_text, 'Word Cloud for Neutral Sentiment')
     
-    ###########################
+    else:
+            st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
     
     ###########################################################################
     
@@ -793,8 +794,8 @@ elif selected_tab == "Sentiment Insights":
             #st.write(feedback_data[['HCAHPS Answer Description', 'Final_Sentiment', 'Feedback_Category', 'Recommendation']])
             st.write(feedback_data[['Recommendation']])
             
-else:
-    st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
+        else:
+            st.warning("Please upload a CSV file in the 'Dataset Overview' tab.")
 
 ###########################################################################
 
