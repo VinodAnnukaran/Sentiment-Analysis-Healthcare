@@ -142,7 +142,7 @@ if selected_tab == "About":
     
     # Display subheader and content
     st.subheader("Model Performance")
-    st.write("Here is the performance of different machine learning models based on various evaluation metrics such as accuracy, precision, recall, and F1-score. The confusion matrix is also provided for each model.")
+    st.write("Based on the model analysis, Random Forest offer more robustness and flexibility and can handle noisy, large and varied data.")
     
     # Display the DataFrame as a table
     st.dataframe(df)
