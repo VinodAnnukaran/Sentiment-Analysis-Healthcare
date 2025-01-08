@@ -135,8 +135,8 @@ if selected_tab == "About":
         "[[1168, 0, 0], [0, 4584, 0], [0, 4255, 0]]",
         "[[1168, 0, 0], [0, 4584, 0], [0, 0, 4255]]"
     ],
-    "Time Taken (s)": [model_times["SVM"], model_times["Naïve Bayes"], model_times["LightGBM"],
-                       model_times["Random Forest"], model_times["LSTM"], model_times["CNN"], model_times["DNN"]]
+    "Time Taken (s)": [1s ["SVM"], 1s ["Naïve Bayes"], 6s ["LightGBM"],
+                       2s["Random Forest"], 25m 24s ["LSTM"], 11m 34s ["CNN"], 12m 47s ["DNN"]]
     }
     
     # Convert data into DataFrame
