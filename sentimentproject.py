@@ -118,8 +118,8 @@ if selected_tab == "About":
     st.write("There are 22 columns in this dataset and 444447 rows but for this analysis we have considered 50,000 records. https://data.cms.gov/provider-data/dataset/dgck-syfz")
    
     
-    # Creating a DataFrame with the given data
-    data = {
+   # Creating a DataFrame with the given data
+data = {
     "Model": ["SVM", "Naïve Bayes", "LightGBM", "Random Forest", "LSTM", "CNN", "DNN"],
     "Accuracy": [1.00, 0.98, 0.82, 1.00, 0.458, 0.57, 1.00],
     "Precision": [1.00, 0.98, 0.82, 1.00, 0.21, 0.35, 1.00],
@@ -135,8 +135,7 @@ if selected_tab == "About":
         "[[1168, 0, 0], [0, 4584, 0], [0, 4255, 0]]",
         "[[1168, 0, 0], [0, 4584, 0], [0, 0, 4255]]"
     ],
-    "Time Taken (s)": [1s ["SVM"], 1s ["Naïve Bayes"], 6s ["LightGBM"],
-                       2s["Random Forest"], 25m 24s ["LSTM"], 11m 34s ["CNN"], 12m 47s ["DNN"]]
+    "Time Taken (s)": [1, 1, 6, 2, 1524, 694, 767]  # Time in seconds
     }
     
     # Convert data into DataFrame
