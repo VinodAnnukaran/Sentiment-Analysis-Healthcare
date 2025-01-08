@@ -116,8 +116,37 @@ if selected_tab == "About":
     st.subheader("Data Used")
     st.write("We have used a year 2023 dataset from Hospital Consumer Assessment of Healthcare Providers and Systems (HCAHPS). HCAHPS is a national, standardized survey of hospital patients about their experiences during a recent inpatient hospital stay")
     st.write("There are 22 columns in this dataset and 444447 rows but for this analysis we have considered 50,000 records. https://data.cms.gov/provider-data/dataset/dgck-syfz")
+   
+    
+    # Creating a DataFrame with the given data
+    data = {
+        "Model": ["SVM", "Naïve Bayes", "LightGBM", "Random Forest", "LSTM", "CNN", "DNN"],
+        "Accuracy": [1.00, 0.98, 0.82, 1.00, 0.458, 0.57, 1.00],
+        "Precision": [1.00, 0.98, 0.82, 1.00, 0.21, 0.35, 1.00],
+        "Recall": [1.00, 0.98, 0.82, 1.00, 0.46, 0.57, 1.00],
+        "F1-score": [1.00, 0.98, 0.82, 1.00, 0.29, 0.43, 1.00],
+        "Support": [15011, 15011, 15011, 15011, 10007, 10007, 10007],
+        "Confusion Matrix": [
+            "[[3215, 0, 0], [0, 5522, 0], [0, 0, 6274]]",
+            "[[3215, 0, 0], [187, 5179, 156], [0, 0, 6274]]",
+            "[[1730, 481, 1004], [512, 5010, 0], [683, 0, 5591]]",
+            "[[3215, 0, 0], [0, 5522, 0], [0, 0, 6274]]",
+            "[[0, 1168, 0], [0, 4584, 0], [0, 4255, 0]]",
+            "[[1168, 0, 0], [0, 4584, 0], [0, 4255, 0]]",
+            "[[1168, 0, 0], [0, 4584, 0], [0, 0, 4255]]"
+        ]
+    }
+    
+    # Convert data into DataFrame
+    df = pd.DataFrame(data)
+    
+    # Display subheader and content
     st.subheader("Model Performance")
-    st.write("Some content under the first subheading.")
+    st.write("Here is the performance of different machine learning models based on various evaluation metrics such as accuracy, precision, recall, and F1-score. The confusion matrix is also provided for each model.")
+    
+    # Display the DataFrame as a table
+    st.dataframe(df)
+    
     st.subheader("References")
     st.write("""
         - Zhang, Y., & Xu, H. (2024). A deep learning approach for sentiment analysis in healthcare: A case study on patient feedback. *Procedia Computer Science, 205*, 123-130. [https://doi.org/10.1016/j.procs.2024.01.3139](https://doi.org/10.1016/j.procs.2024.01.3139)
